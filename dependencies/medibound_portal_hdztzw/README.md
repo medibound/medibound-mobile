@@ -1,4 +1,4 @@
-# Medibound-Mobile
+# Medibound-Portal
 
 A new Flutter project.
 

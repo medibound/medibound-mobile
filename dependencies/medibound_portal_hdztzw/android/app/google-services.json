@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "109501560717",
+    "project_id": "medibound-portal-hdztzw",
+    "storage_bucket": "medibound-portal-hdztzw.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109501560717:android:9b7130af0b7bf939b12fc4",
+        "android_client_info": {
+          "package_name": "com.medibound"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvr3GsU4co7z7upeGJgnwv-xtwFM_0CGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

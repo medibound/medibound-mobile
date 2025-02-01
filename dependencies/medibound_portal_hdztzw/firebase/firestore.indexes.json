@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "device_profiles",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "organization",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "edited_time",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}
