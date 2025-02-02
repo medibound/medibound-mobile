@@ -1,6 +1,20 @@
 {
   "indexes": [
     {
+      "collectionGroup": "device",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "info.code",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "owner",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "device_profiles",
       "queryScope": "COLLECTION",
       "fields": [
@@ -29,16 +43,6 @@
     {
       "collectionGroup": "device",
       "fieldPath": "storedId",
-      "indexes": [
-        {
-          "order": "ASCENDING",
-          "queryScope": "COLLECTION_GROUP"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "device",
-      "fieldPath": "info.code",
       "indexes": [
         {
           "order": "ASCENDING",

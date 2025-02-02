@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/utils/device_tile/device_tile_widget.dart';
 import "package:medibound_portal_hdztzw/backend/backend.dart"
     as medibound_portal_hdztzw_backend;
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:medibound_portal_hdztzw/app_state.dart'
     as medibound_portal_hdztzw_app_state;
@@ -77,26 +78,16 @@ class _DeviceListWidgetState extends State<DeviceListWidget>
         (device) async {
           _model.addToScannedDevicesLive(device);
           safeSetState(() {});
-          _model.deviceFound =
-              await medibound_portal_hdztzw_backend.queryDeviceRecordOnce(
-            queryBuilder: (deviceRecord) => deviceRecord
-                .where(
-                  'info.code',
-                  isEqualTo: device.deviceId,
-                )
-                .where(
-                  'owner',
-                  isEqualTo: currentUserReference,
-                ),
-            limit: 1,
+          _model.confirmKeyOutput = await action_blocks.confirmKey(
+            context,
+            device: device,
           );
-          if (_model.deviceFound != null && (_model.deviceFound)!.isNotEmpty) {
+          if (_model.confirmKeyOutput != 'NO_AUTH') {
             _model.addToScannedDevicesLive(device);
             safeSetState(() {});
             _model.connection = await actions.connectDevice(
               device,
               (device) async {},
-              (status, device) async {},
             );
             if (_model.connection!) {}
           }

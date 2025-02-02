@@ -5,6 +5,7 @@ import "package:medibound_portal_hdztzw/backend/backend.dart"
 import 'package:medibound_portal_hdztzw/backend/schema/structs/index.dart'
     as medibound_portal_hdztzw_data_schema;
 import '/backend/schema/structs/index.dart';
+import '/actions/actions.dart' as action_blocks;
 import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
     as medibound_portal_hdztzw_data_schema;
 import "package:medibound_portal_hdztzw/backend/schema/enums/enums.dart"
@@ -18,12 +19,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-Future<bool> connectDevice(
-  BluetoothDeviceStruct bTDevice,
-  Future Function(BluetoothDeviceStruct device)? onDisconnectCallback,
-  Future Function(String status, BluetoothDeviceStruct device)?
-      onStatusUpdateCallback,
-) async {
+Future<bool> connectDevice(BluetoothDeviceStruct bTDevice,
+    Future Function(BluetoothDeviceStruct device)? onDisconnectCallback) async {
   BluetoothDevice device = BluetoothDevice.fromId(bTDevice.id);
 
   var subscription =
@@ -49,12 +46,11 @@ Future<bool> connectDevice(
       .where((val) => val == BluetoothConnectionState.connected)
       .first;
 
-  /*services.forEach((service) {
-    if (service?.uuid.str == "1840") {
+  String key = await confirmKey(device);
 
-
-    }
-  });*/
+  if (key == "NO_AUTH") {
+    await device.disconnect();
+  }
 
   return device.isConnected;
 

@@ -11,14 +11,16 @@ class BluetoothDeviceStruct extends FFFirebaseStruct {
     String? name,
     String? id,
     String? deviceId,
-    DocumentReference? ref,
     String? status,
+    int? battery,
+    DocumentReference? ref,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _id = id,
         _deviceId = deviceId,
-        _ref = ref,
         _status = status,
+        _battery = battery,
+        _ref = ref,
         super(firestoreUtilData);
 
   // "name" field.
@@ -42,13 +44,6 @@ class BluetoothDeviceStruct extends FFFirebaseStruct {
 
   bool hasDeviceId() => _deviceId != null;
 
-  // "ref" field.
-  DocumentReference? _ref;
-  DocumentReference? get ref => _ref;
-  set ref(DocumentReference? val) => _ref = val;
-
-  bool hasRef() => _ref != null;
-
   // "status" field.
   String? _status;
   String get status => _status ?? '';
@@ -56,13 +51,30 @@ class BluetoothDeviceStruct extends FFFirebaseStruct {
 
   bool hasStatus() => _status != null;
 
+  // "battery" field.
+  int? _battery;
+  int get battery => _battery ?? 0;
+  set battery(int? val) => _battery = val;
+
+  void incrementBattery(int amount) => battery = battery + amount;
+
+  bool hasBattery() => _battery != null;
+
+  // "ref" field.
+  DocumentReference? _ref;
+  DocumentReference? get ref => _ref;
+  set ref(DocumentReference? val) => _ref = val;
+
+  bool hasRef() => _ref != null;
+
   static BluetoothDeviceStruct fromMap(Map<String, dynamic> data) =>
       BluetoothDeviceStruct(
         name: data['name'] as String?,
         id: data['id'] as String?,
         deviceId: data['deviceId'] as String?,
-        ref: data['ref'] as DocumentReference?,
         status: data['status'] as String?,
+        battery: castToType<int>(data['battery']),
+        ref: data['ref'] as DocumentReference?,
       );
 
   static BluetoothDeviceStruct? maybeFromMap(dynamic data) => data is Map
@@ -73,8 +85,9 @@ class BluetoothDeviceStruct extends FFFirebaseStruct {
         'name': _name,
         'id': _id,
         'deviceId': _deviceId,
-        'ref': _ref,
         'status': _status,
+        'battery': _battery,
+        'ref': _ref,
       }.withoutNulls;
 
   @override
@@ -91,13 +104,17 @@ class BluetoothDeviceStruct extends FFFirebaseStruct {
           _deviceId,
           ParamType.String,
         ),
-        'ref': serializeParam(
-          _ref,
-          ParamType.DocumentReference,
-        ),
         'status': serializeParam(
           _status,
           ParamType.String,
+        ),
+        'battery': serializeParam(
+          _battery,
+          ParamType.int,
+        ),
+        'ref': serializeParam(
+          _ref,
+          ParamType.DocumentReference,
         ),
       }.withoutNulls;
 
@@ -118,16 +135,21 @@ class BluetoothDeviceStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        status: deserializeParam(
+          data['status'],
+          ParamType.String,
+          false,
+        ),
+        battery: deserializeParam(
+          data['battery'],
+          ParamType.int,
+          false,
+        ),
         ref: deserializeParam(
           data['ref'],
           ParamType.DocumentReference,
           false,
           collectionNamePath: ['device_profiles', 'device'],
-        ),
-        status: deserializeParam(
-          data['status'],
-          ParamType.String,
-          false,
         ),
       );
 
@@ -140,21 +162,23 @@ class BluetoothDeviceStruct extends FFFirebaseStruct {
         name == other.name &&
         id == other.id &&
         deviceId == other.deviceId &&
-        ref == other.ref &&
-        status == other.status;
+        status == other.status &&
+        battery == other.battery &&
+        ref == other.ref;
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([name, id, deviceId, ref, status]);
+      const ListEquality().hash([name, id, deviceId, status, battery, ref]);
 }
 
 BluetoothDeviceStruct createBluetoothDeviceStruct({
   String? name,
   String? id,
   String? deviceId,
-  DocumentReference? ref,
   String? status,
+  int? battery,
+  DocumentReference? ref,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -164,8 +188,9 @@ BluetoothDeviceStruct createBluetoothDeviceStruct({
       name: name,
       id: id,
       deviceId: deviceId,
-      ref: ref,
       status: status,
+      battery: battery,
+      ref: ref,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

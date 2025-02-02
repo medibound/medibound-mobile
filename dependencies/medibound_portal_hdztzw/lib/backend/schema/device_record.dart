@@ -57,6 +57,11 @@ class DeviceRecord extends FirestoreRecord {
   String get storedId => _storedId ?? '';
   bool hasStoredId() => _storedId != null;
 
+  // "storedKey" field.
+  String? _storedKey;
+  String get storedKey => _storedKey ?? '';
+  bool hasStoredKey() => _storedKey != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -72,6 +77,7 @@ class DeviceRecord extends FirestoreRecord {
         ? snapshotData['key']
         : KeyStruct.maybeFromMap(snapshotData['key']);
     _storedId = snapshotData['storedId'] as String?;
+    _storedKey = snapshotData['storedKey'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -121,6 +127,7 @@ Map<String, dynamic> createDeviceRecordData({
   DocumentReference? owner,
   KeyStruct? key,
   String? storedId,
+  String? storedKey,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -132,6 +139,7 @@ Map<String, dynamic> createDeviceRecordData({
       'owner': owner,
       'key': KeyStruct().toMap(),
       'storedId': storedId,
+      'storedKey': storedKey,
     }.withoutNulls,
   );
 
@@ -156,7 +164,8 @@ class DeviceRecordDocumentEquality implements Equality<DeviceRecord> {
         e1?.lastUpdated == e2?.lastUpdated &&
         e1?.owner == e2?.owner &&
         e1?.key == e2?.key &&
-        e1?.storedId == e2?.storedId;
+        e1?.storedId == e2?.storedId &&
+        e1?.storedKey == e2?.storedKey;
   }
 
   @override
@@ -168,7 +177,8 @@ class DeviceRecordDocumentEquality implements Equality<DeviceRecord> {
         e?.lastUpdated,
         e?.owner,
         e?.key,
-        e?.storedId
+        e?.storedId,
+        e?.storedKey
       ]);
 
   @override

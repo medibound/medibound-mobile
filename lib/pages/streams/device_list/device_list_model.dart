@@ -30,8 +30,8 @@ class DeviceListModel extends FlutterFlowModel<DeviceListWidget> {
   List<BluetoothDeviceStruct>? connectedDevicesTemp;
   // Stores action output result for [Firestore Query - Query a collection] action in deviceList widget.
   List<medibound_portal_hdztzw_backend.DeviceRecord>? deviceConnectedFound;
-  // Stores action output result for [Firestore Query - Query a collection] action in deviceList widget.
-  List<medibound_portal_hdztzw_backend.DeviceRecord>? deviceFound;
+  // Stores action output result for [Action Block - confirmKey] action in deviceList widget.
+  String? confirmKeyOutput;
   // Stores action output result for [Custom Action - connectDevice] action in deviceList widget.
   bool? connection;
   // State field(s) for Search widget.

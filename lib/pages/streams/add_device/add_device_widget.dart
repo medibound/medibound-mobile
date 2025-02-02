@@ -1,6 +1,13 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/backend/custom_cloud_functions/custom_cloud_function_response_manager.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/utils/device_tile/device_tile_widget.dart';
+import "package:medibound_portal_hdztzw/backend/backend.dart"
+    as medibound_portal_hdztzw_backend;
+import '/custom_code/actions/index.dart' as actions;
 import 'package:medibound_portal_hdztzw/flutter_flow/flutter_flow_util.dart'
     as medibound_portal_hdztzw_util
     show wrapWithModel, createModel, FlutterFlowDynamicModels;
@@ -11,10 +18,14 @@ import 'package:medibound_portal_hdztzw/utils/empty/empty_widget.dart'
 import 'package:medibound_portal_hdztzw/utils/loading/loading_widget.dart'
     as medibound_portal_hdztzw;
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:collection/collection.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'add_device_model.dart';
 export 'add_device_model.dart';
 
@@ -41,6 +52,38 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => AddDeviceModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.btDevicesAvailable = [];
+      safeSetState(() {});
+      await actions.getDevices(
+        (device) async {
+          _model.deviceSearch =
+              await medibound_portal_hdztzw_backend.queryDeviceRecordOnce(
+            queryBuilder: (deviceRecord) => deviceRecord
+                .where(
+                  'info.code',
+                  isEqualTo: device.deviceId,
+                )
+                .where(
+                  'owner',
+                  isNotEqualTo: currentUserReference,
+                ),
+          );
+          if (_model.deviceSearch != null &&
+              (_model.deviceSearch)!.isNotEmpty) {
+            _model.addToBtDevicesAvailable(BluetoothDeviceStruct(
+              name: device.name,
+              id: device.id,
+              deviceId: device.deviceId,
+              ref: _model.deviceSearch?.firstOrNull?.reference,
+            ));
+            safeSetState(() {});
+          }
+        },
+      );
+    });
 
     animationsMap.addAll({
       'rowOnPageLoadAnimation': AnimationInfo(
@@ -126,25 +169,141 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                   ),
                                   Builder(
                                     builder: (context) {
-                                      if (!_model.deviceListLoading) {
+                                      if (_model
+                                          .btDevicesAvailable.isNotEmpty) {
                                         return Container(
                                           decoration: const BoxDecoration(),
-                                          child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Container(
-                                                  width: 175.0,
-                                                  height: 130.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                  ),
+                                          child: Builder(
+                                            builder: (context) {
+                                              final btDevices = _model
+                                                  .btDevicesAvailable
+                                                  .toList();
+
+                                              return SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: List.generate(
+                                                      btDevices.length,
+                                                      (btDevicesIndex) {
+                                                    final btDevicesItem =
+                                                        btDevices[
+                                                            btDevicesIndex];
+                                                    return StreamBuilder<
+                                                        medibound_portal_hdztzw_backend
+                                                        .DeviceRecord>(
+                                                      stream:
+                                                          medibound_portal_hdztzw_backend
+                                                                  .DeviceRecord
+                                                              .getDocument(
+                                                                  btDevicesItem
+                                                                      .ref!),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 25.0,
+                                                              height: 25.0,
+                                                              child:
+                                                                  SpinKitPulse(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                size: 25.0,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+
+                                                        final containerDeviceRecord =
+                                                            snapshot.data!;
+
+                                                        return InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            _model.bTDeviceSelected =
+                                                                btDevicesItem;
+                                                            safeSetState(() {});
+                                                            await _model
+                                                                .pageViewController
+                                                                ?.nextPage(
+                                                              duration: const Duration(
+                                                                  milliseconds:
+                                                                      300),
+                                                              curve:
+                                                                  Curves.ease,
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width: 175.0,
+                                                            height: 130.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryBackground,
+                                                            ),
+                                                            child:
+                                                                wrapWithModel(
+                                                              model: _model
+                                                                  .deviceTileModels
+                                                                  .getModel(
+                                                                btDevicesItem
+                                                                    .id,
+                                                                btDevicesIndex,
+                                                              ),
+                                                              updateCallback: () =>
+                                                                  safeSetState(
+                                                                      () {}),
+                                                              updateOnChange:
+                                                                  true,
+                                                              child:
+                                                                  DeviceTileWidget(
+                                                                key: Key(
+                                                                  'Keycy3_${btDevicesItem.id}',
+                                                                ),
+                                                                cornerIcon:
+                                                                    FaIcon(
+                                                                  FontAwesomeIcons
+                                                                      .plus,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  size: 16.0,
+                                                                ),
+                                                                optionsButtonShow:
+                                                                    false,
+                                                                statusColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                status: ' ',
+                                                                checkStatus:
+                                                                    false,
+                                                                device:
+                                                                    containerDeviceRecord,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  }).divide(
+                                                      const SizedBox(width: 10.0)),
                                                 ),
-                                              ].divide(const SizedBox(width: 10.0)),
-                                            ),
+                                              );
+                                            },
                                           ),
                                         );
                                       } else {
@@ -238,6 +397,11 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                             ScanMode.QR,
                                           );
 
+                                          _model.deviceSelected =
+                                              await medibound_portal_hdztzw_backend
+                                                      .DeviceRecord
+                                                  .getDocumentOnce(_model
+                                                      .bTDeviceSelected!.ref!);
                                           try {
                                             final result =
                                                 await FirebaseFunctions
@@ -281,6 +445,21 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                               duration:
                                                   const Duration(milliseconds: 300),
                                               curve: Curves.ease,
+                                            );
+
+                                            await _model
+                                                .deviceSelected!.reference
+                                                .update(
+                                                    medibound_portal_hdztzw_backend
+                                                        .createDeviceRecordData(
+                                              storedId:
+                                                  _model.bTDeviceSelected?.id,
+                                              storedKey:
+                                                  _model.validationKey?.data,
+                                            ));
+                                            await actions.connectDevice(
+                                              _model.bTDeviceSelected!,
+                                              (device) async {},
                                             );
                                           }
 
