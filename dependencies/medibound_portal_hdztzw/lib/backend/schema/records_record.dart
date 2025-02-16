@@ -37,8 +37,6 @@ class RecordsRecord extends FirestoreRecord {
   List<DeviceVariableStruct> get data => _data ?? const [];
   bool hasData() => _data != null;
 
-  DocumentReference get parentReference => reference.parent.parent!;
-
   void _initializeFields() {
     _info = snapshotData['info'] is CodedValueStruct
         ? snapshotData['info']
@@ -51,13 +49,8 @@ class RecordsRecord extends FirestoreRecord {
     );
   }
 
-  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
-      parent != null
-          ? parent.collection('records')
-          : FirebaseFirestore.instance.collectionGroup('records');
-
-  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
-      parent.collection('records').doc(id);
+  static CollectionReference get collection =>
+      FirebaseFirestore.instance.collection('records');
 
   static Stream<RecordsRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => RecordsRecord.fromSnapshot(s));

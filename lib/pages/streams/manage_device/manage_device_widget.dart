@@ -1,13 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/records/record/record_widget.dart';
 import "package:medibound_portal_hdztzw/backend/backend.dart"
     as medibound_portal_hdztzw_backend;
-import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
-    as medibound_portal_hdztzw_data_schema;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:medibound_portal_hdztzw/app_state.dart'
     as medibound_portal_hdztzw_app_state;
@@ -704,93 +703,37 @@ class _ManageDeviceWidgetState extends State<ManageDeviceWidget>
                                                                   .toList()
                                                                   .firstOrNull!
                                                                   .data))) {
-                                                    var recordsRecordReference =
-                                                        medibound_portal_hdztzw_backend
+                                                    _model.recordRef =
+                                                        await actions
+                                                            .createRecord(
+                                                      containerRecordTemplateRecord
+                                                          .info,
+                                                      currentUserReference!,
+                                                      containerRecordTemplateRecord
+                                                          .reference,
+                                                      medibound_portal_hdztzw_functions
+                                                          .insertVarListData(
+                                                              containerRecordTemplateRecord
+                                                                  .variables
+                                                                  .toList(),
+                                                              medibound_portal_hdztzw_functions.convertStringToJson(FFAppState()
+                                                                  .ConnectedDevices
+                                                                  .where((e) =>
+                                                                      e.id ==
+                                                                      widget
+                                                                          .device
+                                                                          ?.storedId)
+                                                                  .toList()
+                                                                  .firstOrNull!
+                                                                  .data))
+                                                          .toList(),
+                                                    );
+                                                    _model.recordOutput =
+                                                        await medibound_portal_hdztzw_backend
                                                                 .RecordsRecord
-                                                            .createDoc(
-                                                                currentUserReference!);
-                                                    await recordsRecordReference
-                                                        .set({
-                                                      ...medibound_portal_hdztzw_backend
-                                                          .createRecordsRecordData(
-                                                        info: medibound_portal_hdztzw_data_schema
-                                                            .updateCodedValueStruct(
-                                                          containerRecordTemplateRecord
-                                                              .info,
-                                                          clearUnsetFields:
-                                                              false,
-                                                          create: true,
-                                                        ),
-                                                        owner:
-                                                            currentUserReference,
-                                                        template:
-                                                            containerRecordTemplateRecord
-                                                                .reference,
-                                                      ),
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'data':
-                                                              getDeviceVariableListFirestoreData(
-                                                            medibound_portal_hdztzw_functions.insertVarListData(
-                                                                containerRecordTemplateRecord
-                                                                    .variables
-                                                                    .toList(),
-                                                                medibound_portal_hdztzw_functions.convertStringToJson(FFAppState()
-                                                                    .ConnectedDevices
-                                                                    .where((e) =>
-                                                                        e.id ==
-                                                                        widget
-                                                                            .device
-                                                                            ?.storedId)
-                                                                    .toList()
-                                                                    .firstOrNull!
-                                                                    .data)),
-                                                          ),
-                                                        },
-                                                      ),
-                                                    });
-                                                    _model.record =
-                                                        medibound_portal_hdztzw_backend
-                                                                .RecordsRecord
-                                                            .getDocumentFromData({
-                                                      ...medibound_portal_hdztzw_backend
-                                                          .createRecordsRecordData(
-                                                        info: medibound_portal_hdztzw_data_schema
-                                                            .updateCodedValueStruct(
-                                                          containerRecordTemplateRecord
-                                                              .info,
-                                                          clearUnsetFields:
-                                                              false,
-                                                          create: true,
-                                                        ),
-                                                        owner:
-                                                            currentUserReference,
-                                                        template:
-                                                            containerRecordTemplateRecord
-                                                                .reference,
-                                                      ),
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'data':
-                                                              getDeviceVariableListFirestoreData(
-                                                            medibound_portal_hdztzw_functions.insertVarListData(
-                                                                containerRecordTemplateRecord
-                                                                    .variables
-                                                                    .toList(),
-                                                                medibound_portal_hdztzw_functions.convertStringToJson(FFAppState()
-                                                                    .ConnectedDevices
-                                                                    .where((e) =>
-                                                                        e.id ==
-                                                                        widget
-                                                                            .device
-                                                                            ?.storedId)
-                                                                    .toList()
-                                                                    .firstOrNull!
-                                                                    .data)),
-                                                          ),
-                                                        },
-                                                      ),
-                                                    }, recordsRecordReference);
+                                                            .getDocumentOnce(
+                                                                _model
+                                                                    .recordRef!);
                                                     await showModalBottomSheet(
                                                       isScrollControlled: true,
                                                       backgroundColor:
@@ -805,20 +748,39 @@ class _ManageDeviceWidgetState extends State<ManageDeviceWidget>
                                                               .viewInsetsOf(
                                                                   context),
                                                           child: Container(
-                                                            height: 600.0,
+                                                            height: 500.0,
                                                             child: RecordWidget(
                                                               recordWidth:
                                                                   MediaQuery.sizeOf(
                                                                           context)
                                                                       .width,
                                                               record: _model
-                                                                  .record!,
+                                                                  .recordOutput!,
                                                             ),
                                                           ),
                                                         );
                                                       },
                                                     ).then((value) =>
                                                         safeSetState(() {}));
+                                                  } else {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'Not in Correct Format'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
                                                   }
 
                                                   safeSetState(() {});

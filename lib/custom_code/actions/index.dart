@@ -7,3 +7,4 @@ export 'init_device_events.dart' show initDeviceEvents;
 export 'confirm_key.dart' show confirmKey;
 export 'write_device_command.dart' show writeDeviceCommand;
 export 'fix_device_orientation_up.dart' show fixDeviceOrientationUp;
+export 'create_record.dart' show createRecord;
