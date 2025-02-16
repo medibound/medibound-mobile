@@ -819,25 +819,6 @@ class _ManageDeviceWidgetState extends State<ManageDeviceWidget>
                                                       },
                                                     ).then((value) =>
                                                         safeSetState(() {}));
-                                                  } else {
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title: Text(
-                                                              'Data Format Invalid'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext),
-                                                              child: Text('Ok'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
                                                   }
 
                                                   safeSetState(() {});

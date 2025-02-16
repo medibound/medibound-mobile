@@ -1,20 +1,13 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/streams/add_device/add_device_widget.dart';
-import "package:medibound_portal_hdztzw/backend/backend.dart"
-    as medibound_portal_hdztzw_backend;
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'insights_message_page_model.dart';
 export 'insights_message_page_model.dart';
 
 class InsightsMessagePageWidget extends StatefulWidget {
-  const InsightsMessagePageWidget({
-    super.key,
-    required this.messageGroup,
-  });
-
-  final medibound_portal_hdztzw_backend.MessagesRecord? messageGroup;
+  const InsightsMessagePageWidget({super.key});
 
   @override
   State<InsightsMessagePageWidget> createState() =>

@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
-import "package:medibound_portal_hdztzw/backend/backend.dart"
-    as medibound_portal_hdztzw_backend;
 import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
@@ -135,16 +133,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'InsightsMessagePage',
           path: '/insights/message',
           requireAuth: true,
-          asyncParams: {
-            'messageGroup': getDoc(['messages'],
-                medibound_portal_hdztzw_backend.MessagesRecord.fromSnapshot),
-          },
-          builder: (context, params) => InsightsMessagePageWidget(
-            messageGroup: params.getParam(
-              'messageGroup',
-              ParamType.Document,
-            ),
-          ),
+          builder: (context, params) => InsightsMessagePageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
