@@ -32,11 +32,6 @@ class DeviceProfilesRecord extends FirestoreRecord {
   String get uniqueDeviceIdentifier => _uniqueDeviceIdentifier ?? '';
   bool hasUniqueDeviceIdentifier() => _uniqueDeviceIdentifier != null;
 
-  // "variables" field.
-  List<DeviceVariableStruct>? _variables;
-  List<DeviceVariableStruct> get variables => _variables ?? const [];
-  bool hasVariables() => _variables != null;
-
   // "transfer_type" field.
   String? _transferType;
   String get transferType => _transferType ?? '';
@@ -46,11 +41,6 @@ class DeviceProfilesRecord extends FirestoreRecord {
   String? _type;
   String get type => _type ?? '';
   bool hasType() => _type != null;
-
-  // "record_template" field.
-  RecordStruct? _recordTemplate;
-  RecordStruct get recordTemplate => _recordTemplate ?? RecordStruct();
-  bool hasRecordTemplate() => _recordTemplate != null;
 
   // "created_time" field.
   DateTime? _createdTime;
@@ -68,8 +58,8 @@ class DeviceProfilesRecord extends FirestoreRecord {
   bool hasMode() => _mode != null;
 
   // "info" field.
-  DropdownStruct? _info;
-  DropdownStruct get info => _info ?? DropdownStruct();
+  CodedValueStruct? _info;
+  CodedValueStruct get info => _info ?? CodedValueStruct();
   bool hasInfo() => _info != null;
 
   // "organization" field.
@@ -77,27 +67,26 @@ class DeviceProfilesRecord extends FirestoreRecord {
   DocumentReference? get organization => _organization;
   bool hasOrganization() => _organization != null;
 
+  // "record_template" field.
+  DocumentReference? _recordTemplate;
+  DocumentReference? get recordTemplate => _recordTemplate;
+  bool hasRecordTemplate() => _recordTemplate != null;
+
   void _initializeFields() {
     _manualPath = snapshotData['manual_path'] as String?;
     _modelNumber = snapshotData['model_number'] as String?;
     _uniqueDeviceIdentifier =
         snapshotData['unique_device_identifier'] as String?;
-    _variables = getStructList(
-      snapshotData['variables'],
-      DeviceVariableStruct.fromMap,
-    );
     _transferType = snapshotData['transfer_type'] as String?;
     _type = snapshotData['type'] as String?;
-    _recordTemplate = snapshotData['record_template'] is RecordStruct
-        ? snapshotData['record_template']
-        : RecordStruct.maybeFromMap(snapshotData['record_template']);
     _createdTime = snapshotData['created_time'] as DateTime?;
     _editedTime = snapshotData['edited_time'] as DateTime?;
     _mode = snapshotData['mode'] as String?;
-    _info = snapshotData['info'] is DropdownStruct
+    _info = snapshotData['info'] is CodedValueStruct
         ? snapshotData['info']
-        : DropdownStruct.maybeFromMap(snapshotData['info']);
+        : CodedValueStruct.maybeFromMap(snapshotData['info']);
     _organization = snapshotData['organization'] as DocumentReference?;
+    _recordTemplate = snapshotData['record_template'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -140,12 +129,12 @@ Map<String, dynamic> createDeviceProfilesRecordData({
   String? uniqueDeviceIdentifier,
   String? transferType,
   String? type,
-  RecordStruct? recordTemplate,
   DateTime? createdTime,
   DateTime? editedTime,
   String? mode,
-  DropdownStruct? info,
+  CodedValueStruct? info,
   DocumentReference? organization,
+  DocumentReference? recordTemplate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -154,20 +143,17 @@ Map<String, dynamic> createDeviceProfilesRecordData({
       'unique_device_identifier': uniqueDeviceIdentifier,
       'transfer_type': transferType,
       'type': type,
-      'record_template': RecordStruct().toMap(),
       'created_time': createdTime,
       'edited_time': editedTime,
       'mode': mode,
-      'info': DropdownStruct().toMap(),
+      'info': CodedValueStruct().toMap(),
       'organization': organization,
+      'record_template': recordTemplate,
     }.withoutNulls,
   );
 
-  // Handle nested data for "record_template" field.
-  addRecordStructData(firestoreData, recordTemplate, 'record_template');
-
   // Handle nested data for "info" field.
-  addDropdownStructData(firestoreData, info, 'info');
+  addCodedValueStructData(firestoreData, info, 'info');
 
   return firestoreData;
 }
@@ -178,19 +164,17 @@ class DeviceProfilesRecordDocumentEquality
 
   @override
   bool equals(DeviceProfilesRecord? e1, DeviceProfilesRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.manualPath == e2?.manualPath &&
         e1?.modelNumber == e2?.modelNumber &&
         e1?.uniqueDeviceIdentifier == e2?.uniqueDeviceIdentifier &&
-        listEquality.equals(e1?.variables, e2?.variables) &&
         e1?.transferType == e2?.transferType &&
         e1?.type == e2?.type &&
-        e1?.recordTemplate == e2?.recordTemplate &&
         e1?.createdTime == e2?.createdTime &&
         e1?.editedTime == e2?.editedTime &&
         e1?.mode == e2?.mode &&
         e1?.info == e2?.info &&
-        e1?.organization == e2?.organization;
+        e1?.organization == e2?.organization &&
+        e1?.recordTemplate == e2?.recordTemplate;
   }
 
   @override
@@ -198,15 +182,14 @@ class DeviceProfilesRecordDocumentEquality
         e?.manualPath,
         e?.modelNumber,
         e?.uniqueDeviceIdentifier,
-        e?.variables,
         e?.transferType,
         e?.type,
-        e?.recordTemplate,
         e?.createdTime,
         e?.editedTime,
         e?.mode,
         e?.info,
-        e?.organization
+        e?.organization,
+        e?.recordTemplate
       ]);
 
   @override

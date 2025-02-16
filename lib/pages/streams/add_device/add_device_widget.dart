@@ -8,6 +8,8 @@ import '/utils/device_tile/device_tile_widget.dart';
 import "package:medibound_portal_hdztzw/backend/backend.dart"
     as medibound_portal_hdztzw_backend;
 import '/custom_code/actions/index.dart' as actions;
+import 'package:medibound_portal_hdztzw/app_state.dart'
+    as medibound_portal_hdztzw_app_state;
 import 'package:medibound_portal_hdztzw/flutter_flow/flutter_flow_util.dart'
     as medibound_portal_hdztzw_util
     show wrapWithModel, createModel, FlutterFlowDynamicModels;
@@ -26,6 +28,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'add_device_model.dart';
 export 'add_device_model.dart';
 
@@ -55,31 +58,32 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.btDevicesAvailable = [];
-      safeSetState(() {});
+      await Future.delayed(const Duration(milliseconds: 1500));
       await actions.getDevices(
         (device) async {
           _model.deviceSearch =
               await medibound_portal_hdztzw_backend.queryDeviceRecordOnce(
-            queryBuilder: (deviceRecord) => deviceRecord
-                .where(
-                  'info.code',
-                  isEqualTo: device.deviceId,
-                )
-                .where(
-                  'owner',
-                  isNotEqualTo: currentUserReference,
-                ),
+            queryBuilder: (deviceRecord) => deviceRecord.where(
+              'info.code',
+              isEqualTo: device.deviceId,
+            ),
           );
-          if (_model.deviceSearch != null &&
-              (_model.deviceSearch)!.isNotEmpty) {
+
+          FFAppState().update(() {});
+          if (((_model.deviceSearch != null &&
+                      (_model.deviceSearch)!.isNotEmpty) ==
+                  true) &&
+              valueOrDefault<bool>(
+                _model.deviceSearch?.firstOrNull?.owner != currentUserReference,
+                true,
+              )) {
             _model.addToBtDevicesAvailable(BluetoothDeviceStruct(
               name: device.name,
               id: device.id,
               deviceId: device.deviceId,
               ref: _model.deviceSearch?.firstOrNull?.reference,
             ));
-            safeSetState(() {});
+            _model.updatePage(() {});
           }
         },
       );
@@ -111,10 +115,13 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+    context.watch<medibound_portal_hdztzw_app_state.FFAppState>();
+
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(20.0),
@@ -122,10 +129,10 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
         ),
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 20.0),
+        padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 20.0),
         child: SafeArea(
           child: Container(
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -138,13 +145,13 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
-                    child: SizedBox(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                    child: Container(
                       width: double.infinity,
                       height: 500.0,
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
                         child: PageView(
                           physics: const NeverScrollableScrollPhysics(),
                           controller: _model.pageViewController ??=
@@ -152,7 +159,7 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                           scrollDirection: Axis.horizontal,
                           children: [
                             Container(
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
@@ -172,7 +179,7 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                       if (_model
                                           .btDevicesAvailable.isNotEmpty) {
                                         return Container(
-                                          decoration: const BoxDecoration(),
+                                          decoration: BoxDecoration(),
                                           child: Builder(
                                             builder: (context) {
                                               final btDevices = _model
@@ -238,7 +245,7 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                                             await _model
                                                                 .pageViewController
                                                                 ?.nextPage(
-                                                              duration: const Duration(
+                                                              duration: Duration(
                                                                   milliseconds:
                                                                       300),
                                                               curve:
@@ -289,8 +296,6 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                                                             context)
                                                                         .alternate,
                                                                 status: ' ',
-                                                                checkStatus:
-                                                                    false,
                                                                 device:
                                                                     containerDeviceRecord,
                                                               ),
@@ -300,7 +305,7 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                                       },
                                                     );
                                                   }).divide(
-                                                      const SizedBox(width: 10.0)),
+                                                      SizedBox(width: 10.0)),
                                                 ),
                                               );
                                             },
@@ -309,47 +314,53 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                       } else {
                                         return ClipRRect(
                                           child: Container(
-                                            decoration: const BoxDecoration(),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Container(
-                                                  width: 175.0,
-                                                  height: 130.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .alternate,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15.0),
+                                            decoration: BoxDecoration(),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Container(
+                                                    width: 175.0,
+                                                    height: 130.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15.0),
+                                                    ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  width: 175.0,
-                                                  height: 130.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .alternate,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15.0),
+                                                  Container(
+                                                    width: 175.0,
+                                                    height: 130.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15.0),
+                                                    ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  width: 175.0,
-                                                  height: 130.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .alternate,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15.0),
+                                                  Container(
+                                                    width: 175.0,
+                                                    height: 130.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15.0),
+                                                    ),
                                                   ),
-                                                ),
-                                              ].divide(const SizedBox(width: 10.0)),
+                                                ].divide(SizedBox(width: 10.0)),
+                                              ),
                                             ).animateOnPageLoad(animationsMap[
                                                 'rowOnPageLoadAnimation']!),
                                           ),
@@ -357,187 +368,203 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                       }
                                     },
                                   ),
-                                ].divide(const SizedBox(height: 10.0)),
+                                ].divide(SizedBox(height: 10.0)),
                               ),
                             ),
                             Container(
-                              decoration: const BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Select an verification method',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          _model.barcodeId =
-                                              await FlutterBarcodeScanner
-                                                  .scanBarcode(
-                                            '#C62828', // scanning line color
-                                            'Cancel', // cancel button text
-                                            true, // whether to show the flash icon
-                                            ScanMode.QR,
-                                          );
-
-                                          _model.deviceSelected =
-                                              await medibound_portal_hdztzw_backend
-                                                      .DeviceRecord
-                                                  .getDocumentOnce(_model
-                                                      .bTDeviceSelected!.ref!);
-                                          try {
-                                            final result =
-                                                await FirebaseFunctions
-                                                        .instanceFor(
-                                                            region:
-                                                                'us-central1')
-                                                    .httpsCallable('checkKey')
-                                                    .call({
-                                              "key": _model.barcodeId,
-                                              "publicWrappedKey": _model
-                                                  .deviceSelected!
-                                                  .key
-                                                  .publicWrappedKey,
-                                              "privateWrappedKey": _model
-                                                  .deviceSelected!
-                                                  .key
-                                                  .privateWrappedKey,
-                                            });
-                                            _model.validationKey =
-                                                CheckKeyCloudFunctionCallResponse(
-                                              data: result.data,
-                                              succeeded: true,
-                                              resultAsString:
-                                                  result.data.toString(),
-                                              jsonBody: result.data,
-                                            );
-                                          } on FirebaseFunctionsException catch (error) {
-                                            _model.validationKey =
-                                                CheckKeyCloudFunctionCallResponse(
-                                              errorCode: error.code,
-                                              succeeded: false,
-                                            );
-                                          }
-
-                                          if (_model.validationKey?.data !=
-                                                  null &&
-                                              _model.validationKey?.data !=
-                                                  '') {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  const Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-
-                                            await _model
-                                                .deviceSelected!.reference
-                                                .update(
-                                                    medibound_portal_hdztzw_backend
-                                                        .createDeviceRecordData(
-                                              storedId:
-                                                  _model.bTDeviceSelected?.id,
-                                              storedKey:
-                                                  _model.validationKey?.data,
-                                            ));
-                                            await actions.connectDevice(
-                                              _model.bTDeviceSelected!,
-                                              (device) async {},
-                                            );
-                                          }
-
-                                          safeSetState(() {});
-                                        },
-                                        child: medibound_portal_hdztzw_util
-                                            .wrapWithModel(
-                                          model:
-                                              _model.componentProfileTileModel1,
-                                          updateCallback: () =>
-                                              safeSetState(() {}),
-                                          child: medibound_portal_hdztzw
-                                              .ComponentProfileTileWidget(
-                                            display: 'Secure Scan',
-                                            subtitle: 'Use the barcode',
-                                            photoUrl: '',
-                                            titleSize: 20.0,
-                                            photoSize: 40.0,
-                                            height: 75.0,
-                                            icon: Icon(
-                                              Icons.qr_code_scanner_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                              size: 24.0,
-                                            ),
-                                            widget: () =>
-                                                const medibound_portal_hdztzw
-                                                    .EmptyWidget(),
+                              decoration: BoxDecoration(),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Select an verification method',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Rubik',
+                                            letterSpacing: 0.0,
                                           ),
-                                        ),
-                                      ),
                                     ),
-                                  ),
-                                  Opacity(
-                                    opacity: 0.5,
-                                    child: ClipRRect(
+                                    ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
-                                        child: medibound_portal_hdztzw_util
-                                            .wrapWithModel(
-                                          model:
-                                              _model.componentProfileTileModel2,
-                                          updateCallback: () =>
-                                              safeSetState(() {}),
-                                          child: medibound_portal_hdztzw
-                                              .ComponentProfileTileWidget(
-                                            display: 'Contactless Tap',
-                                            subtitle:
-                                                'Contactless via NFC\nComing Soon',
-                                            photoUrl: '',
-                                            titleSize: 20.0,
-                                            photoSize: 40.0,
-                                            height: 75.0,
-                                            icon: Icon(
-                                              Icons.nfc,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                              size: 24.0,
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            _model.barcodeId =
+                                                await FlutterBarcodeScanner
+                                                    .scanBarcode(
+                                              '#C62828', // scanning line color
+                                              'Cancel', // cancel button text
+                                              true, // whether to show the flash icon
+                                              ScanMode.QR,
+                                            );
+
+                                            _model.deviceSelected =
+                                                await medibound_portal_hdztzw_backend
+                                                        .DeviceRecord
+                                                    .getDocumentOnce(_model
+                                                        .bTDeviceSelected!
+                                                        .ref!);
+                                            try {
+                                              final result =
+                                                  await FirebaseFunctions
+                                                          .instanceFor(
+                                                              region:
+                                                                  'us-central1')
+                                                      .httpsCallable('checkKey')
+                                                      .call({
+                                                "key": _model.barcodeId,
+                                                "publicWrappedKey": _model
+                                                    .deviceSelected!
+                                                    .key
+                                                    .publicWrappedKey,
+                                                "privateWrappedKey": _model
+                                                    .deviceSelected!
+                                                    .key
+                                                    .privateWrappedKey,
+                                              });
+                                              _model.validationKey =
+                                                  CheckKeyCloudFunctionCallResponse(
+                                                data: result.data,
+                                                succeeded: true,
+                                                resultAsString:
+                                                    result.data.toString(),
+                                                jsonBody: result.data,
+                                              );
+                                            } on FirebaseFunctionsException catch (error) {
+                                              _model.validationKey =
+                                                  CheckKeyCloudFunctionCallResponse(
+                                                errorCode: error.code,
+                                                succeeded: false,
+                                              );
+                                            }
+
+                                            if (_model.validationKey?.data !=
+                                                    null &&
+                                                _model.validationKey?.data !=
+                                                    '') {
+                                              await _model.pageViewController
+                                                  ?.nextPage(
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                curve: Curves.ease,
+                                              );
+
+                                              await _model
+                                                  .deviceSelected!.reference
+                                                  .update(
+                                                      medibound_portal_hdztzw_backend
+                                                          .createDeviceRecordData(
+                                                storedId:
+                                                    _model.bTDeviceSelected?.id,
+                                                storedKey:
+                                                    _model.validationKey?.data,
+                                                owner: currentUserReference,
+                                              ));
+                                              _model.connected =
+                                                  await actions.connectDevice(
+                                                _model.bTDeviceSelected!,
+                                                (device) async {},
+                                              );
+                                              if (_model.connected!) {
+                                                Navigator.pop(context);
+                                              } else {
+                                                await _model.pageViewController
+                                                    ?.previousPage(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease,
+                                                );
+                                              }
+                                            }
+
+                                            safeSetState(() {});
+                                          },
+                                          child: medibound_portal_hdztzw_util
+                                              .wrapWithModel(
+                                            model: _model
+                                                .componentProfileTileModel1,
+                                            updateCallback: () =>
+                                                safeSetState(() {}),
+                                            child: medibound_portal_hdztzw
+                                                .ComponentProfileTileWidget(
+                                              display: 'Secure Scan',
+                                              subtitle: 'Use the barcode',
+                                              photoUrl: '',
+                                              titleSize: 20.0,
+                                              photoSize: 40.0,
+                                              height: 75.0,
+                                              icon: Icon(
+                                                Icons.qr_code_scanner_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                                size: 24.0,
+                                              ),
+                                              widget: () =>
+                                                  medibound_portal_hdztzw
+                                                      .EmptyWidget(),
                                             ),
-                                            widget: () =>
-                                                const medibound_portal_hdztzw
-                                                    .EmptyWidget(),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ].divide(const SizedBox(height: 10.0)),
+                                    Opacity(
+                                      opacity: 0.5,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: medibound_portal_hdztzw_util
+                                              .wrapWithModel(
+                                            model: _model
+                                                .componentProfileTileModel2,
+                                            updateCallback: () =>
+                                                safeSetState(() {}),
+                                            child: medibound_portal_hdztzw
+                                                .ComponentProfileTileWidget(
+                                              display: 'Contactless Tap',
+                                              subtitle:
+                                                  'Contactless via NFC\nComing Soon',
+                                              photoUrl: '',
+                                              titleSize: 20.0,
+                                              photoSize: 40.0,
+                                              height: 75.0,
+                                              icon: Icon(
+                                                Icons.nfc,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                                size: 24.0,
+                                              ),
+                                              widget: () =>
+                                                  medibound_portal_hdztzw
+                                                      .EmptyWidget(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ].divide(SizedBox(height: 10.0)),
+                                ),
                               ),
                             ),
                             Container(
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -562,7 +589,7 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                       builder: (context) {
                                         if (!_model.connectionLoading) {
                                           return Container(
-                                            decoration: const BoxDecoration(),
+                                            decoration: BoxDecoration(),
                                           );
                                         } else {
                                           return medibound_portal_hdztzw_util
@@ -570,7 +597,7 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                             model: _model.loadingModel1,
                                             updateCallback: () =>
                                                 safeSetState(() {}),
-                                            child: const medibound_portal_hdztzw
+                                            child: medibound_portal_hdztzw
                                                 .LoadingWidget(),
                                           );
                                         }
@@ -580,9 +607,9 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                     model: _model.loadingModel2,
                                     updateCallback: () => safeSetState(() {}),
                                     child:
-                                        const medibound_portal_hdztzw.LoadingWidget(),
+                                        medibound_portal_hdztzw.LoadingWidget(),
                                   ),
-                                ].divide(const SizedBox(height: 10.0)),
+                                ].divide(SizedBox(height: 10.0)),
                               ),
                             ),
                           ],

@@ -2,10 +2,9 @@
 import '/backend/backend.dart';
 import "package:medibound_portal_hdztzw/backend/backend.dart"
     as medibound_portal_hdztzw_backend;
-import 'package:medibound_portal_hdztzw/backend/schema/structs/index.dart'
+import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
     as medibound_portal_hdztzw_data_schema;
 import '/backend/schema/structs/index.dart';
-import '/actions/actions.dart' as action_blocks;
 import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
     as medibound_portal_hdztzw_data_schema;
 import "package:medibound_portal_hdztzw/backend/schema/enums/enums.dart"
@@ -46,7 +45,7 @@ Future<bool> connectDevice(BluetoothDeviceStruct bTDevice,
       .where((val) => val == BluetoothConnectionState.connected)
       .first;
 
-  String key = await confirmKey(device);
+  String key = await confirmKey(bTDevice);
 
   if (key == "NO_AUTH") {
     await device.disconnect();

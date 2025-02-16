@@ -16,11 +16,13 @@ class SubblockWidget extends StatefulWidget {
     required this.block,
     required this.graphIndex,
     required this.orientation,
+    required this.varList,
   });
 
   final BlockComponentStruct? block;
   final int? graphIndex;
   final GraphOrientation? orientation;
+  final List<DeviceVariableStruct>? varList;
 
   @override
   State<SubblockWidget> createState() => _SubblockWidgetState();
@@ -60,6 +62,10 @@ class _SubblockWidgetState extends State<SubblockWidget> {
         height: double.infinity,
         color: widget!.block!.color!,
         block: widget!.block!,
+        varList: widget!.varList!
+            .where(
+                (e) => e.info.code == widget!.block?.variableIds?.firstOrNull)
+            .toList(),
       ),
     );
   }

@@ -11,9 +11,9 @@ import '/utils/desc_token/desc_token_widget.dart';
 import '/utils/dialog_box/dialog_box_widget.dart';
 import '/utils/doc_guide_block/doc_guide_block_widget.dart';
 import '/utils/dropdown/component_profile_tile/component_profile_tile_widget.dart';
+import '/utils/empty/empty_widget.dart';
 import '/utils/empty_list/empty_list_widget.dart';
 import '/utils/nav_bar/nav_bar_widget.dart';
-import '/utils/status_token/status_token_widget.dart';
 import 'dart:math';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -310,94 +310,6 @@ class _ManageDeviceProfilesPageWidgetState
                                                                   CrossAxisAlignment
                                                                       .start,
                                                               children: [
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Text(
-                                                                      valueOrDefault<
-                                                                          String>(
-                                                                        widget!
-                                                                            .deviceProfile
-                                                                            ?.info
-                                                                            ?.display,
-                                                                        'Device Name',
-                                                                      ).maybeHandleOverflow(
-                                                                        maxChars:
-                                                                            25,
-                                                                        replacement:
-                                                                            '…',
-                                                                      ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .displaySmall
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Rubik',
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                          ),
-                                                                    ),
-                                                                    Text(
-                                                                      valueOrDefault<
-                                                                          String>(
-                                                                        FFAppState()
-                                                                            .DeviceTypes
-                                                                            .where((e) =>
-                                                                                e.code ==
-                                                                                widget!.deviceProfile?.type)
-                                                                            .toList()
-                                                                            .firstOrNull
-                                                                            ?.display,
-                                                                        'Device Category',
-                                                                      ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyLarge
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Rubik',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                          ),
-                                                                    ),
-                                                                  ].divide(SizedBox(
-                                                                      width:
-                                                                          10.0)),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0),
-                                                                  child: Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      widget!
-                                                                          .deviceProfile
-                                                                          ?.info
-                                                                          ?.description,
-                                                                      'Description',
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyLarge
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Rubik',
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                        ),
-                                                                  ),
-                                                                ),
                                                                 Container(
                                                                   decoration:
                                                                       BoxDecoration(
@@ -480,6 +392,67 @@ class _ManageDeviceProfilesPageWidgetState
                                                                         width:
                                                                             5.0)),
                                                                   ),
+                                                                ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        widget!
+                                                                            .deviceProfile
+                                                                            ?.info
+                                                                            ?.display,
+                                                                        'Device Name',
+                                                                      ).maybeHandleOverflow(
+                                                                        maxChars:
+                                                                            25,
+                                                                        replacement:
+                                                                            '…',
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .displaySmall
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Rubik',
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                  ].divide(SizedBox(
+                                                                      width:
+                                                                          10.0)),
+                                                                ),
+                                                                Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    FFAppState()
+                                                                        .DeviceTypes
+                                                                        .where((e) =>
+                                                                            e.code ==
+                                                                            widget!.deviceProfile?.type)
+                                                                        .toList()
+                                                                        .firstOrNull
+                                                                        ?.display,
+                                                                    'Device Category',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Rubik',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
                                                                 ),
                                                                 Padding(
                                                                   padding: EdgeInsetsDirectional
@@ -702,6 +675,65 @@ class _ManageDeviceProfilesPageWidgetState
                                                     ),
                                                   ),
                                                 ),
+                                                Container(
+                                                  width: 900.0,
+                                                  decoration: BoxDecoration(),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(20.0, 0.0,
+                                                                20.0, 10.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15.0,
+                                                                        10.0,
+                                                                        15.0,
+                                                                        10.0),
+                                                            child:
+                                                                SelectionArea(
+                                                                    child: Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                widget!
+                                                                    .deviceProfile
+                                                                    ?.info
+                                                                    ?.description,
+                                                                'Description',
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Rubik',
+                                                                    fontSize:
+                                                                        14.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            )),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                                 SizedBox(
                                                   width: 900.0,
                                                   child: Divider(
@@ -855,7 +887,7 @@ class _ManageDeviceProfilesPageWidgetState
                                                                             firestoreBatch.update(
                                                                                 _model.device!.reference,
                                                                                 createDeviceRecordData(
-                                                                                  info: createDropdownStruct(
+                                                                                  info: createCodedValueStruct(
                                                                                     display: widget!.deviceProfile?.info?.display,
                                                                                     description: widget!.deviceProfile?.info?.description,
                                                                                     code: _model.device?.reference.id,
@@ -1060,7 +1092,7 @@ class _ManageDeviceProfilesPageWidgetState
                                                                                     );
                                                                                   },
                                                                                   child: ComponentProfileTileWidget(
-                                                                                    key: Key('Keycmg_${listViewIndex}_of_${listViewDeviceRecordList.length}'),
+                                                                                    key: Key('Keyoa8_${listViewIndex}_of_${listViewDeviceRecordList.length}'),
                                                                                     display: listViewDeviceRecord.info.code,
                                                                                     subtitle: 'Last updated ${dateTimeFormat(
                                                                                       "relative",
@@ -1068,10 +1100,7 @@ class _ManageDeviceProfilesPageWidgetState
                                                                                       locale: FFLocalizations.of(context).languageCode,
                                                                                     )}',
                                                                                     height: 50.0,
-                                                                                    widget: () => StatusTokenWidget(
-                                                                                      status: FFAppState().DeviceStatus.where((e) => e.code == listViewDeviceRecord.status).toList().firstOrNull!.display,
-                                                                                      color: FFAppState().DeviceStatus.where((e) => e.code == listViewDeviceRecord.status).toList().firstOrNull!.color!,
-                                                                                    ),
+                                                                                    widget: () => EmptyWidget(),
                                                                                   ),
                                                                                 ).animateOnPageLoad(animationsMap['componentProfileTileOnPageLoadAnimation']!),
                                                                               );
@@ -1174,109 +1203,131 @@ class _ManageDeviceProfilesPageWidgetState
                                                                             0.0,
                                                                       ),
                                                                 ),
-                                                                ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10.0),
-                                                                  child:
-                                                                      Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
+                                                                StreamBuilder<
+                                                                    RecordTemplateRecord>(
+                                                                  stream: RecordTemplateRecord
+                                                                      .getDocument(widget!
+                                                                          .deviceProfile!
+                                                                          .recordTemplate!),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
+                                                                        child:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              25.0,
+                                                                          height:
+                                                                              25.0,
+                                                                          child:
+                                                                              SpinKitPulse(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            size:
+                                                                                25.0,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+
+                                                                    final containerRecordTemplateRecord =
+                                                                        snapshot
+                                                                            .data!;
+
+                                                                    return ClipRRect(
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               10.0),
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .alternate,
-                                                                        width:
-                                                                            1.0,
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Builder(
-                                                                      builder:
-                                                                          (context) {
-                                                                        final variables =
-                                                                            widget!.deviceProfile?.variables?.toList() ??
-                                                                                [];
-                                                                        if (variables
-                                                                            .isEmpty) {
-                                                                          return Center(
-                                                                            child:
-                                                                                Container(
-                                                                              height: 150.0,
-                                                                              child: EmptyListWidget(
-                                                                                text: 'No Variables Found',
-                                                                                icon: Icon(
-                                                                                  Icons.cloud_off_rounded,
-                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                                      child:
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10.0),
+                                                                          border:
+                                                                              Border.all(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).alternate,
+                                                                            width:
+                                                                                1.0,
+                                                                          ),
+                                                                        ),
+                                                                        child:
+                                                                            Builder(
+                                                                          builder:
+                                                                              (context) {
+                                                                            final variables =
+                                                                                containerRecordTemplateRecord.variables.toList();
+                                                                            if (variables.isEmpty) {
+                                                                              return Center(
+                                                                                child: Container(
+                                                                                  height: 150.0,
+                                                                                  child: EmptyListWidget(
+                                                                                    text: 'No Variables Found',
+                                                                                    icon: Icon(
+                                                                                      Icons.cloud_off_rounded,
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        }
+                                                                              );
+                                                                            }
 
-                                                                        return ListView
-                                                                            .builder(
-                                                                          padding:
-                                                                              EdgeInsets.zero,
-                                                                          shrinkWrap:
-                                                                              true,
-                                                                          scrollDirection:
-                                                                              Axis.vertical,
-                                                                          itemCount:
-                                                                              variables.length,
-                                                                          itemBuilder:
-                                                                              (context, variablesIndex) {
-                                                                            final variablesItem =
-                                                                                variables[variablesIndex];
-                                                                            return Padding(
-                                                                              padding: EdgeInsets.all(10.0),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Expanded(
-                                                                                    child: ClipRRect(
-                                                                                      child: Container(
-                                                                                        decoration: BoxDecoration(),
-                                                                                        child: Text(
-                                                                                          variablesItem.info.display.maybeHandleOverflow(
-                                                                                            maxChars: 20,
-                                                                                            replacement: '…',
-                                                                                          ),
-                                                                                          maxLines: 1,
-                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                fontFamily: 'Rubik',
-                                                                                                letterSpacing: 0.0,
+                                                                            return ListView.builder(
+                                                                              padding: EdgeInsets.zero,
+                                                                              shrinkWrap: true,
+                                                                              scrollDirection: Axis.vertical,
+                                                                              itemCount: variables.length,
+                                                                              itemBuilder: (context, variablesIndex) {
+                                                                                final variablesItem = variables[variablesIndex];
+                                                                                return Padding(
+                                                                                  padding: EdgeInsets.all(10.0),
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Expanded(
+                                                                                        child: ClipRRect(
+                                                                                          child: Container(
+                                                                                            decoration: BoxDecoration(),
+                                                                                            child: Text(
+                                                                                              variablesItem.info.display.maybeHandleOverflow(
+                                                                                                maxChars: 20,
+                                                                                                replacement: '…',
                                                                                               ),
+                                                                                              maxLines: 1,
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'Rubik',
+                                                                                                    letterSpacing: 0.0,
+                                                                                                  ),
+                                                                                            ),
+                                                                                          ),
                                                                                         ),
                                                                                       ),
-                                                                                    ),
-                                                                                  ),
-                                                                                  Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      FFAppState().DeviceVariableTypes.where((e) => e.code == variablesItem.type).toList().firstOrNull?.display,
-                                                                                      'Type',
-                                                                                    ),
-                                                                                    maxLines: 1,
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Rubik',
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          fontSize: 12.0,
-                                                                                          letterSpacing: 0.0,
+                                                                                      Text(
+                                                                                        valueOrDefault<String>(
+                                                                                          FFAppState().DeviceVariableTypes.where((e) => e.code == variablesItem.type).toList().firstOrNull?.display,
+                                                                                          'Type',
                                                                                         ),
-                                                                                  ),
-                                                                                ],
-                                                                              ).animateOnPageLoad(animationsMap['rowOnPageLoadAnimation']!),
+                                                                                        maxLines: 1,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Rubik',
+                                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                              fontSize: 12.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ).animateOnPageLoad(animationsMap['rowOnPageLoadAnimation']!),
+                                                                                );
+                                                                              },
                                                                             );
                                                                           },
-                                                                        );
-                                                                      },
-                                                                    ),
-                                                                  ),
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
                                                                 ),
                                                                 Text(
                                                                   'Record Layout',
@@ -1293,94 +1344,120 @@ class _ManageDeviceProfilesPageWidgetState
                                                                             0.0,
                                                                       ),
                                                                 ),
-                                                                Align(
-                                                                  alignment:
-                                                                      AlignmentDirectional(
-                                                                          -1.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      Builder(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            FFButtonWidget(
-                                                                      onPressed:
-                                                                          () async {
-                                                                        await showDialog(
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (dialogContext) {
-                                                                            return Dialog(
-                                                                              elevation: 0,
-                                                                              insetPadding: EdgeInsets.zero,
-                                                                              backgroundColor: Colors.transparent,
-                                                                              alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                              child: GestureDetector(
-                                                                                onTap: () {
-                                                                                  FocusScope.of(dialogContext).unfocus();
-                                                                                  FocusManager.instance.primaryFocus?.unfocus();
+                                                                StreamBuilder<
+                                                                    RecordTemplateRecord>(
+                                                                  stream: RecordTemplateRecord
+                                                                      .getDocument(widget!
+                                                                          .deviceProfile!
+                                                                          .recordTemplate!),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
+                                                                        child:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              25.0,
+                                                                          height:
+                                                                              25.0,
+                                                                          child:
+                                                                              SpinKitPulse(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            size:
+                                                                                25.0,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+
+                                                                    final containerRecordTemplateRecord =
+                                                                        snapshot
+                                                                            .data!;
+
+                                                                    return Container(
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(-1.0, 0.0),
+                                                                            child:
+                                                                                Builder(
+                                                                              builder: (context) => FFButtonWidget(
+                                                                                onPressed: () async {
+                                                                                  await showDialog(
+                                                                                    context: context,
+                                                                                    builder: (dialogContext) {
+                                                                                      return Dialog(
+                                                                                        elevation: 0,
+                                                                                        insetPadding: EdgeInsets.zero,
+                                                                                        backgroundColor: Colors.transparent,
+                                                                                        alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                        child: GestureDetector(
+                                                                                          onTap: () {
+                                                                                            FocusScope.of(dialogContext).unfocus();
+                                                                                            FocusManager.instance.primaryFocus?.unfocus();
+                                                                                          },
+                                                                                          child: Container(
+                                                                                            height: 600.0,
+                                                                                            width: 660.0,
+                                                                                            child: DialogBoxWidget(
+                                                                                              widget: () => RecordViewerWidget(
+                                                                                                header: containerRecordTemplateRecord.header,
+                                                                                                sections: containerRecordTemplateRecord.sections,
+                                                                                                profile: ProfileStruct(
+                                                                                                  displayName: widget!.deviceProfile?.info?.display,
+                                                                                                  photoUrl: valueOrDefault<String>(
+                                                                                                    manageDeviceProfilesPageOrganizationsRecordList.where((e) => e.reference.id == widget!.deviceProfile?.organization?.id).toList().firstOrNull?.profile?.photoUrl,
+                                                                                                    'Org Name',
+                                                                                                  ),
+                                                                                                ),
+                                                                                                varList: containerRecordTemplateRecord.variables,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      );
+                                                                                    },
+                                                                                  );
                                                                                 },
-                                                                                child: Container(
-                                                                                  height: 600.0,
-                                                                                  width: 660.0,
-                                                                                  child: DialogBoxWidget(
-                                                                                    widget: () => RecordViewerWidget(
-                                                                                      record: widget!.deviceProfile?.recordTemplate,
-                                                                                    ),
-                                                                                  ),
+                                                                                text: 'View Record',
+                                                                                icon: FaIcon(
+                                                                                  FontAwesomeIcons.arrowRight,
+                                                                                  size: 16.0,
+                                                                                ),
+                                                                                options: FFButtonOptions(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                  iconAlignment: IconAlignment.end,
+                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                  color: Color(0x00E0E3E7),
+                                                                                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                        fontFamily: 'Rubik',
+                                                                                        color: FlutterFlowTheme.of(context).secondary,
+                                                                                        fontSize: 16.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        lineHeight: 1.0,
+                                                                                      ),
+                                                                                  elevation: 0.0,
+                                                                                  borderRadius: BorderRadius.circular(10.0),
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  hoverTextColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                  hoverElevation: 0.0,
                                                                                 ),
                                                                               ),
-                                                                            );
-                                                                          },
-                                                                        );
-                                                                      },
-                                                                      text:
-                                                                          'View Record',
-                                                                      icon:
-                                                                          FaIcon(
-                                                                        FontAwesomeIcons
-                                                                            .arrowRight,
-                                                                        size:
-                                                                            16.0,
-                                                                      ),
-                                                                      options:
-                                                                          FFButtonOptions(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        iconAlignment:
-                                                                            IconAlignment.end,
-                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        color: Color(
-                                                                            0x00E0E3E7),
-                                                                        textStyle: FlutterFlowTheme.of(context)
-                                                                            .titleSmall
-                                                                            .override(
-                                                                              fontFamily: 'Rubik',
-                                                                              color: FlutterFlowTheme.of(context).secondary,
-                                                                              fontSize: 16.0,
-                                                                              letterSpacing: 0.0,
-                                                                              lineHeight: 1.0,
                                                                             ),
-                                                                        elevation:
-                                                                            0.0,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10.0),
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        hoverTextColor:
-                                                                            FlutterFlowTheme.of(context).primaryText,
-                                                                        hoverElevation:
-                                                                            0.0,
+                                                                          ),
+                                                                        ],
                                                                       ),
-                                                                    ),
-                                                                  ),
+                                                                    );
+                                                                  },
                                                                 ),
                                                               ].divide(SizedBox(
                                                                   height:

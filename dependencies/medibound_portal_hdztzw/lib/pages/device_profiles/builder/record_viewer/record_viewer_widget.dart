@@ -1,6 +1,6 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/device_profiles/record/record/record_widget.dart';
+import '/pages/device_profiles/record/record_sample/record_sample_widget.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -12,10 +12,16 @@ export 'record_viewer_model.dart';
 class RecordViewerWidget extends StatefulWidget {
   const RecordViewerWidget({
     super.key,
-    this.record,
+    required this.header,
+    required this.sections,
+    required this.profile,
+    required this.varList,
   });
 
-  final RecordStruct? record;
+  final List<BlockComponentStruct>? header;
+  final List<BodySectionStruct>? sections;
+  final ProfileStruct? profile;
+  final List<DeviceVariableStruct>? varList;
 
   @override
   State<RecordViewerWidget> createState() => _RecordViewerWidgetState();
@@ -82,11 +88,14 @@ class _RecordViewerWidgetState extends State<RecordViewerWidget> {
               child: Container(
                 decoration: BoxDecoration(),
                 child: wrapWithModel(
-                  model: _model.recordModel,
+                  model: _model.recordSampleModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: RecordWidget(
+                  child: RecordSampleWidget(
                     recordWidth: 400.0,
-                    record: widget!.record!,
+                    header: widget!.header!,
+                    sections: widget!.sections!,
+                    profile: widget!.profile!,
+                    varList: widget!.varList!,
                   ),
                 ),
               ),

@@ -145,6 +145,8 @@ class CreateDeviceProfileModel
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   OrganizationsRecord? organization;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  RecordTemplateRecord? recordTemp;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
   DeviceProfilesRecord? deviceProfile;
 
   @override

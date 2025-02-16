@@ -19,7 +19,12 @@ import 'body_builder_model.dart';
 export 'body_builder_model.dart';
 
 class BodyBuilderWidget extends StatefulWidget {
-  const BodyBuilderWidget({super.key});
+  const BodyBuilderWidget({
+    super.key,
+    required this.varList,
+  });
+
+  final List<DeviceVariableStruct>? varList;
 
   @override
   State<BodyBuilderWidget> createState() => _BodyBuilderWidgetState();
@@ -172,6 +177,7 @@ class _BodyBuilderWidgetState extends State<BodyBuilderWidget>
                                           'Key7wc_${sectionsItem.id}',
                                         ),
                                         bodySection: sectionsItem,
+                                        varList: widget!.varList!,
                                         bodySectionCallback: (id) async {
                                           _model.updateBodySectionsAtIndex(
                                             sectionsIndex,

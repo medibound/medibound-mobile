@@ -53,9 +53,9 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                 FlutterFlowTheme.of(context).secondaryBackground,
                 FlutterFlowTheme.of(context).primaryBackground
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Stack(
@@ -70,23 +70,23 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                         FlutterFlowTheme.of(context).accent1,
                         FlutterFlowTheme.of(context).accent3
                       ],
-                      stops: const [0.0, 0.4, 1.0],
-                      begin: const AlignmentDirectional(-1.0, 1.0),
-                      end: const AlignmentDirectional(1.0, -1.0),
+                      stops: [0.0, 0.4, 1.0],
+                      begin: AlignmentDirectional(-1.0, 1.0),
+                      end: AlignmentDirectional(1.0, -1.0),
                     ),
                   ),
                   child: SafeArea(
                     child: Container(
                       width: double.infinity,
                       height: 150.0,
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                     ),
                   ),
                 ),
               ),
               SafeArea(
                 child: Container(
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -94,16 +94,16 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                         child: SafeArea(
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
-                            decoration: const BoxDecoration(),
-                            alignment: const AlignmentDirectional(0.0, -1.0),
+                            decoration: BoxDecoration(),
+                            alignment: AlignmentDirectional(0.0, -1.0),
                             child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: EdgeInsets.all(20.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         1.0, 0.0, 0.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -113,7 +113,7 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 10.0, 0.0, 0.0),
                                             child: GradientText(
                                               'YOUR HEALTH IN YOUR HANDS',
@@ -154,7 +154,7 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                                           blurRadius: 30.0,
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
-                                          offset: const Offset(
+                                          offset: Offset(
                                             0.0,
                                             10.0,
                                           ),
@@ -167,26 +167,26 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                                           FlutterFlowTheme.of(context)
                                               .primaryBackground
                                         ],
-                                        stops: const [0.0, 1.0],
-                                        begin: const AlignmentDirectional(1.0, -0.5),
-                                        end: const AlignmentDirectional(-1.0, 0.5),
+                                        stops: [0.0, 1.0],
+                                        begin: AlignmentDirectional(1.0, -0.5),
+                                        end: AlignmentDirectional(-1.0, 0.5),
                                       ),
                                       shape: BoxShape.circle,
                                     ),
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     child: AuthUserStreamWidget(
                                       builder: (context) => Container(
                                         width: 150.0,
                                         height: 150.0,
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
                                         child: CachedNetworkImage(
                                           fadeInDuration:
-                                              const Duration(milliseconds: 500),
+                                              Duration(milliseconds: 500),
                                           fadeOutDuration:
-                                              const Duration(milliseconds: 500),
+                                              Duration(milliseconds: 500),
                                           imageUrl: currentUserDocument!
                                               .profile.photoUrl,
                                           fit: BoxFit.cover,
@@ -205,18 +205,18 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                                           'LoginPage', context.mounted);
                                     },
                                     text: 'Log Out',
-                                    icon: const FaIcon(
+                                    icon: FaIcon(
                                       FontAwesomeIcons.signInAlt,
                                       size: 14.0,
                                     ),
                                     options: FFButtonOptions(
                                       height: 40.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
-                                      color: const Color(0x00E0E3E7),
+                                      color: Color(0x00E0E3E7),
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
@@ -228,13 +228,13 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                                           ),
                                       elevation: 0.0,
                                       borderRadius: BorderRadius.circular(10.0),
-                                      hoverColor: const Color(0x3EFF5963),
+                                      hoverColor: Color(0x3EFF5963),
                                       hoverTextColor:
                                           FlutterFlowTheme.of(context).error,
                                       hoverElevation: 0.0,
                                     ),
                                   ),
-                                ].divide(const SizedBox(height: 10.0)),
+                                ].divide(SizedBox(height: 10.0)),
                               ),
                             ),
                           ),
@@ -243,7 +243,7 @@ class _YouPageWidgetState extends State<YouPageWidget> {
                       wrapWithModel(
                         model: _model.tabBarModel,
                         updateCallback: () => safeSetState(() {}),
-                        child: const TabBarWidget(
+                        child: TabBarWidget(
                           selected: 5,
                         ),
                       ),

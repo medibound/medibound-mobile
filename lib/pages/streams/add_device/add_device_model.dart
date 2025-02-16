@@ -61,6 +61,8 @@ class AddDeviceModel extends FlutterFlowModel<AddDeviceWidget> {
   medibound_portal_hdztzw_backend.DeviceRecord? deviceSelected;
   // Stores action output result for [Cloud Function - checkKey] action in ComponentProfileTile widget.
   CheckKeyCloudFunctionCallResponse? validationKey;
+  // Stores action output result for [Custom Action - connectDevice] action in ComponentProfileTile widget.
+  bool? connected;
   // Model for ComponentProfileTile component.
   late medibound_portal_hdztzw.ComponentProfileTileModel
       componentProfileTileModel2;

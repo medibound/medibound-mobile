@@ -53,8 +53,8 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 640.0.ms,
-            begin: const Offset(-10.0, 10.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(-10.0, 10.0),
+            end: Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -71,7 +71,7 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
   @override
   Widget build(BuildContext context) {
     return Shortcuts(
-      shortcuts: const {},
+      shortcuts: {},
       child: Actions(
         actions: {
           VoidCallbackIntent: CallbackAction<VoidCallbackIntent>(
@@ -97,10 +97,10 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                 backgroundColor:
                     FlutterFlowTheme.of(context).secondaryBackground,
                 body: Stack(
-                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.0, -1.0),
                   children: [
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Container(
                         width: double.infinity,
                         height: double.infinity,
@@ -110,12 +110,12 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                               FlutterFlowTheme.of(context).customColor2,
                               FlutterFlowTheme.of(context).primaryBackground
                             ],
-                            stops: const [0.0, 1.0],
-                            begin: const AlignmentDirectional(1.0, -1.0),
-                            end: const AlignmentDirectional(-1.0, 1.0),
+                            stops: [0.0, 1.0],
+                            begin: AlignmentDirectional(1.0, -1.0),
+                            end: AlignmentDirectional(-1.0, 1.0),
                           ),
                         ),
-                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Wrap(
                           spacing: 0.0,
                           runSpacing: 0.0,
@@ -127,15 +127,15 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                           clipBehavior: Clip.none,
                           children: [
                             Container(
-                              constraints: const BoxConstraints(
+                              constraints: BoxConstraints(
                                 maxWidth: 400.0,
                               ),
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: Form(
                                 key: _model.formKey,
                                 autovalidateMode: AutovalidateMode.disabled,
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 0.0),
                                   child: SingleChildScrollView(
                                     child: Column(
@@ -155,7 +155,7 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 4.0, 0.0, 24.0),
                                           child: Text(
                                             'No problem! Enter your email below and we\'ll help you recover it.',
@@ -170,14 +170,14 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 10.0, 0.0, 0.0),
                                           child: TextFormField(
                                             controller:
                                                 _model.emailTextController,
                                             focusNode: _model.emailFocusNode,
                                             autofocus: false,
-                                            autofillHints: const [
+                                            autofillHints: [
                                               AutofillHints.username
                                             ],
                                             textInputAction:
@@ -198,7 +198,7 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .customColor1,
-                                                    offset: const Offset(0.0, 2.0),
+                                                    offset: Offset(0.0, 2.0),
                                                     blurRadius: 40.0,
                                                   )
                                                 ],
@@ -213,7 +213,7 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                                         letterSpacing: 0.0,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 2.0,
                                                 ),
@@ -256,7 +256,7 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
                                               contentPadding:
-                                                  const EdgeInsets.all(20.0),
+                                                  EdgeInsets.all(20.0),
                                               hoverColor:
                                                   FlutterFlowTheme.of(context)
                                                       .customColor1,
@@ -279,10 +279,10 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                         ),
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 15.0, 0.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
@@ -298,7 +298,7 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                                     .text.isEmpty) {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
-                                                    const SnackBar(
+                                                    SnackBar(
                                                       content: Text(
                                                         'Email required!',
                                                       ),
@@ -315,11 +315,11 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                               text: 'Send Recovery Email',
                                               options: FFButtonOptions(
                                                 height: 40.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -349,26 +349,26 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                         ),
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
                                               context.goNamed('LoginPage');
                                             },
                                             text: 'Back to Log In',
-                                            icon: const FaIcon(
+                                            icon: FaIcon(
                                               FontAwesomeIcons.arrowLeft,
                                               size: 14.0,
                                             ),
                                             options: FFButtonOptions(
                                               height: 40.0,
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
                                               iconAlignment:
                                                   IconAlignment.start,
-                                              iconPadding: const EdgeInsetsDirectional
+                                              iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color: const Color(0x00E0E3E7),
+                                              color: Color(0x00E0E3E7),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -394,7 +394,7 @@ class _RecoverAccountPageWidgetState extends State<RecoverAccountPageWidget>
                                             ),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(height: 10.0)),
+                                      ].divide(SizedBox(height: 10.0)),
                                     ),
                                   ),
                                 ),

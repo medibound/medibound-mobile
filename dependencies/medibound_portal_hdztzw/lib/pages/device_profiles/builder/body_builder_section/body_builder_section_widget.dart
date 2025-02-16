@@ -21,10 +21,12 @@ class BodyBuilderSectionWidget extends StatefulWidget {
     super.key,
     required this.bodySectionCallback,
     required this.bodySection,
+    required this.varList,
   });
 
   final Future Function(String id)? bodySectionCallback;
   final BodySectionStruct? bodySection;
+  final List<DeviceVariableStruct>? varList;
 
   @override
   State<BodyBuilderSectionWidget> createState() =>
@@ -366,6 +368,7 @@ class _BodyBuilderSectionWidgetState extends State<BodyBuilderSectionWidget> {
                                                   totalHeight: 100.0,
                                                   block: componentsItem,
                                                   spacing: 10.0,
+                                                  varList: widget!.varList!,
                                                 ),
                                               ),
                                               InkWell(

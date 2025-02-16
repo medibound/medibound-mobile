@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -20,6 +21,8 @@ class SelectComponentModel extends FlutterFlowModel<SelectComponentWidget> {
 
   // Model for VariableSelectedForComp.
   late OptionDropdownModel variableSelectedForCompModel;
+  // Model for ColorSelectedForComp.
+  late OptionDropdownModel colorSelectedForCompModel;
   // State field(s) for Size widget.
   FormFieldController<List<String>>? sizeValueController;
   String? get sizeValue => sizeValueController?.value?.firstOrNull;
@@ -32,12 +35,15 @@ class SelectComponentModel extends FlutterFlowModel<SelectComponentWidget> {
   void initState(BuildContext context) {
     variableSelectedForCompModel =
         createModel(context, () => OptionDropdownModel());
+    colorSelectedForCompModel =
+        createModel(context, () => OptionDropdownModel());
     emptyListModel = createModel(context, () => EmptyListModel());
   }
 
   @override
   void dispose() {
     variableSelectedForCompModel.dispose();
+    colorSelectedForCompModel.dispose();
     emptyListModel.dispose();
   }
 }

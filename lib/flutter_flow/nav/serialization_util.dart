@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '/backend/backend.dart';
 import "package:medibound_portal_hdztzw/backend/backend.dart"
     as medibound_portal_hdztzw_backend;
-import 'package:medibound_portal_hdztzw/backend/schema/structs/index.dart'
+import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
     as medibound_portal_hdztzw_data_schema;
 import '/backend/schema/enums/enums.dart';
 
@@ -210,8 +210,8 @@ dynamic deserializeParam<T>(
         return null;
       }
       return paramValues
-          .whereType<String>()
-          .map((p) => p)
+          .where((p) => p is String)
+          .map((p) => p as String)
           .map((p) => deserializeParam<T>(
                 p,
                 paramType,
@@ -285,7 +285,7 @@ Future<List<T>> Function(String) getDocList<T>(
     List<String> docIds = [];
     try {
       final ids = json.decode(idsList) as Iterable;
-      docIds = ids.whereType<String>().map((d) => d).toList();
+      docIds = ids.where((d) => d is String).map((d) => d as String).toList();
     } catch (_) {}
     return Future.wait(
       docIds.map(

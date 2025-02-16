@@ -71,7 +71,7 @@ class _IconTokenWidgetState extends State<IconTokenWidget> {
                   widget!.text,
                   'Text',
                 ).maybeHandleOverflow(
-                  maxChars: 10,
+                  maxChars: 15,
                   replacement: '…',
                 ),
                 maxLines: 1,

@@ -26,24 +26,24 @@ class FFAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<DropdownStruct> _Genders = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _Genders = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Male\",\"description\":\"he/him\",\"code\":\"male\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Female\",\"description\":\"she/her\",\"code\":\"female\"}')),
-    DropdownStruct.fromSerializableMap(
+    CodedValueStruct.fromSerializableMap(
         jsonDecode('{\"display\":\"Other\",\"code\":\"other\"}'))
   ];
-  List<DropdownStruct> get Genders => _Genders;
-  set Genders(List<DropdownStruct> value) {
+  List<CodedValueStruct> get Genders => _Genders;
+  set Genders(List<CodedValueStruct> value) {
     _Genders = value;
   }
 
-  void addToGenders(DropdownStruct value) {
+  void addToGenders(CodedValueStruct value) {
     Genders.add(value);
   }
 
-  void removeFromGenders(DropdownStruct value) {
+  void removeFromGenders(CodedValueStruct value) {
     Genders.remove(value);
   }
 
@@ -53,45 +53,45 @@ class FFAppState extends ChangeNotifier {
 
   void updateGendersAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     Genders[index] = updateFn(_Genders[index]);
   }
 
-  void insertAtIndexInGenders(int index, DropdownStruct value) {
+  void insertAtIndexInGenders(int index, CodedValueStruct value) {
     Genders.insert(index, value);
   }
 
-  List<DropdownStruct> _OrganizationTypes = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _OrganizationTypes = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Manufacturer\",\"description\":\"production and assembly of physical goods or devices\",\"code\":\"OT01\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Software Developer\",\"description\":\"creating and maintaining software applications and systems\",\"code\":\"OT02\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Health and Wellness\",\"description\":\"physical and mental well-being, often through products, services, or programs\",\"code\":\"OT03\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Fitness and Sports\",\"description\":\"athletic performance, exercise equipment, sports training, or related services\",\"code\":\"OT04\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Research and Development\",\"description\":\"innovation, experimentation, and the development of new technologies or products\",\"code\":\"OT05\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Security and Privacy\",\"description\":\"protection of data, devices, or physical environments through advanced security measures\",\"code\":\"OT06\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Fashion and Design\",\"description\":\"apparel, accessories, and aesthetic-focused design solutions\",\"code\":\"OT07\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Retail and Distribution\",\"description\":\"sale, delivery, and logistics of products to end-users or other businesses\",\"code\":\"OT08\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Education\",\"description\":\"learning, teaching, and knowledge dissemination through programs, tools, or platforms\",\"code\":\"OT09\"}'))
   ];
-  List<DropdownStruct> get OrganizationTypes => _OrganizationTypes;
-  set OrganizationTypes(List<DropdownStruct> value) {
+  List<CodedValueStruct> get OrganizationTypes => _OrganizationTypes;
+  set OrganizationTypes(List<CodedValueStruct> value) {
     _OrganizationTypes = value;
   }
 
-  void addToOrganizationTypes(DropdownStruct value) {
+  void addToOrganizationTypes(CodedValueStruct value) {
     OrganizationTypes.add(value);
   }
 
-  void removeFromOrganizationTypes(DropdownStruct value) {
+  void removeFromOrganizationTypes(CodedValueStruct value) {
     OrganizationTypes.remove(value);
   }
 
@@ -101,49 +101,49 @@ class FFAppState extends ChangeNotifier {
 
   void updateOrganizationTypesAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     OrganizationTypes[index] = updateFn(_OrganizationTypes[index]);
   }
 
-  void insertAtIndexInOrganizationTypes(int index, DropdownStruct value) {
+  void insertAtIndexInOrganizationTypes(int index, CodedValueStruct value) {
     OrganizationTypes.insert(index, value);
   }
 
-  List<DropdownStruct> _DeviceTypes = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _DeviceTypes = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Health Rings\",\"description\":\"Wearables\",\"code\":\"DT01\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Smart Watches\",\"description\":\"Wearables\",\"code\":\"DT02\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Fitness Bands\",\"description\":\"Wearables\",\"code\":\"DT03\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Smart Glasses\",\"description\":\"Wearables\",\"code\":\"DT04\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Activity Trackers\",\"description\":\"Wearables\",\"code\":\"DT05\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Sleep Monitors\",\"description\":\"Wearables\",\"code\":\"DT06\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Heart Rate Monitors\",\"description\":\"Wearables\",\"code\":\"DT07\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Smart Clothing\",\"description\":\"Wearables\",\"code\":\"DT08\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"GPS Trackers\",\"description\":\"Wearables\",\"code\":\"DT09\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"UV Sensors\",\"description\":\"Wearables\",\"code\":\"DT10\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Other\",\"description\":\"Other\",\"code\":\"OTHER\"}'))
   ];
-  List<DropdownStruct> get DeviceTypes => _DeviceTypes;
-  set DeviceTypes(List<DropdownStruct> value) {
+  List<CodedValueStruct> get DeviceTypes => _DeviceTypes;
+  set DeviceTypes(List<CodedValueStruct> value) {
     _DeviceTypes = value;
   }
 
-  void addToDeviceTypes(DropdownStruct value) {
+  void addToDeviceTypes(CodedValueStruct value) {
     DeviceTypes.add(value);
   }
 
-  void removeFromDeviceTypes(DropdownStruct value) {
+  void removeFromDeviceTypes(CodedValueStruct value) {
     DeviceTypes.remove(value);
   }
 
@@ -153,33 +153,33 @@ class FFAppState extends ChangeNotifier {
 
   void updateDeviceTypesAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     DeviceTypes[index] = updateFn(_DeviceTypes[index]);
   }
 
-  void insertAtIndexInDeviceTypes(int index, DropdownStruct value) {
+  void insertAtIndexInDeviceTypes(int index, CodedValueStruct value) {
     DeviceTypes.insert(index, value);
   }
 
-  List<DropdownStruct> _UserRoles = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _UserRoles = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Owner\",\"description\":\"\",\"code\":\"OWNER\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Admin\",\"description\":\"\",\"code\":\"ADMIN\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Member\",\"description\":\"\",\"code\":\"MEMBER\"}'))
   ];
-  List<DropdownStruct> get UserRoles => _UserRoles;
-  set UserRoles(List<DropdownStruct> value) {
+  List<CodedValueStruct> get UserRoles => _UserRoles;
+  set UserRoles(List<CodedValueStruct> value) {
     _UserRoles = value;
   }
 
-  void addToUserRoles(DropdownStruct value) {
+  void addToUserRoles(CodedValueStruct value) {
     UserRoles.add(value);
   }
 
-  void removeFromUserRoles(DropdownStruct value) {
+  void removeFromUserRoles(CodedValueStruct value) {
     UserRoles.remove(value);
   }
 
@@ -189,33 +189,33 @@ class FFAppState extends ChangeNotifier {
 
   void updateUserRolesAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     UserRoles[index] = updateFn(_UserRoles[index]);
   }
 
-  void insertAtIndexInUserRoles(int index, DropdownStruct value) {
+  void insertAtIndexInUserRoles(int index, CodedValueStruct value) {
     UserRoles.insert(index, value);
   }
 
-  List<DropdownStruct> _DeviceTransferTypes = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _DeviceTransferTypes = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Live Bluetooth Low Energy\",\"description\":\"Real-time, continuous data streaming for dynamic health monitoring.\",\"code\":\"LBLE\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Static Bluetooth Low Energy\",\"description\":\"One-time data transfer for intermittent diagnostics and results.\",\"code\":\"SBLE\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Static NFC\",\"description\":\"Quick, contactless data exchange for static health information.\",\"code\":\"SNFC\"}'))
   ];
-  List<DropdownStruct> get DeviceTransferTypes => _DeviceTransferTypes;
-  set DeviceTransferTypes(List<DropdownStruct> value) {
+  List<CodedValueStruct> get DeviceTransferTypes => _DeviceTransferTypes;
+  set DeviceTransferTypes(List<CodedValueStruct> value) {
     _DeviceTransferTypes = value;
   }
 
-  void addToDeviceTransferTypes(DropdownStruct value) {
+  void addToDeviceTransferTypes(CodedValueStruct value) {
     DeviceTransferTypes.add(value);
   }
 
-  void removeFromDeviceTransferTypes(DropdownStruct value) {
+  void removeFromDeviceTransferTypes(CodedValueStruct value) {
     DeviceTransferTypes.remove(value);
   }
 
@@ -225,31 +225,31 @@ class FFAppState extends ChangeNotifier {
 
   void updateDeviceTransferTypesAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     DeviceTransferTypes[index] = updateFn(_DeviceTransferTypes[index]);
   }
 
-  void insertAtIndexInDeviceTransferTypes(int index, DropdownStruct value) {
+  void insertAtIndexInDeviceTransferTypes(int index, CodedValueStruct value) {
     DeviceTransferTypes.insert(index, value);
   }
 
-  List<DropdownStruct> _DeviceProfileModes = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _DeviceProfileModes = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Production\",\"description\":\"Live environment for real-world use and operations.\",\"code\":\"PROD\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Development\",\"description\":\"Testing environment for development and debugging.\",\"code\":\"DEVM\"}'))
   ];
-  List<DropdownStruct> get DeviceProfileModes => _DeviceProfileModes;
-  set DeviceProfileModes(List<DropdownStruct> value) {
+  List<CodedValueStruct> get DeviceProfileModes => _DeviceProfileModes;
+  set DeviceProfileModes(List<CodedValueStruct> value) {
     _DeviceProfileModes = value;
   }
 
-  void addToDeviceProfileModes(DropdownStruct value) {
+  void addToDeviceProfileModes(CodedValueStruct value) {
     DeviceProfileModes.add(value);
   }
 
-  void removeFromDeviceProfileModes(DropdownStruct value) {
+  void removeFromDeviceProfileModes(CodedValueStruct value) {
     DeviceProfileModes.remove(value);
   }
 
@@ -259,31 +259,31 @@ class FFAppState extends ChangeNotifier {
 
   void updateDeviceProfileModesAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     DeviceProfileModes[index] = updateFn(_DeviceProfileModes[index]);
   }
 
-  void insertAtIndexInDeviceProfileModes(int index, DropdownStruct value) {
+  void insertAtIndexInDeviceProfileModes(int index, CodedValueStruct value) {
     DeviceProfileModes.insert(index, value);
   }
 
-  List<DropdownStruct> _DeviceVariableTypes = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _DeviceVariableTypes = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"String\",\"description\":\"A series of characters\",\"code\":\"STRING\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Number\",\"description\":\"A series of decimal numbers\",\"code\":\"NUMBER\"}'))
   ];
-  List<DropdownStruct> get DeviceVariableTypes => _DeviceVariableTypes;
-  set DeviceVariableTypes(List<DropdownStruct> value) {
+  List<CodedValueStruct> get DeviceVariableTypes => _DeviceVariableTypes;
+  set DeviceVariableTypes(List<CodedValueStruct> value) {
     _DeviceVariableTypes = value;
   }
 
-  void addToDeviceVariableTypes(DropdownStruct value) {
+  void addToDeviceVariableTypes(CodedValueStruct value) {
     DeviceVariableTypes.add(value);
   }
 
-  void removeFromDeviceVariableTypes(DropdownStruct value) {
+  void removeFromDeviceVariableTypes(CodedValueStruct value) {
     DeviceVariableTypes.remove(value);
   }
 
@@ -293,26 +293,26 @@ class FFAppState extends ChangeNotifier {
 
   void updateDeviceVariableTypesAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     DeviceVariableTypes[index] = updateFn(_DeviceVariableTypes[index]);
   }
 
-  void insertAtIndexInDeviceVariableTypes(int index, DropdownStruct value) {
+  void insertAtIndexInDeviceVariableTypes(int index, CodedValueStruct value) {
     DeviceVariableTypes.insert(index, value);
   }
 
-  List<DropdownStruct> _EmptyDropdown = [];
-  List<DropdownStruct> get EmptyDropdown => _EmptyDropdown;
-  set EmptyDropdown(List<DropdownStruct> value) {
+  List<CodedValueStruct> _EmptyDropdown = [];
+  List<CodedValueStruct> get EmptyDropdown => _EmptyDropdown;
+  set EmptyDropdown(List<CodedValueStruct> value) {
     _EmptyDropdown = value;
   }
 
-  void addToEmptyDropdown(DropdownStruct value) {
+  void addToEmptyDropdown(CodedValueStruct value) {
     EmptyDropdown.add(value);
   }
 
-  void removeFromEmptyDropdown(DropdownStruct value) {
+  void removeFromEmptyDropdown(CodedValueStruct value) {
     EmptyDropdown.remove(value);
   }
 
@@ -322,12 +322,12 @@ class FFAppState extends ChangeNotifier {
 
   void updateEmptyDropdownAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     EmptyDropdown[index] = updateFn(_EmptyDropdown[index]);
   }
 
-  void insertAtIndexInEmptyDropdown(int index, DropdownStruct value) {
+  void insertAtIndexInEmptyDropdown(int index, CodedValueStruct value) {
     EmptyDropdown.insert(index, value);
   }
 
@@ -412,24 +412,24 @@ class FFAppState extends ChangeNotifier {
     DeviceVariablePresetIntegrations.insert(index, value);
   }
 
-  List<DropdownStruct> _BlockSize = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _BlockSize = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Quarter Block\",\"description\":\"Quarter-Sized Block Component\",\"code\":\"QUARTER\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Half Block\",\"description\":\"Half-Sized Block Component\",\"code\":\"HALF\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"FULL BLOCK\",\"description\":\"Full-Sized Block Component\",\"code\":\"FULL\"}'))
   ];
-  List<DropdownStruct> get BlockSize => _BlockSize;
-  set BlockSize(List<DropdownStruct> value) {
+  List<CodedValueStruct> get BlockSize => _BlockSize;
+  set BlockSize(List<CodedValueStruct> value) {
     _BlockSize = value;
   }
 
-  void addToBlockSize(DropdownStruct value) {
+  void addToBlockSize(CodedValueStruct value) {
     BlockSize.add(value);
   }
 
-  void removeFromBlockSize(DropdownStruct value) {
+  void removeFromBlockSize(CodedValueStruct value) {
     BlockSize.remove(value);
   }
 
@@ -439,37 +439,37 @@ class FFAppState extends ChangeNotifier {
 
   void updateBlockSizeAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     BlockSize[index] = updateFn(_BlockSize[index]);
   }
 
-  void insertAtIndexInBlockSize(int index, DropdownStruct value) {
+  void insertAtIndexInBlockSize(int index, CodedValueStruct value) {
     BlockSize.insert(index, value);
   }
 
-  List<DropdownStruct> _BlockColors = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Crayola\",\"description\":\"Bright Pink #EF476F\",\"code\":\"EF476F\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Amber\",\"description\":\"Sunset Orange #FFC43D\",\"code\":\"FFC43D\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Emerald\",\"description\":\"Medibound Green #00D6A1\",\"code\":\"00D6A1\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Munsell\",\"description\":\"Blue #1B9AAA\",\"code\":\"1B9AAA\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Murrey\",\"description\":\"Purple #87255B\",\"code\":\"87255B\"}'))
+  List<CodedValueStruct> _BlockColors = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
+        '{\"display\":\"Crayola\",\"description\":\"Bright Pink\",\"code\":\"EF476F\",\"color\":\"#ef476f\"}')),
+    CodedValueStruct.fromSerializableMap(jsonDecode(
+        '{\"display\":\"Amber\",\"description\":\"Sunset Orange\",\"code\":\"FFC43D\",\"color\":\"#ffc43d\"}')),
+    CodedValueStruct.fromSerializableMap(jsonDecode(
+        '{\"display\":\"Emerald\",\"description\":\"Medibound Green\",\"code\":\"00D6A1\",\"color\":\"#00d6a1\"}')),
+    CodedValueStruct.fromSerializableMap(jsonDecode(
+        '{\"display\":\"Munsell\",\"description\":\"Blue\",\"code\":\"1B9AAA\",\"color\":\"#1b9aaa\"}')),
+    CodedValueStruct.fromSerializableMap(jsonDecode(
+        '{\"display\":\"Murrey\",\"description\":\"Purple\",\"code\":\"87255B\",\"color\":\"#87255b\"}'))
   ];
-  List<DropdownStruct> get BlockColors => _BlockColors;
-  set BlockColors(List<DropdownStruct> value) {
+  List<CodedValueStruct> get BlockColors => _BlockColors;
+  set BlockColors(List<CodedValueStruct> value) {
     _BlockColors = value;
   }
 
-  void addToBlockColors(DropdownStruct value) {
+  void addToBlockColors(CodedValueStruct value) {
     BlockColors.add(value);
   }
 
-  void removeFromBlockColors(DropdownStruct value) {
+  void removeFromBlockColors(CodedValueStruct value) {
     BlockColors.remove(value);
   }
 
@@ -479,77 +479,35 @@ class FFAppState extends ChangeNotifier {
 
   void updateBlockColorsAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     BlockColors[index] = updateFn(_BlockColors[index]);
   }
 
-  void insertAtIndexInBlockColors(int index, DropdownStruct value) {
+  void insertAtIndexInBlockColors(int index, CodedValueStruct value) {
     BlockColors.insert(index, value);
   }
 
-  List<SubblockComponentStruct> _Subblocks = [
-    SubblockComponentStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Column Graph\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"GRAPH_COLUMN\\\"}\",\"sizes\":\"[\\\"HALF\\\"]\",\"types\":\"[\\\"NUMBER_ARRAY\\\"]\"}')),
-    SubblockComponentStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Line Graph\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"GRAPH_LINE\\\"}\",\"sizes\":\"[\\\"HALF\\\"]\",\"types\":\"[\\\"NUMBER_ARRAY\\\"]\"}')),
-    SubblockComponentStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Radial Graph\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"GRAPH_RADIAL\\\"}\",\"sizes\":\"[\\\"QUARTER\\\"]\",\"types\":\"[\\\"NUMBER\\\",\\\"NUMBER_ARRAY\\\"]\"}')),
-    SubblockComponentStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Numerical Value\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"VALUE_NUM\\\"}\",\"sizes\":\"[\\\"QUARTER\\\",\\\"HALF\\\"]\",\"types\":\"[\\\"NUMBER\\\",\\\"NUMBER_ARRAY\\\"]\"}')),
-    SubblockComponentStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"String Value\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"VALUE_STRING\\\"}\",\"sizes\":\"[\\\"QUARTER\\\",\\\"HALF\\\"]\",\"types\":\"[\\\"STRING\\\",\\\"STRING_ARRAY\\\"]\"}')),
-    SubblockComponentStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Trend Value\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"VALUE_TREND\\\"}\",\"sizes\":\"[\\\"QUARTER\\\",\\\"HALF\\\"]\",\"types\":\"[\\\"NUMBER_ARRAY\\\"]\"}'))
-  ];
-  List<SubblockComponentStruct> get Subblocks => _Subblocks;
-  set Subblocks(List<SubblockComponentStruct> value) {
-    _Subblocks = value;
-  }
-
-  void addToSubblocks(SubblockComponentStruct value) {
-    Subblocks.add(value);
-  }
-
-  void removeFromSubblocks(SubblockComponentStruct value) {
-    Subblocks.remove(value);
-  }
-
-  void removeAtIndexFromSubblocks(int index) {
-    Subblocks.removeAt(index);
-  }
-
-  void updateSubblocksAtIndex(
-    int index,
-    SubblockComponentStruct Function(SubblockComponentStruct) updateFn,
-  ) {
-    Subblocks[index] = updateFn(_Subblocks[index]);
-  }
-
-  void insertAtIndexInSubblocks(int index, SubblockComponentStruct value) {
-    Subblocks.insert(index, value);
-  }
-
-  List<DropdownStruct> _DeviceStatus = [
-    DropdownStruct.fromSerializableMap(jsonDecode(
+  List<CodedValueStruct> _DeviceStatus = [
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Active\",\"description\":\"The device is fully functional and actively transmitting data.\",\"code\":\"ACTIVE\",\"color\":\"#01775a\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Inactive\",\"description\":\"The device is not currently in use but is available for activation.\",\"code\":\"INACTIVE\",\"color\":\"#d9fff67f\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Running\",\"description\":\"The device is actively operating and transmitting data in real time.\",\"code\":\"RUNNING\",\"color\":\"#f9cf58\"}')),
-    DropdownStruct.fromSerializableMap(jsonDecode(
+    CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Error\",\"description\":\"The device has encountered an issue that requires attention.\",\"code\":\"ERROR\",\"color\":\"#ff5963\"}'))
   ];
-  List<DropdownStruct> get DeviceStatus => _DeviceStatus;
-  set DeviceStatus(List<DropdownStruct> value) {
+  List<CodedValueStruct> get DeviceStatus => _DeviceStatus;
+  set DeviceStatus(List<CodedValueStruct> value) {
     _DeviceStatus = value;
   }
 
-  void addToDeviceStatus(DropdownStruct value) {
+  void addToDeviceStatus(CodedValueStruct value) {
     DeviceStatus.add(value);
   }
 
-  void removeFromDeviceStatus(DropdownStruct value) {
+  void removeFromDeviceStatus(CodedValueStruct value) {
     DeviceStatus.remove(value);
   }
 
@@ -559,12 +517,12 @@ class FFAppState extends ChangeNotifier {
 
   void updateDeviceStatusAtIndex(
     int index,
-    DropdownStruct Function(DropdownStruct) updateFn,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
     DeviceStatus[index] = updateFn(_DeviceStatus[index]);
   }
 
-  void insertAtIndexInDeviceStatus(int index, DropdownStruct value) {
+  void insertAtIndexInDeviceStatus(int index, CodedValueStruct value) {
     DeviceStatus.insert(index, value);
   }
 }

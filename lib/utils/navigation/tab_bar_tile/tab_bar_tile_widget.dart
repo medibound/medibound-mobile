@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +14,7 @@ class TabBarTileWidget extends StatefulWidget {
     this.image,
     bool? active,
     required this.onClick,
-  }) : active = active ?? false;
+  }) : this.active = active ?? false;
 
   final String? text;
   final Widget? icon;
@@ -63,9 +64,9 @@ class _TabBarTileWidgetState extends State<TabBarTileWidget> {
       child: Container(
         width: 100.0,
         height: 100.0,
-        decoration: const BoxDecoration(),
+        decoration: BoxDecoration(),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(10.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -79,7 +80,7 @@ class _TabBarTileWidgetState extends State<TabBarTileWidget> {
                       width: 24.0,
                       height: 24.0,
                       clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
                       ),
                       child: Image.network(
@@ -91,16 +92,17 @@ class _TabBarTileWidgetState extends State<TabBarTileWidget> {
                     return Container(
                       width: 36.0,
                       height: 36.0,
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                     );
                   }
                 },
               ),
-              Text(
+              AutoSizeText(
                 valueOrDefault<String>(
                   widget.text,
                   'Home',
                 ),
+                textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Rubik',
                       color: widget.active

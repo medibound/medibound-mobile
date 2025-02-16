@@ -18,9 +18,9 @@ import 'package:provider/provider.dart';
 class OptionDropdownModel extends FlutterFlowModel<OptionDropdownWidget> {
   ///  Local state fields for this component.
 
-  DropdownStruct? option;
-  void updateOptionStruct(Function(DropdownStruct) updateFn) {
-    updateFn(option ??= DropdownStruct());
+  CodedValueStruct? option;
+  void updateOptionStruct(Function(CodedValueStruct) updateFn) {
+    updateFn(option ??= CodedValueStruct());
   }
 
   ///  State fields for stateful widgets in this component.

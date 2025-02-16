@@ -7,3 +7,6 @@ export '/pages/auth/recover_account_page/recover_account_page_widget.dart'
     show RecoverAccountPageWidget;
 export '/pages/you_page/you_page_widget.dart' show YouPageWidget;
 export '/pages/streams_page/streams_page_widget.dart' show StreamsPageWidget;
+export '/pages/insights_page/insights_page_widget.dart' show InsightsPageWidget;
+export '/pages/streams/insights_message_page/insights_message_page_widget.dart'
+    show InsightsMessagePageWidget;

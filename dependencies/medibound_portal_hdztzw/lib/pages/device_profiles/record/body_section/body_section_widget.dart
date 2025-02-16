@@ -19,10 +19,12 @@ class BodySectionWidget extends StatefulWidget {
     super.key,
     required this.bodySection,
     required this.bodySectionWidth,
+    required this.varList,
   });
 
   final BodySectionStruct? bodySection;
   final double? bodySectionWidth;
+  final List<DeviceVariableStruct>? varList;
 
   @override
   State<BodySectionWidget> createState() => _BodySectionWidgetState();
@@ -200,6 +202,7 @@ class _BodySectionWidgetState extends State<BodySectionWidget> {
                                                       4,
                                               block: componentsItem,
                                               spacing: 7.5,
+                                              varList: widget!.varList!,
                                             ),
                                           ],
                                         ),

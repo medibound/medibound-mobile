@@ -31,11 +31,11 @@ class OptionDropdownWidget extends StatefulWidget {
 
   final double width;
   final String? label;
-  final List<DropdownStruct>? optionsList;
+  final List<CodedValueStruct>? optionsList;
   final Options? optionType;
-  final DropdownStruct? initialOption;
+  final CodedValueStruct? initialOption;
   final bool disabled;
-  final Future Function(DropdownStruct optionSelected)? onSelected;
+  final Future Function(CodedValueStruct optionSelected)? onSelected;
 
   @override
   State<OptionDropdownWidget> createState() => _OptionDropdownWidgetState();
@@ -292,23 +292,48 @@ class _OptionDropdownWidgetState extends State<OptionDropdownWidget> {
                           builder: (context) {
                             if ((_model.option != null) &&
                                 (widget!.disabled == false)) {
-                              return FlutterFlowIconButton(
-                                borderRadius: 8.0,
-                                buttonSize: 40.0,
-                                hoverColor: Colors.transparent,
-                                icon: Icon(
-                                  Icons.close,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 16.0,
-                                ),
-                                onPressed: () async {
-                                  _model.option = null;
-                                  safeSetState(() {});
-                                  safeSetState(() {
-                                    _model.dropdownTextController?.clear();
-                                  });
-                                },
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  FlutterFlowIconButton(
+                                    borderRadius: 8.0,
+                                    buttonSize: 40.0,
+                                    hoverColor: Colors.transparent,
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 16.0,
+                                    ),
+                                    onPressed: () async {
+                                      _model.option = null;
+                                      safeSetState(() {});
+                                      safeSetState(() {
+                                        _model.dropdownTextController?.clear();
+                                      });
+                                    },
+                                  ),
+                                  if ((_model.option != null) &&
+                                      _model.option!.hasColor())
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 5.0, 0.0),
+                                      child: Container(
+                                        width: 20.0,
+                                        height: 20.0,
+                                        decoration: BoxDecoration(
+                                          color: _model.option?.color,
+                                          borderRadius:
+                                              BorderRadius.circular(100.0),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
                               );
                             } else {
                               return Container(

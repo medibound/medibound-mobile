@@ -15,10 +15,12 @@ class HeaderWidget extends StatefulWidget {
     super.key,
     required this.header,
     required this.headerWidth,
+    required this.varList,
   });
 
   final List<BlockComponentStruct>? header;
   final double? headerWidth;
+  final List<DeviceVariableStruct>? varList;
 
   @override
   State<HeaderWidget> createState() => _HeaderWidgetState();
@@ -111,6 +113,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                             totalHeight: ((widget!.headerWidth!) - 37.5) / 4,
                             block: headerComponentsItem,
                             spacing: 7.5,
+                            varList: widget!.varList!,
                           ),
                         ],
                       );

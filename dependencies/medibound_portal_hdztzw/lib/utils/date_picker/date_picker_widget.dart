@@ -174,6 +174,10 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   _datePickedDate.day,
                 );
               });
+            } else if (_model.datePicked != null) {
+              safeSetState(() {
+                _model.datePicked = getCurrentTimestamp;
+              });
             }
             safeSetState(() {
               _model.textController?.text = dateTimeFormat(

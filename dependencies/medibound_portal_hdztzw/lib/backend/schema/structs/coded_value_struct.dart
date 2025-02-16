@@ -9,8 +9,8 @@ import '/backend/schema/enums/enums.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class DropdownStruct extends FFFirebaseStruct {
-  DropdownStruct({
+class CodedValueStruct extends FFFirebaseStruct {
+  CodedValueStruct({
     String? display,
     String? description,
     String? code,
@@ -59,7 +59,8 @@ class DropdownStruct extends FFFirebaseStruct {
 
   bool hasIcon() => _icon != null;
 
-  static DropdownStruct fromMap(Map<String, dynamic> data) => DropdownStruct(
+  static CodedValueStruct fromMap(Map<String, dynamic> data) =>
+      CodedValueStruct(
         display: data['display'] as String?,
         description: data['description'] as String?,
         code: data['code'] as String?,
@@ -67,8 +68,9 @@ class DropdownStruct extends FFFirebaseStruct {
         icon: data['icon'] as String?,
       );
 
-  static DropdownStruct? maybeFromMap(dynamic data) =>
-      data is Map ? DropdownStruct.fromMap(data.cast<String, dynamic>()) : null;
+  static CodedValueStruct? maybeFromMap(dynamic data) => data is Map
+      ? CodedValueStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'display': _display,
@@ -102,8 +104,8 @@ class DropdownStruct extends FFFirebaseStruct {
         ),
       }.withoutNulls;
 
-  static DropdownStruct fromSerializableMap(Map<String, dynamic> data) =>
-      DropdownStruct(
+  static CodedValueStruct fromSerializableMap(Map<String, dynamic> data) =>
+      CodedValueStruct(
         display: deserializeParam(
           data['display'],
           ParamType.String,
@@ -131,8 +133,8 @@ class DropdownStruct extends FFFirebaseStruct {
         ),
       );
 
-  static DropdownStruct fromAlgoliaData(Map<String, dynamic> data) =>
-      DropdownStruct(
+  static CodedValueStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      CodedValueStruct(
         display: convertAlgoliaParam(
           data['display'],
           ParamType.String,
@@ -165,11 +167,11 @@ class DropdownStruct extends FFFirebaseStruct {
       );
 
   @override
-  String toString() => 'DropdownStruct(${toMap()})';
+  String toString() => 'CodedValueStruct(${toMap()})';
 
   @override
   bool operator ==(Object other) {
-    return other is DropdownStruct &&
+    return other is CodedValueStruct &&
         display == other.display &&
         description == other.description &&
         code == other.code &&
@@ -182,7 +184,7 @@ class DropdownStruct extends FFFirebaseStruct {
       const ListEquality().hash([display, description, code, color, icon]);
 }
 
-DropdownStruct createDropdownStruct({
+CodedValueStruct createCodedValueStruct({
   String? display,
   String? description,
   String? code,
@@ -193,7 +195,7 @@ DropdownStruct createDropdownStruct({
   bool create = false,
   bool delete = false,
 }) =>
-    DropdownStruct(
+    CodedValueStruct(
       display: display,
       description: description,
       code: code,
@@ -207,61 +209,61 @@ DropdownStruct createDropdownStruct({
       ),
     );
 
-DropdownStruct? updateDropdownStruct(
-  DropdownStruct? dropdown, {
+CodedValueStruct? updateCodedValueStruct(
+  CodedValueStruct? codedValue, {
   bool clearUnsetFields = true,
   bool create = false,
 }) =>
-    dropdown
+    codedValue
       ?..firestoreUtilData = FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
       );
 
-void addDropdownStructData(
+void addCodedValueStructData(
   Map<String, dynamic> firestoreData,
-  DropdownStruct? dropdown,
+  CodedValueStruct? codedValue,
   String fieldName, [
   bool forFieldValue = false,
 ]) {
   firestoreData.remove(fieldName);
-  if (dropdown == null) {
+  if (codedValue == null) {
     return;
   }
-  if (dropdown.firestoreUtilData.delete) {
+  if (codedValue.firestoreUtilData.delete) {
     firestoreData[fieldName] = FieldValue.delete();
     return;
   }
   final clearFields =
-      !forFieldValue && dropdown.firestoreUtilData.clearUnsetFields;
+      !forFieldValue && codedValue.firestoreUtilData.clearUnsetFields;
   if (clearFields) {
     firestoreData[fieldName] = <String, dynamic>{};
   }
-  final dropdownData = getDropdownFirestoreData(dropdown, forFieldValue);
-  final nestedData = dropdownData.map((k, v) => MapEntry('$fieldName.$k', v));
+  final codedValueData = getCodedValueFirestoreData(codedValue, forFieldValue);
+  final nestedData = codedValueData.map((k, v) => MapEntry('$fieldName.$k', v));
 
-  final mergeFields = dropdown.firestoreUtilData.create || clearFields;
+  final mergeFields = codedValue.firestoreUtilData.create || clearFields;
   firestoreData
       .addAll(mergeFields ? mergeNestedFields(nestedData) : nestedData);
 }
 
-Map<String, dynamic> getDropdownFirestoreData(
-  DropdownStruct? dropdown, [
+Map<String, dynamic> getCodedValueFirestoreData(
+  CodedValueStruct? codedValue, [
   bool forFieldValue = false,
 ]) {
-  if (dropdown == null) {
+  if (codedValue == null) {
     return {};
   }
-  final firestoreData = mapToFirestore(dropdown.toMap());
+  final firestoreData = mapToFirestore(codedValue.toMap());
 
   // Add any Firestore field values
-  dropdown.firestoreUtilData.fieldValues
+  codedValue.firestoreUtilData.fieldValues
       .forEach((k, v) => firestoreData[k] = v);
 
   return forFieldValue ? mergeNestedFields(firestoreData) : firestoreData;
 }
 
-List<Map<String, dynamic>> getDropdownListFirestoreData(
-  List<DropdownStruct>? dropdowns,
+List<Map<String, dynamic>> getCodedValueListFirestoreData(
+  List<CodedValueStruct>? codedValues,
 ) =>
-    dropdowns?.map((e) => getDropdownFirestoreData(e, true)).toList() ?? [];
+    codedValues?.map((e) => getCodedValueFirestoreData(e, true)).toList() ?? [];

@@ -21,9 +21,12 @@ class ComponentProfileTileWidget extends StatefulWidget {
     double? height,
     required this.widget,
     this.icon,
+    double? padding,
+    this.color,
   })  : this.titleSize = titleSize ?? 14.0,
         this.photoSize = photoSize ?? 35.0,
-        this.height = height ?? 50.0;
+        this.height = height ?? 50.0,
+        this.padding = padding ?? 10.0;
 
   final String? display;
   final String? subtitle;
@@ -33,6 +36,8 @@ class ComponentProfileTileWidget extends StatefulWidget {
   final double height;
   final Widget Function()? widget;
   final Widget? icon;
+  final double padding;
+  final Color? color;
 
   @override
   State<ComponentProfileTileWidget> createState() =>
@@ -84,7 +89,17 @@ class _ComponentProfileTileWidgetState
                   : Color(0x00000000),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(
+                  valueOrDefault<double>(
+                    widget!.padding,
+                    0.0,
+                  ),
+                  0.0,
+                  valueOrDefault<double>(
+                    widget!.padding,
+                    0.0,
+                  ),
+                  0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -113,6 +128,26 @@ class _ComponentProfileTileWidgetState
                                 width: widget!.photoSize,
                                 height: widget!.photoSize,
                                 fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        );
+                      } else if (widget!.color != null) {
+                        return Visibility(
+                          visible: widget!.color != null,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 5.0, 0.0),
+                            child: Container(
+                              width: 20.0,
+                              height: 20.0,
+                              decoration: BoxDecoration(
+                                color: widget!.color,
+                                borderRadius: BorderRadius.circular(100.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 1.0,
+                                ),
                               ),
                             ),
                           ),
@@ -166,7 +201,7 @@ class _ComponentProfileTileWidgetState
                     return widget.widget!();
                   }),
                   Container(
-                    width: 40.0,
+                    width: 20.0,
                     decoration: BoxDecoration(),
                     alignment: AlignmentDirectional(0.0, 0.0),
                     child: FaIcon(

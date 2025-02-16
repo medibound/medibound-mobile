@@ -14,7 +14,12 @@ import 'header_builder_model.dart';
 export 'header_builder_model.dart';
 
 class HeaderBuilderWidget extends StatefulWidget {
-  const HeaderBuilderWidget({super.key});
+  const HeaderBuilderWidget({
+    super.key,
+    required this.varList,
+  });
+
+  final List<DeviceVariableStruct>? varList;
 
   @override
   State<HeaderBuilderWidget> createState() => _HeaderBuilderWidgetState();
@@ -158,6 +163,7 @@ class _HeaderBuilderWidgetState extends State<HeaderBuilderWidget> {
                                     totalHeight: 100.0,
                                     block: headerComponentsItem,
                                     spacing: 10.0,
+                                    varList: widget!.varList!,
                                   ),
                                 ),
                                 InkWell(

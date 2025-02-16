@@ -327,7 +327,7 @@ class _CreateDeviceVariableWidgetState
                                     if ((_model.variableTypeModel.option !=
                                             null) &&
                                         (_model.variableTypeModel.option !=
-                                            DropdownStruct(
+                                            CodedValueStruct(
                                               display: '',
                                               description: '',
                                               code: '',
@@ -353,7 +353,7 @@ class _CreateDeviceVariableWidgetState
                                                               ?.code) ||
                                                       (e.type == 'CUSTOM'))
                                                   .toList()),
-                                          initialOption: DropdownStruct(
+                                          initialOption: CodedValueStruct(
                                             display: '',
                                             description: '',
                                             code: '',
@@ -442,7 +442,7 @@ class _CreateDeviceVariableWidgetState
                                                 await widget.variableCallback
                                                     ?.call(
                                                   DeviceVariableStruct(
-                                                    info: DropdownStruct(
+                                                    info: CodedValueStruct(
                                                       display: _model
                                                           .variableNameTextController
                                                           .text,
@@ -1154,7 +1154,7 @@ class _CreateDeviceVariableWidgetState
                                                                   )!
                                                                   .toList())
                                                           .firstOrNull
-                                                      : DropdownStruct(
+                                                      : CodedValueStruct(
                                                           display: '',
                                                           description: '',
                                                           code: '',
@@ -1261,7 +1261,7 @@ class _CreateDeviceVariableWidgetState
                                                         .variableCallback
                                                         ?.call(
                                                       DeviceVariableStruct(
-                                                        info: DropdownStruct(
+                                                        info: CodedValueStruct(
                                                           display: _model
                                                               .variableNameTextController
                                                               .text,
@@ -1304,6 +1304,10 @@ class _CreateDeviceVariableWidgetState
                                                             double.tryParse(_model
                                                                 .lowerBoundTextController
                                                                 .text)),
+                                                        preset: _model
+                                                            .presetIntegrationModel
+                                                            .option
+                                                            ?.code,
                                                       ),
                                                     );
                                                     Navigator.pop(context);

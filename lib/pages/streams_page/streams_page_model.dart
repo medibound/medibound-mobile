@@ -7,6 +7,10 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 class StreamsPageModel extends FlutterFlowModel<StreamsPageWidget> {
+  ///  Local state fields for this page.
+
+  bool isEdit = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Firestore Query - Query a collection] action in StreamsPage widget.

@@ -2,10 +2,9 @@
 import '/backend/backend.dart';
 import "package:medibound_portal_hdztzw/backend/backend.dart"
     as medibound_portal_hdztzw_backend;
-import 'package:medibound_portal_hdztzw/backend/schema/structs/index.dart'
+import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
     as medibound_portal_hdztzw_data_schema;
 import '/backend/schema/structs/index.dart';
-import '/actions/actions.dart' as action_blocks;
 import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
     as medibound_portal_hdztzw_data_schema;
 import "package:medibound_portal_hdztzw/backend/schema/enums/enums.dart"
@@ -24,7 +23,7 @@ Future<List<BluetoothDeviceStruct>> getDevices(
   final List<BluetoothDeviceStruct> devices = [];
 
   final subscription = FlutterBluePlus.onScanResults.listen(
-    (results) {
+    (results) async {
       // If there are any scan results
 
       if (results.isNotEmpty) {
@@ -55,7 +54,7 @@ Future<List<BluetoothDeviceStruct>> getDevices(
 
           // If a callback is passed, invoke it with the new device
           if (onCallback != null) {
-            onCallback(newDevice);
+            await onCallback(newDevice);
           }
 
           // Optional debug print

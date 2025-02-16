@@ -18,8 +18,8 @@ class DeviceRecord extends FirestoreRecord {
   }
 
   // "info" field.
-  DropdownStruct? _info;
-  DropdownStruct get info => _info ?? DropdownStruct();
+  CodedValueStruct? _info;
+  CodedValueStruct get info => _info ?? CodedValueStruct();
   bool hasInfo() => _info != null;
 
   // "profile" field.
@@ -65,9 +65,9 @@ class DeviceRecord extends FirestoreRecord {
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
-    _info = snapshotData['info'] is DropdownStruct
+    _info = snapshotData['info'] is CodedValueStruct
         ? snapshotData['info']
-        : DropdownStruct.maybeFromMap(snapshotData['info']);
+        : CodedValueStruct.maybeFromMap(snapshotData['info']);
     _profile = snapshotData['profile'] as DocumentReference?;
     _status = snapshotData['status'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
@@ -119,7 +119,7 @@ class DeviceRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createDeviceRecordData({
-  DropdownStruct? info,
+  CodedValueStruct? info,
   DocumentReference? profile,
   String? status,
   DateTime? createdTime,
@@ -131,7 +131,7 @@ Map<String, dynamic> createDeviceRecordData({
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'info': DropdownStruct().toMap(),
+      'info': CodedValueStruct().toMap(),
       'profile': profile,
       'status': status,
       'created_time': createdTime,
@@ -144,7 +144,7 @@ Map<String, dynamic> createDeviceRecordData({
   );
 
   // Handle nested data for "info" field.
-  addDropdownStructData(firestoreData, info, 'info');
+  addCodedValueStructData(firestoreData, info, 'info');
 
   // Handle nested data for "key" field.
   addKeyStructData(firestoreData, key, 'key');

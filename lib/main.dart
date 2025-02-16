@@ -26,6 +26,7 @@ void main() async {
 
   // Start initial custom actions code
   await actions.initDeviceLog();
+  await actions.fixDeviceOrientationUp();
   // End initial custom actions code
 
   await FlutterFlowTheme.initialize();
@@ -33,9 +34,9 @@ void main() async {
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
 
-  final mediboundPortalHdztzwappstate =
+  final medibound_portal_hdztzwAppState =
       medibound_portal_hdztzw_app_state.FFAppState();
-  await mediboundPortalHdztzwappstate.initializePersistedState();
+  await medibound_portal_hdztzwAppState.initializePersistedState();
 
   // Start final custom actions code
   await actions.initDeviceEvents();
@@ -47,16 +48,14 @@ void main() async {
         create: (context) => appState,
       ),
       ChangeNotifierProvider(
-        create: (context) => mediboundPortalHdztzwappstate,
+        create: (context) => medibound_portal_hdztzwAppState,
       ),
     ],
-    child: const MyApp(),
+    child: MyApp(),
   ));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   State<MyApp> createState() => _MyAppState();
@@ -97,7 +96,7 @@ class _MyAppState extends State<MyApp> {
       });
     jwtTokenStream.listen((_) {});
     Future.delayed(
-      const Duration(milliseconds: 1000),
+      Duration(milliseconds: 2000),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
@@ -122,7 +121,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Medibound-Mobile',
-      localizationsDelegates: const [
+      localizationsDelegates: [
         FFLocalizationsDelegate(),
         medibound_portal_hdztzw_internationalization.FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

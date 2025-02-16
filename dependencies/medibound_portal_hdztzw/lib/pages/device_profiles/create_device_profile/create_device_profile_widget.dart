@@ -1325,8 +1325,10 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                         .headerBuilderModel,
                                                     updateCallback: () =>
                                                         safeSetState(() {}),
-                                                    child:
-                                                        HeaderBuilderWidget(),
+                                                    child: HeaderBuilderWidget(
+                                                      varList:
+                                                          _model.variableList,
+                                                    ),
                                                   ),
                                                   StyledDivider(
                                                     thickness: 1.0,
@@ -1342,7 +1344,10 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                     updateCallback: () =>
                                                         safeSetState(() {}),
                                                     updateOnChange: true,
-                                                    child: BodyBuilderWidget(),
+                                                    child: BodyBuilderWidget(
+                                                      varList:
+                                                          _model.variableList,
+                                                    ),
                                                   ),
                                                 ].divide(
                                                     SizedBox(height: 10.0)),
@@ -1546,21 +1551,16 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                     model: _model.recordViewerModel,
                                     updateCallback: () => safeSetState(() {}),
                                     child: RecordViewerWidget(
-                                      record: RecordStruct(
-                                        info: DropdownStruct(
-                                          display: 'Example Record',
-                                        ),
-                                        sections: _model
-                                            .bodyBuilderModel.bodySections,
-                                        header:
-                                            _model.headerBuilderModel.header,
-                                        organization:
-                                            _model.profileDropdownModel.profile,
-                                        device: ProfileStruct(
-                                          displayName: _model
-                                              .deviceNameTextController.text,
-                                        ),
+                                      header: _model.headerBuilderModel.header,
+                                      sections:
+                                          _model.bodyBuilderModel.bodySections,
+                                      profile: ProfileStruct(
+                                        displayName: _model
+                                            .deviceNameTextController.text,
+                                        photoUrl: _model.profileDropdownModel
+                                            .profile?.photoUrl,
                                       ),
+                                      varList: _model.variableList,
                                     ),
                                   ),
                                 ),
@@ -1645,6 +1645,104 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                               singleRecord: true,
                                             ).then((s) => s.firstOrNull);
 
+                                            var recordTemplateRecordReference =
+                                                RecordTemplateRecord.collection
+                                                    .doc();
+                                            firestoreBatch.set(
+                                                recordTemplateRecordReference, {
+                                              ...createRecordTemplateRecordData(
+                                                info: createCodedValueStruct(
+                                                  display:
+                                                      '${_model.deviceNameTextController.text} Record',
+                                                  clearUnsetFields: false,
+                                                  create: true,
+                                                ),
+                                                source: updateSourceStruct(
+                                                  SourceStruct(
+                                                    sourceType:
+                                                        CollectionSources
+                                                            .DEVICES,
+                                                  ),
+                                                  clearUnsetFields: false,
+                                                  create: true,
+                                                ),
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'header':
+                                                      getBlockComponentListFirestoreData(
+                                                    _model.headerBuilderModel
+                                                        .header,
+                                                  ),
+                                                  'sections':
+                                                      getBodySectionListFirestoreData(
+                                                    _model.bodyBuilderModel
+                                                        .bodySections,
+                                                  ),
+                                                  'created_time': FieldValue
+                                                      .serverTimestamp(),
+                                                  'edited_time': FieldValue
+                                                      .serverTimestamp(),
+                                                  'variables':
+                                                      getDeviceVariableListFirestoreData(
+                                                    _model.variableList,
+                                                  ),
+                                                },
+                                              ),
+                                            });
+                                            _model.recordTemp =
+                                                RecordTemplateRecord
+                                                    .getDocumentFromData({
+                                              ...createRecordTemplateRecordData(
+                                                info: createCodedValueStruct(
+                                                  display:
+                                                      '${_model.deviceNameTextController.text} Record',
+                                                  clearUnsetFields: false,
+                                                  create: true,
+                                                ),
+                                                source: updateSourceStruct(
+                                                  SourceStruct(
+                                                    sourceType:
+                                                        CollectionSources
+                                                            .DEVICES,
+                                                  ),
+                                                  clearUnsetFields: false,
+                                                  create: true,
+                                                ),
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'header':
+                                                      getBlockComponentListFirestoreData(
+                                                    _model.headerBuilderModel
+                                                        .header,
+                                                  ),
+                                                  'sections':
+                                                      getBodySectionListFirestoreData(
+                                                    _model.bodyBuilderModel
+                                                        .bodySections,
+                                                  ),
+                                                  'created_time':
+                                                      DateTime.now(),
+                                                  'edited_time': DateTime.now(),
+                                                  'variables':
+                                                      getDeviceVariableListFirestoreData(
+                                                    _model.variableList,
+                                                  ),
+                                                },
+                                              ),
+                                            }, recordTemplateRecordReference);
+
+                                            firestoreBatch.update(
+                                                _model.recordTemp!.reference,
+                                                createRecordTemplateRecordData(
+                                                  info: createCodedValueStruct(
+                                                    code: _model.recordTemp
+                                                        ?.reference.id,
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                ));
+
                                             var deviceProfilesRecordReference =
                                                 DeviceProfilesRecord.collection
                                                     .doc();
@@ -1667,31 +1765,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                     ?.code,
                                                 type: _model
                                                     .typeModel.option?.code,
-                                                recordTemplate:
-                                                    updateRecordStruct(
-                                                  RecordStruct(
-                                                    info: DropdownStruct(
-                                                      display: 'Example Record',
-                                                    ),
-                                                    sections: _model
-                                                        .bodyBuilderModel
-                                                        .bodySections,
-                                                    header: _model
-                                                        .headerBuilderModel
-                                                        .header,
-                                                    organization: _model
-                                                        .profileDropdownModel
-                                                        .profile,
-                                                    device: ProfileStruct(
-                                                      displayName: _model
-                                                          .deviceNameTextController
-                                                          .text,
-                                                    ),
-                                                  ),
-                                                  clearUnsetFields: false,
-                                                  create: true,
-                                                ),
-                                                info: createDropdownStruct(
+                                                recordTemplate: _model
+                                                    .recordTemp?.reference,
+                                                info: createCodedValueStruct(
                                                   display: _model
                                                       .deviceNameTextController
                                                       .text,
@@ -1706,10 +1782,6 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                               ),
                                               ...mapToFirestore(
                                                 {
-                                                  'variables':
-                                                      getDeviceVariableListFirestoreData(
-                                                    _model.variableList,
-                                                  ),
                                                   'created_time': FieldValue
                                                       .serverTimestamp(),
                                                   'edited_time': FieldValue
@@ -1737,31 +1809,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                     ?.code,
                                                 type: _model
                                                     .typeModel.option?.code,
-                                                recordTemplate:
-                                                    updateRecordStruct(
-                                                  RecordStruct(
-                                                    info: DropdownStruct(
-                                                      display: 'Example Record',
-                                                    ),
-                                                    sections: _model
-                                                        .bodyBuilderModel
-                                                        .bodySections,
-                                                    header: _model
-                                                        .headerBuilderModel
-                                                        .header,
-                                                    organization: _model
-                                                        .profileDropdownModel
-                                                        .profile,
-                                                    device: ProfileStruct(
-                                                      displayName: _model
-                                                          .deviceNameTextController
-                                                          .text,
-                                                    ),
-                                                  ),
-                                                  clearUnsetFields: false,
-                                                  create: true,
-                                                ),
-                                                info: createDropdownStruct(
+                                                recordTemplate: _model
+                                                    .recordTemp?.reference,
+                                                info: createCodedValueStruct(
                                                   display: _model
                                                       .deviceNameTextController
                                                       .text,
@@ -1776,10 +1826,6 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                               ),
                                               ...mapToFirestore(
                                                 {
-                                                  'variables':
-                                                      getDeviceVariableListFirestoreData(
-                                                    _model.variableList,
-                                                  ),
                                                   'created_time':
                                                       DateTime.now(),
                                                   'edited_time': DateTime.now(),
@@ -1790,7 +1836,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                             firestoreBatch.update(
                                                 _model.deviceProfile!.reference,
                                                 createDeviceProfilesRecordData(
-                                                  info: createDropdownStruct(
+                                                  info: createCodedValueStruct(
                                                     code: _model.deviceProfile
                                                         ?.reference.id,
                                                     clearUnsetFields: false,

@@ -25,6 +25,10 @@ enum GraphOrientation {
   HORIZONTAL,
 }
 
+enum CollectionSources {
+  DEVICES,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -46,6 +50,8 @@ T? deserializeEnum<T>(String? value) {
       return Options.values.deserialize(value) as T?;
     case (GraphOrientation):
       return GraphOrientation.values.deserialize(value) as T?;
+    case (CollectionSources):
+      return CollectionSources.values.deserialize(value) as T?;
     default:
       return null;
   }

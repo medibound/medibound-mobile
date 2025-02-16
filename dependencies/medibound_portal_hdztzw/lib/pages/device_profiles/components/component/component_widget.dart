@@ -18,11 +18,13 @@ class ComponentWidget extends StatefulWidget {
     double? totalHeight,
     required this.block,
     required this.spacing,
+    required this.varList,
   }) : this.totalHeight = totalHeight ?? 100.0;
 
   final double totalHeight;
   final BlockComponentStruct? block;
   final double? spacing;
+  final List<DeviceVariableStruct>? varList;
 
   @override
   State<ComponentWidget> createState() => _ComponentWidgetState();
@@ -116,6 +118,7 @@ class _ComponentWidgetState extends State<ComponentWidget> {
                                       block: widget!.block!,
                                       graphIndex: 0,
                                       orientation: GraphOrientation.HORIZONTAL,
+                                      varList: widget!.varList!,
                                     ),
                                   ),
                                 );
@@ -128,6 +131,7 @@ class _ComponentWidgetState extends State<ComponentWidget> {
                                       block: widget!.block!,
                                       graphIndex: 0,
                                       orientation: GraphOrientation.HORIZONTAL,
+                                      varList: widget!.varList!,
                                     ),
                                   ),
                                 );

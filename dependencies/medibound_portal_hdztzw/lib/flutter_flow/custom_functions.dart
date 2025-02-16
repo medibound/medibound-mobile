@@ -23,16 +23,16 @@ List<RoledUserStruct> allRoledUsers(DocumentReference doc) {
   ];
 }
 
-List<DropdownStruct> arraysToDropdown(
+List<CodedValueStruct> arraysToDropdown(
   List<String> displays,
   List<String> descriptions,
   List<String> codes,
 ) {
   // take three arrays of strings and combine them into a list of dropdown datatypes
-  List<DropdownStruct> dropdownList = [];
+  List<CodedValueStruct> dropdownList = [];
 
   for (int i = 0; i < displays.length; i++) {
-    DropdownStruct dropdown = DropdownStruct(
+    CodedValueStruct dropdown = CodedValueStruct(
       display: toTitleCase(displays[i]),
       description: descriptions[i],
       code: codes[i],
@@ -61,12 +61,12 @@ String? toTitleCase(String input) {
   return titleCaseWords.join(' ');
 }
 
-List<DropdownStruct>? deviceVariablesToDropdowns(
+List<CodedValueStruct>? deviceVariablesToDropdowns(
     List<DeviceVariableStruct>? vars) {
   if (vars == null) return null; // Handle null input
 
   return vars.map((variable) {
-    return DropdownStruct(
+    return CodedValueStruct(
       display: variable.info?.display ??
           "", // Assuming 'display' exists in the struct
       description:
@@ -74,6 +74,51 @@ List<DropdownStruct>? deviceVariablesToDropdowns(
       code: variable.info?.code ?? "", // Assuming 'code' exists
     );
   }).toList();
+}
+
+List<DeviceVariableStruct> insertVarListData(
+  List<DeviceVariableStruct> varList,
+  dynamic json,
+) {
+  List<DeviceVariableStruct> returnValue = [];
+
+  for (var variable in varList) {
+    if (json.containsKey(variable.info.code)) {
+      switch (variable.type) {
+        case 'NUMBER':
+          variable.data.number = [
+            if (json[variable.info.code] is num)
+              json[variable.info.code].toDouble()
+            else
+              double.tryParse(json[variable.info.code].toString()) ?? 0.0
+          ];
+          returnValue.add(variable);
+          break;
+        case 'NUMBER_ARRAY':
+          variable.data.number = (json[variable.info.code] as List)
+              .map((e) => e is num
+                  ? e.toDouble()
+                  : double.tryParse(e.toString()) ?? 0.0)
+              .toList();
+          returnValue.add(variable);
+          break;
+        case 'STRING':
+          variable.data.string = [json[variable.info.code].toString()];
+          returnValue.add(variable);
+          break;
+        case 'STRING_ARRAY':
+          variable.data.string = (json[variable.info.code] as List)
+              .map((e) => e.toString())
+              .toList();
+          returnValue.add(variable);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  print(returnValue);
+  return returnValue;
 }
 
 double getBlockWidth(
@@ -192,5 +237,33 @@ bool acceptBlock(
     return true;
   } else {
     return false;
+  }
+}
+
+bool checkVarListAgainstData(
+  List<DeviceVariableStruct> varList,
+  dynamic json,
+) {
+  bool returnValue = true;
+
+  for (var variable in varList) {
+    if (!json.containsKey(variable.info.code)) {
+      returnValue = false;
+    }
+  }
+  return returnValue;
+}
+
+dynamic convertStringToJson(String data) {
+  try {
+    // Decode the JSON string
+    Map<String, dynamic> jsonData = jsonDecode(data);
+
+    // Return the JSON map
+    return jsonData;
+  } catch (e) {
+    // Handle error if the string is not a valid JSON
+    print('Error converting string to JSON: $e');
+    return {}; // Return an empty map in case oferror
   }
 }

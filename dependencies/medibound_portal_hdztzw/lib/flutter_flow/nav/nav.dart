@@ -123,7 +123,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'ManageDeviceProfilesPage',
-          path: '/devices_profiles/manage',
+          path: '/devices-profiles/manage',
           requireAuth: true,
           asyncParams: {
             'deviceProfile':

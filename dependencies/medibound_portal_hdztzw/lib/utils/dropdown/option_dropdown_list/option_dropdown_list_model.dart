@@ -21,16 +21,16 @@ class OptionDropdownListModel
     extends FlutterFlowModel<OptionDropdownListWidget> {
   ///  Local state fields for this component.
 
-  List<DropdownStruct> compOptionsList = [];
-  void addToCompOptionsList(DropdownStruct item) => compOptionsList.add(item);
-  void removeFromCompOptionsList(DropdownStruct item) =>
+  List<CodedValueStruct> compOptionsList = [];
+  void addToCompOptionsList(CodedValueStruct item) => compOptionsList.add(item);
+  void removeFromCompOptionsList(CodedValueStruct item) =>
       compOptionsList.remove(item);
   void removeAtIndexFromCompOptionsList(int index) =>
       compOptionsList.removeAt(index);
-  void insertAtIndexInCompOptionsList(int index, DropdownStruct item) =>
+  void insertAtIndexInCompOptionsList(int index, CodedValueStruct item) =>
       compOptionsList.insert(index, item);
   void updateCompOptionsListAtIndex(
-          int index, Function(DropdownStruct) updateFn) =>
+          int index, Function(CodedValueStruct) updateFn) =>
       compOptionsList[index] = updateFn(compOptionsList[index]);
 
   bool isLoading = false;

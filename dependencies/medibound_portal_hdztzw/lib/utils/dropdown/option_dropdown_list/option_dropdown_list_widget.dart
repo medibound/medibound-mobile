@@ -29,8 +29,8 @@ class OptionDropdownListWidget extends StatefulWidget {
   });
 
   final double? width;
-  final Future Function(DropdownStruct option)? action;
-  final List<DropdownStruct>? optionsList;
+  final Future Function(CodedValueStruct option)? action;
+  final List<CodedValueStruct>? optionsList;
   final Options? optionType;
   final String? label;
 
@@ -57,12 +57,12 @@ class _OptionDropdownListWidgetState extends State<OptionDropdownListWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget!.optionType == null) {
         _model.compOptionsList =
-            widget!.optionsList!.toList().cast<DropdownStruct>();
+            widget!.optionsList!.toList().cast<CodedValueStruct>();
         safeSetState(() {});
       } else if (widget!.optionType == Options.UNITS) {
       } else {
         _model.compOptionsList =
-            widget!.optionsList!.toList().cast<DropdownStruct>();
+            widget!.optionsList!.toList().cast<CodedValueStruct>();
         safeSetState(() {});
       }
     });
@@ -126,7 +126,7 @@ class _OptionDropdownListWidgetState extends State<OptionDropdownListWidget> {
                               if (widget!.optionType == null) {
                                 _model.compOptionsList = widget!.optionsList!
                                     .toList()
-                                    .cast<DropdownStruct>();
+                                    .cast<CodedValueStruct>();
                                 safeSetState(() {});
                               } else if (widget!.optionType == Options.UNITS) {
                                 _model.isLoading = true;
@@ -166,7 +166,7 @@ class _OptionDropdownListWidgetState extends State<OptionDropdownListWidget> {
                                               )!
                                               .toList())
                                       .toList()
-                                      .cast<DropdownStruct>();
+                                      .cast<CodedValueStruct>();
                                   safeSetState(() {});
                                 }
                               }
@@ -220,7 +220,7 @@ class _OptionDropdownListWidgetState extends State<OptionDropdownListWidget> {
                                         _model.compOptionsList = widget!
                                             .optionsList!
                                             .toList()
-                                            .cast<DropdownStruct>();
+                                            .cast<CodedValueStruct>();
                                         safeSetState(() {});
                                       } else if (widget!.optionType ==
                                           Options.UNITS) {
@@ -268,7 +268,7 @@ class _OptionDropdownListWidgetState extends State<OptionDropdownListWidget> {
                                                       )!
                                                       .toList())
                                               .toList()
-                                              .cast<DropdownStruct>();
+                                              .cast<CodedValueStruct>();
                                           safeSetState(() {});
                                         }
                                       }
@@ -346,6 +346,7 @@ class _OptionDropdownListWidgetState extends State<OptionDropdownListWidget> {
                                             'Key6mw_${listsIndex}_of_${lists.length}'),
                                         display: listsItem.display,
                                         subtitle: listsItem.description,
+                                        color: listsItem.color,
                                         widget: () => EmptyWidget(),
                                       ),
                                     ),

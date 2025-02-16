@@ -11,26 +11,26 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class BlockComponentStruct extends FFFirebaseStruct {
   BlockComponentStruct({
-    DropdownStruct? info,
+    CodedValueStruct? info,
     String? size,
     Color? color,
     String? subBlock,
-    List<DeviceVariableStruct>? variables,
+    List<String>? variableIds,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _info = info,
         _size = size,
         _color = color,
         _subBlock = subBlock,
-        _variables = variables,
+        _variableIds = variableIds,
         super(firestoreUtilData);
 
   // "info" field.
-  DropdownStruct? _info;
-  DropdownStruct get info => _info ?? DropdownStruct();
-  set info(DropdownStruct? val) => _info = val;
+  CodedValueStruct? _info;
+  CodedValueStruct get info => _info ?? CodedValueStruct();
+  set info(CodedValueStruct? val) => _info = val;
 
-  void updateInfo(Function(DropdownStruct) updateFn) {
-    updateFn(_info ??= DropdownStruct());
+  void updateInfo(Function(CodedValueStruct) updateFn) {
+    updateFn(_info ??= CodedValueStruct());
   }
 
   bool hasInfo() => _info != null;
@@ -56,29 +56,26 @@ class BlockComponentStruct extends FFFirebaseStruct {
 
   bool hasSubBlock() => _subBlock != null;
 
-  // "variables" field.
-  List<DeviceVariableStruct>? _variables;
-  List<DeviceVariableStruct> get variables => _variables ?? const [];
-  set variables(List<DeviceVariableStruct>? val) => _variables = val;
+  // "variable_ids" field.
+  List<String>? _variableIds;
+  List<String> get variableIds => _variableIds ?? const [];
+  set variableIds(List<String>? val) => _variableIds = val;
 
-  void updateVariables(Function(List<DeviceVariableStruct>) updateFn) {
-    updateFn(_variables ??= []);
+  void updateVariableIds(Function(List<String>) updateFn) {
+    updateFn(_variableIds ??= []);
   }
 
-  bool hasVariables() => _variables != null;
+  bool hasVariableIds() => _variableIds != null;
 
   static BlockComponentStruct fromMap(Map<String, dynamic> data) =>
       BlockComponentStruct(
-        info: data['info'] is DropdownStruct
+        info: data['info'] is CodedValueStruct
             ? data['info']
-            : DropdownStruct.maybeFromMap(data['info']),
+            : CodedValueStruct.maybeFromMap(data['info']),
         size: data['size'] as String?,
         color: getSchemaColor(data['color']),
         subBlock: data['sub_block'] as String?,
-        variables: getStructList(
-          data['variables'],
-          DeviceVariableStruct.fromMap,
-        ),
+        variableIds: getDataList(data['variable_ids']),
       );
 
   static BlockComponentStruct? maybeFromMap(dynamic data) => data is Map
@@ -90,7 +87,7 @@ class BlockComponentStruct extends FFFirebaseStruct {
         'size': _size,
         'color': _color,
         'sub_block': _subBlock,
-        'variables': _variables?.map((e) => e.toMap()).toList(),
+        'variable_ids': _variableIds,
       }.withoutNulls;
 
   @override
@@ -111,9 +108,9 @@ class BlockComponentStruct extends FFFirebaseStruct {
           _subBlock,
           ParamType.String,
         ),
-        'variables': serializeParam(
-          _variables,
-          ParamType.DataStruct,
+        'variable_ids': serializeParam(
+          _variableIds,
+          ParamType.String,
           isList: true,
         ),
       }.withoutNulls;
@@ -124,7 +121,7 @@ class BlockComponentStruct extends FFFirebaseStruct {
           data['info'],
           ParamType.DataStruct,
           false,
-          structBuilder: DropdownStruct.fromSerializableMap,
+          structBuilder: CodedValueStruct.fromSerializableMap,
         ),
         size: deserializeParam(
           data['size'],
@@ -141,11 +138,10 @@ class BlockComponentStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
-        variables: deserializeStructParam<DeviceVariableStruct>(
-          data['variables'],
-          ParamType.DataStruct,
+        variableIds: deserializeParam<String>(
+          data['variable_ids'],
+          ParamType.String,
           true,
-          structBuilder: DeviceVariableStruct.fromSerializableMap,
         ),
       );
 
@@ -155,7 +151,7 @@ class BlockComponentStruct extends FFFirebaseStruct {
           data['info'],
           ParamType.DataStruct,
           false,
-          structBuilder: DropdownStruct.fromAlgoliaData,
+          structBuilder: CodedValueStruct.fromAlgoliaData,
         ),
         size: convertAlgoliaParam(
           data['size'],
@@ -172,11 +168,10 @@ class BlockComponentStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
-        variables: convertAlgoliaParam<DeviceVariableStruct>(
-          data['variables'],
-          ParamType.DataStruct,
+        variableIds: convertAlgoliaParam<String>(
+          data['variable_ids'],
+          ParamType.String,
           true,
-          structBuilder: DeviceVariableStruct.fromAlgoliaData,
         ),
         firestoreUtilData: FirestoreUtilData(
           clearUnsetFields: false,
@@ -195,16 +190,16 @@ class BlockComponentStruct extends FFFirebaseStruct {
         size == other.size &&
         color == other.color &&
         subBlock == other.subBlock &&
-        listEquality.equals(variables, other.variables);
+        listEquality.equals(variableIds, other.variableIds);
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([info, size, color, subBlock, variables]);
+      const ListEquality().hash([info, size, color, subBlock, variableIds]);
 }
 
 BlockComponentStruct createBlockComponentStruct({
-  DropdownStruct? info,
+  CodedValueStruct? info,
   String? size,
   Color? color,
   String? subBlock,
@@ -214,7 +209,7 @@ BlockComponentStruct createBlockComponentStruct({
   bool delete = false,
 }) =>
     BlockComponentStruct(
-      info: info ?? (clearUnsetFields ? DropdownStruct() : null),
+      info: info ?? (clearUnsetFields ? CodedValueStruct() : null),
       size: size,
       color: color,
       subBlock: subBlock,
@@ -276,7 +271,7 @@ Map<String, dynamic> getBlockComponentFirestoreData(
   final firestoreData = mapToFirestore(blockComponent.toMap());
 
   // Handle nested data for "info" field.
-  addDropdownStructData(
+  addCodedValueStructData(
     firestoreData,
     blockComponent.hasInfo() ? blockComponent.info : null,
     'info',

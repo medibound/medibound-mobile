@@ -25,12 +25,14 @@ class SubblockSelector extends StatefulWidget {
     this.height,
     required this.block,
     required this.color,
+    required this.varList,
   });
 
   final double? width;
   final double? height;
   final BlockComponentStruct block;
   final Color color;
+  final List<DeviceVariableStruct> varList;
 
   @override
   State<SubblockSelector> createState() => _SubblockSelectorState();
@@ -40,13 +42,12 @@ class _SubblockSelectorState extends State<SubblockSelector> {
   @override
   Widget build(BuildContext context) {
     // Ensure block and required variables exist
-    if (widget.block.variables.isEmpty) {
+    if (widget.varList.isEmpty) {
       return LoadingWidget();
     }
-
     // Get the required variable type and graph type
-    final requiredVar = twoToArrayString(
-        widget.block.variables[0].type, widget.block.variables[0].isList);
+    final requiredVar =
+        twoToArrayString(widget.varList[0].type, widget.varList[0].isList);
     final graphType = widget.block.subBlock;
 
     // Return the appropriate widget based on the variable and graph type
@@ -55,10 +56,10 @@ class _SubblockSelectorState extends State<SubblockSelector> {
         switch (graphType) {
           case "VALUE_NUM":
             return ValueNumWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           case "GRAPH_RADIAL":
             return GraphRadialWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           default:
             return LoadingWidget();
         }
@@ -67,19 +68,19 @@ class _SubblockSelectorState extends State<SubblockSelector> {
         switch (graphType) {
           case "GRAPH_LINE":
             return GraphLineWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           case "GRAPH_COLUMN":
             return GraphColumnWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           case "GRAPH_RADIAL":
             return GraphRadialWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           case "VALUE_TREND":
             return ValueTrendWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           case "VALUE_NUM":
             return ValueNumWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           default:
             return LoadingWidget();
         }
@@ -88,7 +89,7 @@ class _SubblockSelectorState extends State<SubblockSelector> {
         switch (graphType) {
           case "VALUE_STRING":
             return ValueStringWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           default:
             return LoadingWidget();
         }
@@ -97,7 +98,7 @@ class _SubblockSelectorState extends State<SubblockSelector> {
         switch (graphType) {
           case "VALUE_STRING":
             return ValueStringWidget(
-                variable: widget.block.variables[0], color: widget.color);
+                variable: widget.varList[0], color: widget.color);
           default:
             return LoadingWidget();
         }

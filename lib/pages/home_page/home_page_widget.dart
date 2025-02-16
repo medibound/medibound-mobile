@@ -51,39 +51,41 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: Container(
           width: double.infinity,
-          height: MediaQuery.sizeOf(context).height * 1.0,
+          height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 FlutterFlowTheme.of(context).secondaryBackground,
                 FlutterFlowTheme.of(context).primaryBackground
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: SafeArea(
             child: Container(
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      decoration: const BoxDecoration(),
-                      alignment: const AlignmentDirectional(0.0, -1.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                  Container(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    decoration: BoxDecoration(),
+                    alignment: AlignmentDirectional(0.0, -1.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: SingleChildScrollView(
                         child: Column(
-                          mainAxisSize: MainAxisSize.max,
+                          mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   1.0, 0.0, 0.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -95,18 +97,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       print('Button pressed ...');
                                     },
                                     text: 'My Cards',
-                                    icon: const Icon(
+                                    icon: Icon(
                                       FFIcons.kmediwallet,
                                       size: 18.0,
                                     ),
                                     options: FFButtonOptions(
                                       height: 40.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 0.0),
                                       iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
-                                      color: const Color(0x00E0E3E7),
+                                      color: Color(0x00E0E3E7),
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
@@ -130,16 +132,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       print('Button pressed ...');
                                     },
                                     text: 'Add Record',
-                                    icon: const FaIcon(
+                                    icon: FaIcon(
                                       FontAwesomeIcons.plus,
                                       size: 14.0,
                                     ),
                                     options: FFButtonOptions(
                                       height: 40.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color: FlutterFlowTheme.of(context)
                                           .alternate,
@@ -163,43 +165,39 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ],
                               ),
                             ),
-                            Flexible(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 0.0),
-                                      child: GradientText(
-                                        'Your Health Story',
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineLarge
-                                            .override(
-                                              fontFamily: 'Rubik',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        colors: [
-                                          FlutterFlowTheme.of(context)
-                                              .customColor3,
-                                          FlutterFlowTheme.of(context)
-                                              .primaryText
-                                        ],
-                                        gradientDirection:
-                                            GradientDirection.ttb,
-                                        gradientType: GradientType.linear,
-                                      ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 10.0, 0.0, 0.0),
+                                    child: GradientText(
+                                      'Your Health Story',
+                                      style: FlutterFlowTheme.of(context)
+                                          .headlineLarge
+                                          .override(
+                                            fontFamily: 'Rubik',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      colors: [
+                                        FlutterFlowTheme.of(context)
+                                            .customColor3,
+                                        FlutterFlowTheme.of(context).primaryText
+                                      ],
+                                      gradientDirection: GradientDirection.ttb,
+                                      gradientType: GradientType.linear,
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
@@ -254,7 +252,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                             Container(
                               height: 50.0,
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: medibound_portal_hdztzw_util.wrapWithModel(
                                 model: _model.emptyListModel1,
                                 updateCallback: () => safeSetState(() {}),
@@ -270,7 +268,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () {
                                   print('Button pressed ...');
@@ -278,11 +276,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 text: 'View All Records',
                                 options: FFButtonOptions(
                                   height: 40.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: const Color(0x00E0E3E7),
+                                  color: Color(0x00E0E3E7),
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -317,7 +315,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       ),
                                 ),
                                 Container(
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
@@ -346,11 +344,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ],
                                   ),
                                 ),
-                              ].divide(const SizedBox(width: 10.0)),
+                              ].divide(SizedBox(width: 10.0)),
                             ),
                             Container(
                               height: 50.0,
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: medibound_portal_hdztzw_util.wrapWithModel(
                                 model: _model.emptyListModel2,
                                 updateCallback: () => safeSetState(() {}),
@@ -366,7 +364,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () {
                                   print('Button pressed ...');
@@ -374,11 +372,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 text: 'Shop All Streams',
                                 options: FFButtonOptions(
                                   height: 40.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: const Color(0x00E0E3E7),
+                                  color: Color(0x00E0E3E7),
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -413,7 +411,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       ),
                                 ),
                                 Container(
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
@@ -442,11 +440,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ],
                                   ),
                                 ),
-                              ].divide(const SizedBox(width: 10.0)),
+                              ].divide(SizedBox(width: 10.0)),
                             ),
                             Container(
                               height: 50.0,
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: medibound_portal_hdztzw_util.wrapWithModel(
                                 model: _model.emptyListModel3,
                                 updateCallback: () => safeSetState(() {}),
@@ -462,7 +460,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () {
                                   print('Button pressed ...');
@@ -470,11 +468,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 text: 'View All Updates & Alerts',
                                 options: FFButtonOptions(
                                   height: 40.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: const Color(0x00E0E3E7),
+                                  color: Color(0x00E0E3E7),
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -494,7 +492,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                             ),
-                          ].divide(const SizedBox(height: 10.0)),
+                          ].divide(SizedBox(height: 10.0)),
                         ),
                       ),
                     ),
@@ -502,7 +500,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   wrapWithModel(
                     model: _model.tabBarModel,
                     updateCallback: () => safeSetState(() {}),
-                    child: const TabBarWidget(
+                    child: TabBarWidget(
                       selected: 1,
                     ),
                   ),

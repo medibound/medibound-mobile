@@ -1,7 +1,10 @@
+import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/device_profiles/record/body_section/body_section_widget.dart';
 import '/pages/device_profiles/record/header/header_widget.dart';
+import '/utils/empty/empty_widget.dart';
 import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -17,11 +20,13 @@ class RecordWidget extends StatefulWidget {
   const RecordWidget({
     super.key,
     required this.recordWidth,
-    required this.record,
+    required this.recordTemplate,
+    required this.data,
   });
 
   final double? recordWidth;
-  final RecordStruct? record;
+  final RecordTemplateRecord? recordTemplate;
+  final List<DeviceVariableStruct>? data;
 
   @override
   State<RecordWidget> createState() => _RecordWidgetState();
@@ -101,7 +106,7 @@ class _RecordWidgetState extends State<RecordWidget> {
                               children: [
                                 AutoSizeText(
                                   valueOrDefault<String>(
-                                    widget!.record?.info?.display,
+                                    widget!.recordTemplate?.info?.display,
                                     'Example Record',
                                   ).maybeHandleOverflow(
                                     maxChars: 20,
@@ -116,42 +121,160 @@ class _RecordWidgetState extends State<RecordWidget> {
                                         letterSpacing: 0.0,
                                       ),
                                 ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 20.0,
-                                      height: 20.0,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: CachedNetworkImage(
-                                        fadeInDuration:
-                                            Duration(milliseconds: 500),
-                                        fadeOutDuration:
-                                            Duration(milliseconds: 500),
-                                        imageUrl: widget!
-                                            .record!.organization.photoUrl,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    AutoSizeText(
-                                      valueOrDefault<String>(
-                                        widget!.record?.device?.displayName,
-                                        'Device Name',
-                                      ),
-                                      textAlign: TextAlign.start,
-                                      maxLines: 1,
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Rubik',
-                                            letterSpacing: 0.0,
+                                Builder(
+                                  builder: (context) {
+                                    if (widget!.recordTemplate?.source
+                                            ?.sourceType ==
+                                        CollectionSources.DEVICES) {
+                                      return StreamBuilder<
+                                          List<DeviceProfilesRecord>>(
+                                        stream: queryDeviceProfilesRecord(
+                                          queryBuilder:
+                                              (deviceProfilesRecord) =>
+                                                  deviceProfilesRecord.where(
+                                            'info.code',
+                                            isEqualTo: widget!
+                                                .recordTemplate?.source?.uid,
                                           ),
-                                    ),
-                                  ].divide(SizedBox(width: 7.5)),
+                                          singleRecord: true,
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 25.0,
+                                                height: 25.0,
+                                                child: SpinKitPulse(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 25.0,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<DeviceProfilesRecord>
+                                              containerDeviceProfilesRecordList =
+                                              snapshot.data!;
+                                          // Return an empty Container when the item does not exist.
+                                          if (snapshot.data!.isEmpty) {
+                                            return Container();
+                                          }
+                                          final containerDeviceProfilesRecord =
+                                              containerDeviceProfilesRecordList
+                                                      .isNotEmpty
+                                                  ? containerDeviceProfilesRecordList
+                                                      .first
+                                                  : null;
+
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                            child: StreamBuilder<
+                                                OrganizationsRecord>(
+                                              stream: OrganizationsRecord
+                                                  .getDocument(
+                                                      containerDeviceProfilesRecord!
+                                                          .organization!),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 25.0,
+                                                      height: 25.0,
+                                                      child: SpinKitPulse(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 25.0,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+
+                                                final containerOrganizationsRecord =
+                                                    snapshot.data!;
+
+                                                return Container(
+                                                  decoration: BoxDecoration(),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 20.0,
+                                                        height: 20.0,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          fadeInDuration:
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                          fadeOutDuration:
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                          imageUrl:
+                                                              containerOrganizationsRecord
+                                                                  .profile
+                                                                  .photoUrl,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      AutoSizeText(
+                                                        valueOrDefault<String>(
+                                                          containerDeviceProfilesRecord
+                                                              ?.info?.display,
+                                                          'Device Name',
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: 1,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Rubik',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ].divide(
+                                                        SizedBox(width: 7.5)),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      return wrapWithModel(
+                                        model: _model.emptyModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: EmptyWidget(),
+                                      );
+                                    }
+                                  },
                                 ),
                               ],
                             ),
@@ -179,15 +302,17 @@ class _RecordWidgetState extends State<RecordWidget> {
                     model: _model.headerModel,
                     updateCallback: () => safeSetState(() {}),
                     child: HeaderWidget(
-                      header: widget!.record!.header,
+                      header: widget!.recordTemplate!.header,
                       headerWidth: (widget!.recordWidth!) - 40,
+                      varList: widget!.data!,
                     ),
                   ),
                 ),
               ),
               Builder(
                 builder: (context) {
-                  final sections = widget!.record?.sections?.toList() ?? [];
+                  final sections =
+                      widget!.recordTemplate?.sections?.toList() ?? [];
 
                   return ListView.separated(
                     padding: EdgeInsets.zero,
@@ -203,6 +328,7 @@ class _RecordWidgetState extends State<RecordWidget> {
                             'Keye3n_${sectionsIndex}_of_${sections.length}'),
                         bodySection: sectionsItem,
                         bodySectionWidth: (widget!.recordWidth!) - 40,
+                        varList: widget!.data!,
                       );
                     },
                   );

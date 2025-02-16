@@ -11,7 +11,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class SubblockComponentStruct extends FFFirebaseStruct {
   SubblockComponentStruct({
-    DropdownStruct? info,
+    CodedValueStruct? info,
     List<String>? sizes,
     List<String>? types,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
@@ -21,12 +21,12 @@ class SubblockComponentStruct extends FFFirebaseStruct {
         super(firestoreUtilData);
 
   // "info" field.
-  DropdownStruct? _info;
-  DropdownStruct get info => _info ?? DropdownStruct();
-  set info(DropdownStruct? val) => _info = val;
+  CodedValueStruct? _info;
+  CodedValueStruct get info => _info ?? CodedValueStruct();
+  set info(CodedValueStruct? val) => _info = val;
 
-  void updateInfo(Function(DropdownStruct) updateFn) {
-    updateFn(_info ??= DropdownStruct());
+  void updateInfo(Function(CodedValueStruct) updateFn) {
+    updateFn(_info ??= CodedValueStruct());
   }
 
   bool hasInfo() => _info != null;
@@ -55,9 +55,9 @@ class SubblockComponentStruct extends FFFirebaseStruct {
 
   static SubblockComponentStruct fromMap(Map<String, dynamic> data) =>
       SubblockComponentStruct(
-        info: data['info'] is DropdownStruct
+        info: data['info'] is CodedValueStruct
             ? data['info']
-            : DropdownStruct.maybeFromMap(data['info']),
+            : CodedValueStruct.maybeFromMap(data['info']),
         sizes: getDataList(data['sizes']),
         types: getDataList(data['types']),
       );
@@ -97,7 +97,7 @@ class SubblockComponentStruct extends FFFirebaseStruct {
           data['info'],
           ParamType.DataStruct,
           false,
-          structBuilder: DropdownStruct.fromSerializableMap,
+          structBuilder: CodedValueStruct.fromSerializableMap,
         ),
         sizes: deserializeParam<String>(
           data['sizes'],
@@ -117,7 +117,7 @@ class SubblockComponentStruct extends FFFirebaseStruct {
           data['info'],
           ParamType.DataStruct,
           false,
-          structBuilder: DropdownStruct.fromAlgoliaData,
+          structBuilder: CodedValueStruct.fromAlgoliaData,
         ),
         sizes: convertAlgoliaParam<String>(
           data['sizes'],
@@ -152,14 +152,14 @@ class SubblockComponentStruct extends FFFirebaseStruct {
 }
 
 SubblockComponentStruct createSubblockComponentStruct({
-  DropdownStruct? info,
+  CodedValueStruct? info,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     SubblockComponentStruct(
-      info: info ?? (clearUnsetFields ? DropdownStruct() : null),
+      info: info ?? (clearUnsetFields ? CodedValueStruct() : null),
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -218,7 +218,7 @@ Map<String, dynamic> getSubblockComponentFirestoreData(
   final firestoreData = mapToFirestore(subblockComponent.toMap());
 
   // Handle nested data for "info" field.
-  addDropdownStructData(
+  addCodedValueStructData(
     firestoreData,
     subblockComponent.hasInfo() ? subblockComponent.info : null,
     'info',

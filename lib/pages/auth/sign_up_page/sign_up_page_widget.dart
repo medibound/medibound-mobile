@@ -88,8 +88,8 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 640.0.ms,
-            begin: const Offset(10.0, 10.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(10.0, 10.0),
+            end: Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -119,7 +119,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
         body: Stack(
           children: [
             Align(
-              alignment: const AlignmentDirectional(0.0, 0.0),
+              alignment: AlignmentDirectional(0.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -129,12 +129,12 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                       FlutterFlowTheme.of(context).customColor2,
                       FlutterFlowTheme.of(context).primaryBackground
                     ],
-                    stops: const [0.0, 1.0],
-                    begin: const AlignmentDirectional(-1.0, -1.0),
-                    end: const AlignmentDirectional(1.0, 1.0),
+                    stops: [0.0, 1.0],
+                    begin: AlignmentDirectional(-1.0, -1.0),
+                    end: AlignmentDirectional(1.0, 1.0),
                   ),
                 ),
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Wrap(
                   spacing: 0.0,
                   runSpacing: 0.0,
@@ -146,11 +146,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                   clipBehavior: Clip.none,
                   children: [
                     Container(
-                      constraints: const BoxConstraints(
+                      constraints: BoxConstraints(
                         maxWidth: 440.0,
                       ),
-                      decoration: const BoxDecoration(),
-                      child: SizedBox(
+                      decoration: BoxDecoration(),
+                      child: Container(
                         height: 490.0,
                         child: Stack(
                           children: [
@@ -164,7 +164,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                   key: _model.formKey4,
                                   autovalidateMode: AutovalidateMode.disabled,
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -178,7 +178,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                           model: _model.logoModel,
                                           updateCallback: () =>
                                               safeSetState(() {}),
-                                          child: const medibound_portal_hdztzw
+                                          child: medibound_portal_hdztzw
                                               .LogoWidget(
                                             textVisible: false,
                                           ),
@@ -198,7 +198,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 4.0, 0.0, 24.0),
                                           child: Text(
                                             'Let\'s get started by filling out the form below.',
@@ -213,7 +213,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 10.0, 0.0, 0.0),
                                           child: TextFormField(
                                             controller:
@@ -236,7 +236,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .customColor1,
-                                                    offset: const Offset(0.0, 2.0),
+                                                    offset: Offset(0.0, 2.0),
                                                     blurRadius: 40.0,
                                                   )
                                                 ],
@@ -251,7 +251,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                         letterSpacing: 0.0,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 2.0,
                                                 ),
@@ -294,7 +294,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
                                               contentPadding:
-                                                  const EdgeInsets.all(20.0),
+                                                  EdgeInsets.all(20.0),
                                               hoverColor:
                                                   FlutterFlowTheme.of(context)
                                                       .customColor1,
@@ -317,7 +317,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -325,7 +325,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                 MainAxisAlignment.center,
                                             children: [
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
@@ -340,7 +340,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                     await _model
                                                         .pageViewController
                                                         ?.nextPage(
-                                                      duration: const Duration(
+                                                      duration: Duration(
                                                           milliseconds: 300),
                                                       curve: Curves.ease,
                                                     );
@@ -349,11 +349,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
                                                                 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
@@ -388,14 +388,14 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
                                               context.goNamed(
                                                 'LoginPage',
                                                 extra: <String, dynamic>{
                                                   kTransitionInfoKey:
-                                                      const TransitionInfo(
+                                                      TransitionInfo(
                                                     hasTransition: true,
                                                     transitionType:
                                                         PageTransitionType.fade,
@@ -406,12 +406,12 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                             text: 'Already A User?',
                                             options: FFButtonOptions(
                                               height: 40.0,
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
+                                              iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color: const Color(0x00E0E3E7),
+                                              color: Color(0x00E0E3E7),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -437,7 +437,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                             ),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(height: 10.0)),
+                                      ].divide(SizedBox(height: 10.0)),
                                     ),
                                   ),
                                 ),
@@ -445,7 +445,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                   key: _model.formKey2,
                                   autovalidateMode: AutovalidateMode.disabled,
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -466,7 +466,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 4.0, 0.0, 24.0),
                                           child: Text(
                                             'Let\'s get started by filling out the form below.',
@@ -485,7 +485,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                             Flexible(
                                               flex: 3,
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 10.0, 0.0, 0.0),
                                                 child: TextFormField(
@@ -513,7 +513,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                                   .of(context)
                                                               .customColor1,
                                                           offset:
-                                                              const Offset(0.0, 2.0),
+                                                              Offset(0.0, 2.0),
                                                           blurRadius: 40.0,
                                                         )
                                                       ],
@@ -529,7 +529,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                         ),
                                                     enabledBorder:
                                                         OutlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 2.0,
@@ -583,7 +583,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                                 context)
                                                             .alternate,
                                                     contentPadding:
-                                                        const EdgeInsets.all(20.0),
+                                                        EdgeInsets.all(20.0),
                                                     hoverColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -611,7 +611,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                             Flexible(
                                               flex: 2,
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 10.0, 0.0, 0.0),
                                                 child: TextFormField(
@@ -639,7 +639,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                                   .of(context)
                                                               .customColor1,
                                                           offset:
-                                                              const Offset(0.0, 2.0),
+                                                              Offset(0.0, 2.0),
                                                           blurRadius: 40.0,
                                                         )
                                                       ],
@@ -655,7 +655,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                         ),
                                                     enabledBorder:
                                                         OutlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 2.0,
@@ -709,7 +709,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                                 context)
                                                             .alternate,
                                                     contentPadding:
-                                                        const EdgeInsets.all(20.0),
+                                                        EdgeInsets.all(20.0),
                                                     hoverColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -734,11 +734,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                 ),
                                               ),
                                             ),
-                                          ].divide(const SizedBox(width: 15.0)),
+                                          ].divide(SizedBox(width: 15.0)),
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 10.0, 0.0, 0.0),
                                           child: TextFormField(
                                             controller:
@@ -761,7 +761,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .customColor1,
-                                                    offset: const Offset(0.0, 2.0),
+                                                    offset: Offset(0.0, 2.0),
                                                     blurRadius: 40.0,
                                                   )
                                                 ],
@@ -776,7 +776,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                         letterSpacing: 0.0,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 2.0,
                                                 ),
@@ -819,7 +819,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
                                               contentPadding:
-                                                  const EdgeInsets.all(20.0),
+                                                  EdgeInsets.all(20.0),
                                               hoverColor:
                                                   FlutterFlowTheme.of(context)
                                                       .customColor1,
@@ -844,7 +844,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                           model: _model.birthDateModel,
                                           updateCallback: () =>
                                               safeSetState(() {}),
-                                          child: const medibound_portal_hdztzw
+                                          child: medibound_portal_hdztzw
                                               .DatePickerWidget(
                                             label: 'Birth Date',
                                           ),
@@ -869,7 +869,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -877,14 +877,14 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                 MainAxisAlignment.center,
                                             children: [
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
                                                     await _model
                                                         .pageViewController
                                                         ?.previousPage(
-                                                      duration: const Duration(
+                                                      duration: Duration(
                                                           milliseconds: 300),
                                                       curve: Curves.ease,
                                                     );
@@ -893,14 +893,14 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
                                                                 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
-                                                    color: const Color(0x00E0E3E7),
+                                                    color: Color(0x00E0E3E7),
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .titleSmall
@@ -929,7 +929,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                 ),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
@@ -944,7 +944,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                     await _model
                                                         .pageViewController
                                                         ?.nextPage(
-                                                      duration: const Duration(
+                                                      duration: Duration(
                                                           milliseconds: 300),
                                                       curve: Curves.ease,
                                                     );
@@ -953,11 +953,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
                                                                 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
@@ -987,10 +987,10 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 10.0)),
+                                            ].divide(SizedBox(width: 10.0)),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(height: 10.0)),
+                                      ].divide(SizedBox(height: 10.0)),
                                     ),
                                   ),
                                 ),
@@ -998,7 +998,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                   key: _model.formKey3,
                                   autovalidateMode: AutovalidateMode.disabled,
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -1019,7 +1019,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 4.0, 0.0, 24.0),
                                           child: Text(
                                             'Enhance your profile (optional)',
@@ -1112,7 +1112,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1120,14 +1120,14 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                 MainAxisAlignment.center,
                                             children: [
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
                                                     await _model
                                                         .pageViewController
                                                         ?.previousPage(
-                                                      duration: const Duration(
+                                                      duration: Duration(
                                                           milliseconds: 300),
                                                       curve: Curves.ease,
                                                     );
@@ -1136,14 +1136,14 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
                                                                 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
-                                                    color: const Color(0x00E0E3E7),
+                                                    color: Color(0x00E0E3E7),
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .titleSmall
@@ -1172,7 +1172,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                 ),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
@@ -1187,7 +1187,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                     await _model
                                                         .pageViewController
                                                         ?.nextPage(
-                                                      duration: const Duration(
+                                                      duration: Duration(
                                                           milliseconds: 300),
                                                       curve: Curves.ease,
                                                     );
@@ -1196,11 +1196,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
                                                                 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
@@ -1230,10 +1230,10 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 10.0)),
+                                            ].divide(SizedBox(width: 10.0)),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(height: 10.0)),
+                                      ].divide(SizedBox(height: 10.0)),
                                     ),
                                   ),
                                 ),
@@ -1241,7 +1241,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                   key: _model.formKey1,
                                   autovalidateMode: AutovalidateMode.disabled,
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -1262,7 +1262,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 4.0, 0.0, 24.0),
                                           child: Text(
                                             'Let\'s get started by filling out the form below.',
@@ -1277,7 +1277,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 10.0, 0.0, 0.0),
                                           child: TextFormField(
                                             controller:
@@ -1301,7 +1301,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .customColor1,
-                                                    offset: const Offset(0.0, 2.0),
+                                                    offset: Offset(0.0, 2.0),
                                                     blurRadius: 40.0,
                                                   )
                                                 ],
@@ -1316,7 +1316,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                         letterSpacing: 0.0,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 2.0,
                                                 ),
@@ -1359,7 +1359,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
                                               contentPadding:
-                                                  const EdgeInsets.all(20.0),
+                                                  EdgeInsets.all(20.0),
                                               hoverColor:
                                                   FlutterFlowTheme.of(context)
                                                       .customColor1,
@@ -1398,7 +1398,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 10.0, 0.0, 0.0),
                                           child: TextFormField(
                                             controller: _model
@@ -1423,7 +1423,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .customColor1,
-                                                    offset: const Offset(0.0, 2.0),
+                                                    offset: Offset(0.0, 2.0),
                                                     blurRadius: 40.0,
                                                   )
                                                 ],
@@ -1438,7 +1438,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                         letterSpacing: 0.0,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 2.0,
                                                 ),
@@ -1481,7 +1481,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .alternate,
                                               contentPadding:
-                                                  const EdgeInsets.all(20.0),
+                                                  EdgeInsets.all(20.0),
                                               hoverColor:
                                                   FlutterFlowTheme.of(context)
                                                       .customColor1,
@@ -1520,7 +1520,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1528,14 +1528,14 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                 MainAxisAlignment.center,
                                             children: [
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
                                                     await _model
                                                         .pageViewController
                                                         ?.previousPage(
-                                                      duration: const Duration(
+                                                      duration: Duration(
                                                           milliseconds: 300),
                                                       curve: Curves.ease,
                                                     );
@@ -1544,14 +1544,14 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
                                                                 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
-                                                    color: const Color(0x00E0E3E7),
+                                                    color: Color(0x00E0E3E7),
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .titleSmall
@@ -1580,11 +1580,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                 ),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
-                                                    Function() navigate =
+                                                    Function() _navigate =
                                                         () {};
                                                     final firestoreBatch =
                                                         FirebaseFirestore
@@ -1610,7 +1610,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                         ScaffoldMessenger.of(
                                                                 context)
                                                             .showSnackBar(
-                                                          const SnackBar(
+                                                          SnackBar(
                                                             content: Text(
                                                               'Passwords don\'t match!',
                                                             ),
@@ -1697,7 +1697,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                         ),
                                                       });
 
-                                                      navigate = () =>
+                                                      _navigate = () =>
                                                           context.goNamedAuth(
                                                               'HomePage',
                                                               context.mounted);
@@ -1821,17 +1821,17 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                           .commit();
                                                     }
 
-                                                    navigate();
+                                                    _navigate();
                                                   },
                                                   text: 'Create Account',
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
                                                                 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
@@ -1853,17 +1853,17 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 10.0)),
+                                            ].divide(SizedBox(width: 10.0)),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(height: 10.0)),
+                                      ].divide(SizedBox(height: 10.0)),
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(0.0, 1.0),
+                              alignment: AlignmentDirectional(0.0, 1.0),
                               child: smooth_page_indicator.SmoothPageIndicator(
                                 controller: _model.pageViewController ??=
                                     PageController(initialPage: 0),
@@ -1873,7 +1873,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                   await _model.pageViewController!
                                       .animateToPage(
                                     i,
-                                    duration: const Duration(milliseconds: 500),
+                                    duration: Duration(milliseconds: 500),
                                     curve: Curves.ease,
                                   );
                                   safeSetState(() {});

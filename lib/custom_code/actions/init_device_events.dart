@@ -2,10 +2,9 @@
 import '/backend/backend.dart';
 import "package:medibound_portal_hdztzw/backend/backend.dart"
     as medibound_portal_hdztzw_backend;
-import 'package:medibound_portal_hdztzw/backend/schema/structs/index.dart'
+import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
     as medibound_portal_hdztzw_data_schema;
 import '/backend/schema/structs/index.dart';
-import '/actions/actions.dart' as action_blocks;
 import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
     as medibound_portal_hdztzw_data_schema;
 import "package:medibound_portal_hdztzw/backend/schema/enums/enums.dart"
@@ -16,6 +15,8 @@ import 'index.dart'; // Imports other custom actions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
+import 'dart:ffi';
 
 import 'dart:convert';
 
@@ -57,9 +58,33 @@ Future initDeviceEvents() async {
                     break; // Exit the loop once the device is found and updated
                   }
                 }
-                if (characteristic.isNotifying) {
-                  await characteristic.setNotifyValue(true);
+
+                await characteristic.setNotifyValue(true);
+              } else if (characteristic.uuid.str == "2bdd") {
+                for (var i = 0; i < devices.length; i++) {
+                  if (devices[i].id == event.device.remoteId.str) {
+                    devices[i].data =
+                        String.fromCharCodes(await characteristic.read());
+                    break; // Exit the loop once the device is found and updated
+                  }
                 }
+
+                await characteristic.setNotifyValue(true);
+              }
+            }
+          } else if (service.uuid.str == "180f") {
+            for (var characteristic in service.characteristics) {
+              //Status
+              if (characteristic.uuid.str == "2a19") {
+                for (var i = 0; i < devices.length; i++) {
+                  if (devices[i].id == event.device.remoteId.str) {
+                    devices[i].battery = int.parse(
+                        String.fromCharCodes(await characteristic.read()));
+                    break; // Exit the loop once the device is found and updated
+                  }
+                }
+
+                await characteristic.setNotifyValue(true);
               }
             }
           }
@@ -100,6 +125,26 @@ Future initDeviceEvents() async {
         }
 
         devices[index].status = value;
+        FFAppState().update(
+            () => FFAppState().ConnectedDevices[index] = devices[index]);
+
+        if (value == "RUNNING") {
+          await Future.delayed(const Duration(seconds: 2), () async {
+            await event.characteristic.write(utf8.encode("RUN"));
+          });
+        }
+      } else if (event.characteristic.uuid.str == "2bdd") {
+        //Data
+        String value = String.fromCharCodes(event.value);
+
+        devices[index].data = value;
+        FFAppState().update(
+            () => FFAppState().ConnectedDevices[index] = devices[index]);
+      } else if (event.characteristic.uuid.str == "2a19") {
+        //Battery
+        int value = int.parse(String.fromCharCodes(event.value));
+
+        devices[index].battery = value;
         FFAppState().update(
             () => FFAppState().ConnectedDevices[index] = devices[index]);
       }

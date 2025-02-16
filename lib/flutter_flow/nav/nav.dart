@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import "package:medibound_portal_hdztzw/backend/backend.dart"
+    as medibound_portal_hdztzw_backend;
 import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
@@ -77,29 +79,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const HomePageWidget() : const LoginPageWidget(),
+          appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const HomePageWidget() : const LoginPageWidget(),
+              appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/overview',
           requireAuth: true,
-          builder: (context, params) => const HomePageWidget(),
+          builder: (context, params) => HomePageWidget(),
         ),
         FFRoute(
           name: 'LoginPage',
           path: '/login',
-          builder: (context, params) => const LoginPageWidget(),
+          builder: (context, params) => LoginPageWidget(),
         ),
         FFRoute(
           name: 'SignUpPage',
           path: '/sign-up',
-          builder: (context, params) => const SignUpPageWidget(),
+          builder: (context, params) => SignUpPageWidget(),
         ),
         FFRoute(
           name: 'RecoverAccountPage',
@@ -115,13 +117,34 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'YouPage',
           path: '/you',
           requireAuth: true,
-          builder: (context, params) => const YouPageWidget(),
+          builder: (context, params) => YouPageWidget(),
         ),
         FFRoute(
           name: 'StreamsPage',
           path: '/streams',
           requireAuth: true,
-          builder: (context, params) => const StreamsPageWidget(),
+          builder: (context, params) => StreamsPageWidget(),
+        ),
+        FFRoute(
+          name: 'InsightsPage',
+          path: '/insights',
+          requireAuth: true,
+          builder: (context, params) => InsightsPageWidget(),
+        ),
+        FFRoute(
+          name: 'InsightsMessagePage',
+          path: '/insights/message',
+          requireAuth: true,
+          asyncParams: {
+            'messageGroup': getDoc(['messages'],
+                medibound_portal_hdztzw_backend.MessagesRecord.fromSnapshot),
+          },
+          builder: (context, params) => InsightsMessagePageWidget(
+            messageGroup: params.getParam(
+              'messageGroup',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -312,10 +335,9 @@ class FFRoute {
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: Center(
                     child: Image.asset(
-                      'assets/images/medibound.svg',
-                      width: 60.0,
-                      height: 60.0,
-                      fit: BoxFit.contain,
+                      'assets/images/medibound.png',
+                      height: 75.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )
@@ -361,7 +383,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(
+  static TransitionInfo appDefault() => TransitionInfo(
         hasTransition: true,
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 300),
