@@ -1,7 +1,49 @@
 {
   "indexes": [
     {
+      "collectionGroup": "records",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "owner",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_time",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "messages",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "owner",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_time",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "device_profiles",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "organization",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "edited_time",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "agents",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -27,8 +69,8 @@
       ]
     },
     {
-      "collectionGroup": "device",
-      "fieldPath": "info.code",
+      "collectionGroup": "datapoints",
+      "fieldPath": "owner",
       "indexes": [
         {
           "order": "ASCENDING",
@@ -38,7 +80,7 @@
     },
     {
       "collectionGroup": "device",
-      "fieldPath": "storedId",
+      "fieldPath": "info.code",
       "indexes": [
         {
           "order": "ASCENDING",

@@ -1,16 +1,7 @@
-import 'package:collection/collection.dart';
 import "package:medibound_portal_hdztzw/backend/schema/enums/enums.dart"
-    as medibound_portal_hdztzw_enums
-    hide FFEnumExtensions, FFEnumListExtensions;
-
-extension FFEnumExtensions<T extends Enum> on T {
-  String serialize() => name;
-}
-
-extension FFEnumListExtensions<T extends Enum> on Iterable<T> {
-  T? deserialize(String? value) =>
-      firstWhereOrNull((e) => e.serialize() == value);
-}
+    as medibound_portal_hdztzw_enums;
+import 'package:ff_commons/flutter_flow/enums.dart';
+export 'package:ff_commons/flutter_flow/enums.dart';
 
 T? deserializeEnum<T>(String? value) {
   switch (T) {
@@ -32,6 +23,9 @@ T? deserializeEnum<T>(String? value) {
     case (medibound_portal_hdztzw_enums.CollectionSources):
       return medibound_portal_hdztzw_enums.CollectionSources.values
           .deserialize(value) as T?;
+    case (medibound_portal_hdztzw_enums.UserType):
+      return medibound_portal_hdztzw_enums.UserType.values.deserialize(value)
+          as T?;
     default:
       return null;
   }

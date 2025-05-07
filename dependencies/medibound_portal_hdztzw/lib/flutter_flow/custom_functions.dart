@@ -43,27 +43,24 @@ List<CodedValueStruct> arraysToDropdown(
   return dropdownList;
 }
 
-String? toTitleCase(String input) {
-  // convert a string to title case
-  if (input.isEmpty) {
-    return input;
+String toCamelCase(String input) {
+  List<String> words = input.split(RegExp(r'\s+'));
+
+  if (words.isEmpty) return '';
+
+  words[0] = words[0].toLowerCase();
+  for (int i = 1; i < words.length; i++) {
+    words[i] = words[i].replaceFirst(
+      RegExp(r'^.'),
+      words[i][0].toUpperCase(),
+    );
   }
 
-  List<String> words = input.split(' ');
-  List<String> titleCaseWords = [];
-
-  for (String word in words) {
-    String firstLetter = word.substring(0, 1).toUpperCase();
-    String restOfWord = word.substring(1).toLowerCase();
-    titleCaseWords.add('$firstLetter$restOfWord');
-  }
-
-  return titleCaseWords.join(' ');
+  return words.join('');
 }
 
-List<CodedValueStruct>? deviceVariablesToDropdowns(
-    List<DeviceVariableStruct>? vars) {
-  if (vars == null) return null; // Handle null input
+List<CodedValueStruct> deviceVariablesToDropdowns(List<VariableStruct> vars) {
+  if (vars == null) return []; // Handle null input
 
   return vars.map((variable) {
     return CodedValueStruct(
@@ -71,52 +68,81 @@ List<CodedValueStruct>? deviceVariablesToDropdowns(
           "", // Assuming 'display' exists in the struct
       description:
           variable.info?.description ?? "", // Assuming 'description' exists
-      code: variable.info?.code ?? "", // Assuming 'code' exists
+      code: variable.info?.code ?? "",
+      color: variable.info?.color ?? null,
+      icon: variable.info?.icon ?? "", // Assuming 'code' exists
     );
   }).toList();
 }
 
-List<DeviceVariableStruct> insertVarListData(
-  List<DeviceVariableStruct> varList,
+List<VariableStruct> insertVarListData(
+  List<VariableStruct> varList,
   dynamic json,
 ) {
-  List<DeviceVariableStruct> returnValue = [];
+  List<VariableStruct> returnValue = [];
+  final now = DateTime.now(); // Reference timestamp
 
   for (var variable in varList) {
-    if (json.containsKey(variable.info.code)) {
-      switch (variable.type) {
-        case 'NUMBER':
-          variable.data.number = [
-            if (json[variable.info.code] is num)
-              json[variable.info.code].toDouble()
-            else
-              double.tryParse(json[variable.info.code].toString()) ?? 0.0
-          ];
-          returnValue.add(variable);
-          break;
-        case 'NUMBER_ARRAY':
-          variable.data.number = (json[variable.info.code] as List)
-              .map((e) => e is num
-                  ? e.toDouble()
-                  : double.tryParse(e.toString()) ?? 0.0)
-              .toList();
-          returnValue.add(variable);
-          break;
-        case 'STRING':
-          variable.data.string = [json[variable.info.code].toString()];
-          returnValue.add(variable);
-          break;
-        case 'STRING_ARRAY':
-          variable.data.string = (json[variable.info.code] as List)
-              .map((e) => e.toString())
-              .toList();
-          returnValue.add(variable);
-          break;
-        default:
-          break;
+    if (!json.containsKey(variable.info.code)) continue;
+
+    var value = json[variable.info.code];
+    print(value);
+
+    // Handling Number Type Variables
+    if (variable.type == 'number') {
+      if (value is List) {
+        // Create ordered DataPointStruct list with sequential timestamps
+        variable.data = List<DataPointStruct>.generate(value.length, (index) {
+          return DataPointStruct(
+            data: value[index] is num
+                ? value[index].toString()
+                : (double.tryParse(value[index].toString()) ?? 0.0).toString(),
+            timestamp: now.subtract(Duration(minutes: index)),
+          );
+        });
+      } else if (value is num) {
+        // Store a single value with latest timestamp
+        variable.data = [
+          DataPointStruct(
+            data: value.toString(),
+            timestamp: now,
+          ),
+        ];
+      } else {
+        variable.data = [];
       }
+      variable.editedTime = DateTime.now();
+
+      returnValue.add(variable);
+      continue; // Move to the next variable
+    }
+
+    // Handling String Type Variables
+    if (variable.type == 'string') {
+      if (value is List) {
+        // Create ordered DataPointStruct list with sequential timestamps
+        variable.data = List<DataPointStruct>.generate(value.length, (index) {
+          return DataPointStruct(
+            data: value[index].toString(),
+            timestamp: now.subtract(Duration(minutes: index)),
+          );
+        });
+      } else {
+        // Store a single value with latest timestamp
+        variable.data = [
+          DataPointStruct(
+            data: value.toString(),
+            timestamp: now,
+          ),
+        ];
+      }
+      variable.editedTime = DateTime.now();
+
+      returnValue.add(variable);
+      continue; // Move to the next variable
     }
   }
+
   print(returnValue);
   return returnValue;
 }
@@ -144,7 +170,7 @@ String twoToArrayString(
   return type + (isList ? "_ARRAY" : "");
 }
 
-VariableDataStruct generateSampleData(
+List<DataPointStruct> generateSampleData(
   String type,
   bool isList,
   bool isRanged,
@@ -161,53 +187,60 @@ VariableDataStruct generateSampleData(
           ? upperBound
           : 100.0;
 
+  final now = DateTime.now();
+  final random = math.Random();
+
   // Helper function to generate a random number within the range
   double generateRandomNumber() {
-    return minBound + math.Random().nextDouble() * (maxBound - minBound);
+    return minBound + random.nextDouble() * (maxBound - minBound);
   }
 
-  // Helper function to generate a list of random numbers
-  List<double> generateNumberList(int count) {
-    return List.generate(count, (_) => generateRandomNumber());
+  // Function to generate a timestamp with equal intervals over 365 days
+  DateTime generateEqualIntervalTimestamp(
+      int index, int totalPoints, Duration interval) {
+    return now.subtract(
+        interval * (totalPoints - index - 1)); // Spread across the total range
   }
 
-  // Helper function to generate a list of strings
-  List<String> generateStringList(int count) {
-    return List.generate(count, (index) => 'String${index + 1}');
-  }
-
-  // Generate data based on type
-  if (type == "NUMBER") {
-    if (isList) {
-      return VariableDataStruct(
-        number: generateNumberList(20),
-        string: [],
-      );
-    } else {
-      return VariableDataStruct(
-        number: [generateRandomNumber()],
-        string: [],
-      );
-    }
-  } else if (type == "STRING") {
-    if (isList) {
-      return VariableDataStruct(
-        number: [],
-        string: generateStringList(20),
-      );
-    } else {
-      return VariableDataStruct(
-        number: [],
-        string: ["String"],
-      );
-    }
-  } else {
-    // Default empty data if the type is unrecognized
-    return VariableDataStruct(
-      number: [],
-      string: [],
+  // Function to generate a single DataPointStruct instance
+  DataPointStruct generateSingleDataPoint(
+      int index, int totalPoints, Duration interval) {
+    return DataPointStruct(
+      data: generateRandomNumber().toString(),
+      timestamp: generateEqualIntervalTimestamp(index, totalPoints, interval),
     );
   }
+
+  List<DataPointStruct> generateDataForTimeSpan(
+      int totalPoints, Duration interval) {
+    return List.generate(totalPoints,
+        (index) => generateSingleDataPoint(index, totalPoints, interval));
+  }
+
+  // 365 points from the past year, spaced by days
+  List<DataPointStruct> yearData =
+      generateDataForTimeSpan(72, Duration(days: 5));
+
+  // 24 points from the last 24 hours, spaced by hours
+  List<DataPointStruct> last24HoursData =
+      generateDataForTimeSpan(6, Duration(hours: 4));
+
+  // 60 points from the last hour, spaced by minutes
+  List<DataPointStruct> lastHourData =
+      generateDataForTimeSpan(6, Duration(minutes: 10));
+
+  // 60 points from the last minute, spaced by seconds
+  List<DataPointStruct> lastMinuteData =
+      generateDataForTimeSpan(4, Duration(seconds: 15));
+
+  // Combine all data points
+  List<DataPointStruct> allData = []
+    ..addAll(yearData)
+    ..addAll(last24HoursData)
+    ..addAll(lastHourData)
+    ..addAll(lastMinuteData);
+
+  return allData;
 }
 
 bool acceptBlock(
@@ -217,17 +250,17 @@ bool acceptBlock(
   int total = 0;
 
   for (BlockComponentStruct b in blockList) {
-    if (b.size == "QUARTER") {
+    if (b.graphSize == "quarter") {
       total++;
-    } else if (b.size == "HALF") {
+    } else if (b.graphSize == "half") {
       total += 2;
     } else {
       return false;
     }
   }
-  if (block.size == "QUARTER") {
+  if (block.graphSize == "quarter") {
     total++;
-  } else if (block.size == "HALF") {
+  } else if (block.graphSize == "half") {
     total += 2;
   } else {
     return false;
@@ -241,7 +274,7 @@ bool acceptBlock(
 }
 
 bool checkVarListAgainstData(
-  List<DeviceVariableStruct> varList,
+  List<VariableStruct> varList,
   dynamic json,
 ) {
   bool returnValue = true;
@@ -266,4 +299,54 @@ dynamic convertStringToJson(String data) {
     print('Error converting string to JSON: $e');
     return {}; // Return an empty map in case oferror
   }
+}
+
+String toTitleCase(String input) {
+  return input.split(' ').map((word) {
+    return word[0].toUpperCase() + word.substring(1).toLowerCase();
+  }).join(' ');
+}
+
+List<DatapointsRecord>? getEmptyDatapointsDocuments() {
+  return [];
+}
+
+dynamic transformComponentToJson(
+  VariableStruct variable,
+  List<CodedValueStruct> colorCodes,
+  List<CodedValueStruct> tickerCodes,
+  List<CodedValueStruct> timewindowCodes,
+  List<BlockTypeStruct> blocks,
+) {
+  List<dynamic> serializedColorCodes = colorCodes.map((color) {
+    return color.toSerializableMap();
+  }).toList();
+
+  List<dynamic> serializedTickerCodes = tickerCodes.map((color) {
+    return color.toSerializableMap();
+  }).toList();
+
+  List<dynamic> serializedTimewindowCodes = timewindowCodes.map((color) {
+    return color.toSerializableMap();
+  }).toList();
+
+  List<dynamic> serializedBlocks = blocks.map((block) {
+    return block.info.toSerializableMap();
+  }).toList();
+
+  dynamic serializedVariable = variable.toSerializableMap();
+
+  return {
+    'variable': {
+      'info': variable.info.toSerializableMap(),
+      'type': variable.type,
+      'unit': variable.unit,
+      'isRanged': variable.isRanged,
+      'range': variable.options.range.toSerializableMap() ?? {},
+    },
+    'colorCodes': serializedColorCodes,
+    'tickerCodes': serializedTickerCodes,
+    'timewindowCodes': serializedTimewindowCodes,
+    'blocks': serializedBlocks
+  };
 }

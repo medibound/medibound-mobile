@@ -11,12 +11,12 @@ import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
-import 'platform_utils/platform_util.dart';
 
 import '../main.dart';
 
 import 'package:ff_commons/flutter_flow/lat_lng.dart';
 
+export 'keep_alive_wrapper.dart';
 export 'package:ff_commons/flutter_flow/lat_lng.dart';
 export 'package:ff_commons/flutter_flow/place.dart';
 export 'package:ff_commons/flutter_flow/uploaded_file.dart';
@@ -69,11 +69,11 @@ Theme wrapInMaterialDatePickerTheme(
 }) {
   final baseTheme = Theme.of(context);
   final dateTimeMaterialStateForegroundColor =
-      MaterialStateProperty.resolveWith((states) {
-    if (states.contains(MaterialState.disabled)) {
-      return pickerForegroundColor.withOpacity(0.60);
+      WidgetStateProperty.resolveWith((states) {
+    if (states.contains(WidgetState.disabled)) {
+      return pickerForegroundColor.applyAlpha(0.60);
     }
-    if (states.contains(MaterialState.selected)) {
+    if (states.contains(WidgetState.selected)) {
       return selectedDateTimeForegroundColor;
     }
     if (states.isEmpty) {
@@ -83,8 +83,8 @@ Theme wrapInMaterialDatePickerTheme(
   });
 
   final dateTimeMaterialStateBackgroundColor =
-      MaterialStateProperty.resolveWith((states) {
-    if (states.contains(MaterialState.selected)) {
+      WidgetStateProperty.resolveWith((states) {
+    if (states.contains(WidgetState.selected)) {
       return selectedDateTimeBackgroundColor;
     }
     return null;
@@ -95,7 +95,7 @@ Theme wrapInMaterialDatePickerTheme(
       colorScheme: baseTheme.colorScheme.copyWith(
         onSurface: pickerForegroundColor,
       ),
-      disabledColor: pickerForegroundColor.withOpacity(0.3),
+      disabledColor: pickerForegroundColor.applyAlpha(0.3),
       textTheme: baseTheme.textTheme.copyWith(
         headlineSmall: headerTextStyle,
         headlineMedium: headerTextStyle,
@@ -105,16 +105,16 @@ Theme wrapInMaterialDatePickerTheme(
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-            foregroundColor: MaterialStatePropertyAll(
+            foregroundColor: WidgetStatePropertyAll(
               actionButtonForegroundColor,
             ),
-            overlayColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.hovered)) {
-                return actionButtonForegroundColor.withOpacity(0.04);
+            overlayColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.hovered)) {
+                return actionButtonForegroundColor.applyAlpha(0.04);
               }
-              if (states.contains(MaterialState.focused) ||
-                  states.contains(MaterialState.pressed)) {
-                return actionButtonForegroundColor.withOpacity(0.12);
+              if (states.contains(WidgetState.focused) ||
+                  states.contains(WidgetState.pressed)) {
+                return actionButtonForegroundColor.applyAlpha(0.12);
               }
               return null;
             })),
@@ -159,16 +159,16 @@ Theme wrapInMaterialTimePickerTheme(
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-            foregroundColor: MaterialStatePropertyAll(
+            foregroundColor: WidgetStatePropertyAll(
               actionButtonForegroundColor,
             ),
-            overlayColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.hovered)) {
-                return actionButtonForegroundColor.withOpacity(0.04);
+            overlayColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.hovered)) {
+                return actionButtonForegroundColor.applyAlpha(0.04);
               }
-              if (states.contains(MaterialState.focused) ||
-                  states.contains(MaterialState.pressed)) {
-                return actionButtonForegroundColor.withOpacity(0.12);
+              if (states.contains(WidgetState.focused) ||
+                  states.contains(WidgetState.pressed)) {
+                return actionButtonForegroundColor.applyAlpha(0.12);
               }
               return null;
             })),
@@ -177,19 +177,19 @@ Theme wrapInMaterialTimePickerTheme(
         backgroundColor: pickerBackgroundColor,
         hourMinuteTextColor: pickerForegroundColor,
         dialHandColor: selectedDateTimeBackgroundColor,
-        dialTextColor: MaterialStateColor.resolveWith((states) =>
-            states.contains(MaterialState.selected)
+        dialTextColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
                 ? selectedDateTimeForegroundColor
                 : pickerForegroundColor),
         dayPeriodBorderSide: BorderSide(
           color: pickerForegroundColor,
         ),
-        dayPeriodTextColor: MaterialStateColor.resolveWith((states) =>
-            states.contains(MaterialState.selected)
+        dayPeriodTextColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
                 ? selectedDateTimeForegroundColor
                 : pickerForegroundColor),
-        dayPeriodColor: MaterialStateColor.resolveWith((states) =>
-            states.contains(MaterialState.selected)
+        dayPeriodColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
                 ? selectedDateTimeBackgroundColor
                 : Colors.transparent),
         entryModeIconColor: pickerForegroundColor,
@@ -470,6 +470,19 @@ extension FFStringExt on String {
       maxChars != null && length > maxChars
           ? replaceRange(maxChars, null, replacement)
           : this;
+
+  String toCapitalization(TextCapitalization textCapitalization) {
+    switch (textCapitalization) {
+      case TextCapitalization.none:
+        return this;
+      case TextCapitalization.words:
+        return split(' ').map(toBeginningOfSentenceCase).join(' ');
+      case TextCapitalization.sentences:
+        return toBeginningOfSentenceCase(this);
+      case TextCapitalization.characters:
+        return toUpperCase();
+    }
+  }
 }
 
 extension ListFilterExt<T> on Iterable<T?> {
@@ -543,17 +556,8 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
   }
 }
 
-extension ListUniqueExt<T> on Iterable<T> {
-  List<T> unique(dynamic Function(T) getKey) {
-    var distinctSet = <dynamic>{};
-    var distinctList = <T>[];
-    for (var item in this) {
-      if (distinctSet.add(getKey(item))) {
-        distinctList.add(item);
-      }
-    }
-    return distinctList;
-  }
+extension ColorOpacityExt on Color {
+  Color applyAlpha(double val) => withValues(alpha: val);
 }
 
 String roundTo(double value, int decimalPoints) {
@@ -593,107 +597,20 @@ double computeGradientAlignmentY(double evaluatedAngle) {
   return double.parse(roundTo(y, 2));
 }
 
-bool get isShortcutsSupported => kIsWeb || !(isAndroid || isiOS);
-
-bool get isMac => isMacOs;
-
-LogicalKeyboardKey get modifierKey =>
-    isMac ? LogicalKeyboardKey.meta : LogicalKeyboardKey.control;
-
-ShortcutActivator _deriveShortcutActivator(Set<LogicalKeyboardKey> keyList) {
-  const metaKey = LogicalKeyboardKey.meta;
-  const controlKey = LogicalKeyboardKey.control;
-  const altKey = LogicalKeyboardKey.alt;
-  const shiftKey = LogicalKeyboardKey.shift;
-  final modifierKeys = [metaKey, controlKey, altKey, shiftKey];
-
-  // The meta key is the command key on macOS.
-  // If the user isn't on macOS, there is no command key,
-  // so swap for the control key instead.
-  if (keyList.contains(metaKey)) {
-    if (modifierKey != LogicalKeyboardKey.meta) {
-      keyList.remove(metaKey);
-      keyList.add(modifierKey);
+extension ListUniqueExt<T> on Iterable<T> {
+  List<T> unique(dynamic Function(T) getKey) {
+    var distinctSet = <dynamic>{};
+    var distinctList = <T>[];
+    for (var item in this) {
+      if (distinctSet.add(getKey(item))) {
+        distinctList.add(item);
+      }
     }
-  }
-
-  if (keyList.whereNot((n) => modifierKeys.contains(n)).length == 1) {
-    final nonModifierKey = keyList.firstWhere(
-      (n) => !modifierKeys.contains(n),
-    );
-    return SingleActivator(
-      nonModifierKey,
-      shift: keyList.contains(shiftKey),
-      alt: keyList.contains(altKey),
-      control: keyList.contains(controlKey),
-      meta: keyList.contains(metaKey),
-    );
-  } else {
-    return LogicalKeySet.fromSet(keyList);
-  }
-}
-
-final individualKeysList = LogicalKeyboardKey.knownLogicalKeys.toList();
-// Flutter web doesn't allow for a shortcut consisting only of the modifier keys:
-final exceptionKeys = {
-  LogicalKeyboardKey.control,
-  LogicalKeyboardKey.controlLeft,
-  LogicalKeyboardKey.controlRight,
-  LogicalKeyboardKey.shift,
-  LogicalKeyboardKey.shiftLeft,
-  LogicalKeyboardKey.shiftRight,
-  LogicalKeyboardKey.alt,
-  LogicalKeyboardKey.altLeft,
-  LogicalKeyboardKey.altRight,
-  LogicalKeyboardKey.meta,
-  LogicalKeyboardKey.metaLeft,
-  LogicalKeyboardKey.metaRight,
-};
-
-extension BlockShortcutsExtension on TextFormField {
-  /// This method prevents shortcuts from triggering when the user is typing in a text field.
-  /// Specifically, the shortcuts passed into givenKeys are blocked, along with the following
-  /// combinations by default:
-  /// - Individual keys
-  /// - Shift+individual keys
-  /// - Alt+individual keys
-  /// - Alt+Shift+individual keys
-  /// - Control+individual keys
-  /// - Control+Shift+individual keys
-  /// - Command+individual keys
-  /// - Command+Shift+individual keys
-  Widget blockShortcuts([List<Set<LogicalKeyboardKey>>? givenKeys]) {
-    List<LogicalKeyboardKey> permissibleKeys = individualKeysList
-        .where((key) => !exceptionKeys.contains(key))
-        .toList();
-
-    List<Set<LogicalKeyboardKey>> keys = givenKeys ?? [];
-
-    keys.addAll(permissibleKeys.map((key) => {key}));
-    keys.addAll(permissibleKeys.map((key) => {LogicalKeyboardKey.shift, key}));
-    keys.addAll(permissibleKeys.map((key) => {LogicalKeyboardKey.alt, key}));
-    keys.addAll(permissibleKeys
-        .map((key) => {LogicalKeyboardKey.alt, LogicalKeyboardKey.shift, key}));
-    keys.addAll(
-        permissibleKeys.map((key) => {LogicalKeyboardKey.control, key}));
-    keys.addAll(permissibleKeys.map(
-        (key) => {LogicalKeyboardKey.shift, LogicalKeyboardKey.control, key}));
-    keys.addAll(permissibleKeys.map((key) => {LogicalKeyboardKey.meta, key}));
-    keys.addAll(permissibleKeys.map(
-        (key) => {LogicalKeyboardKey.shift, LogicalKeyboardKey.meta, key}));
-
-    final Map<ShortcutActivator, Intent> shortcutMap = {
-      for (var keyCombination in keys)
-        _deriveShortcutActivator(keyCombination):
-            const DoNothingAndStopPropagationTextIntent(),
-    };
-
-    return Shortcuts(
-      shortcuts: shortcutMap,
-      child: this,
-    );
+    return distinctList;
   }
 }
 
 String getCurrentRoute(BuildContext context) =>
     context.mounted ? MyApp.of(context).getRoute() : '';
+List<String> getCurrentRouteStack(BuildContext context) =>
+    context.mounted ? MyApp.of(context).getRouteStack() : [];

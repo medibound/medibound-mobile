@@ -1,11 +1,12 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/utils/dropdown/option_dropdown_list/option_dropdown_list_widget.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:aligned_dialog/aligned_dialog.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -138,14 +139,35 @@ class _OptionDropdownWidgetState extends State<OptionDropdownWidget> {
                   isDense: true,
                   labelText: widget!.label,
                   labelStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Rubik',
+                        font: GoogleFonts.rubik(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                   alignLabelWithHint: true,
                   hintText: 'Select ${widget!.label}',
                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Rubik',
+                        font: GoogleFonts.rubik(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
                       ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -182,8 +204,17 @@ class _OptionDropdownWidgetState extends State<OptionDropdownWidget> {
                   hoverColor: FlutterFlowTheme.of(context).secondaryBackground,
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Rubik',
+                      font: GoogleFonts.rubik(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
                       letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
                 textAlign: TextAlign.start,
                 keyboardType: TextInputType.datetime,
@@ -253,104 +284,235 @@ class _OptionDropdownWidgetState extends State<OptionDropdownWidget> {
                   width: double.infinity,
                   height: 50.0,
                   decoration: BoxDecoration(),
-                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  alignment: AlignmentDirectional(1.0, 0.0),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 10.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        if (_model.option != null)
-                          Wrap(
-                            spacing: 10.0,
-                            runSpacing: 0.0,
-                            alignment: WrapAlignment.center,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            direction: Axis.horizontal,
-                            runAlignment: WrapAlignment.center,
-                            verticalDirection: VerticalDirection.down,
-                            clipBehavior: Clip.none,
-                            children: [
-                              Text(
-                                valueOrDefault<String>(
-                                  _model.option != null
-                                      ? _model.option?.display
-                                      : ' ',
-                                  'Name',
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Rubik',
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        Spacer(),
-                        Builder(
-                          builder: (context) {
-                            if ((_model.option != null) &&
-                                (widget!.disabled == false)) {
-                              return Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  FlutterFlowIconButton(
-                                    borderRadius: 8.0,
-                                    buttonSize: 40.0,
+                        if ((_model.option != null) &&
+                            (widget!.disabled == false))
+                          Container(
+                            decoration: BoxDecoration(),
+                            child: Builder(
+                              builder: (context) {
+                                if ((_model.option != null) &&
+                                    (widget!.disabled == false)) {
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
-                                    icon: Icon(
-                                      Icons.close,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.option = null;
+                                      safeSetState(() {});
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        if ((_model.option != null) &&
+                                            _model.option!.hasColor() &&
+                                            !_model.option!.hasIcon())
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 5.0, 0.0),
+                                            child: Container(
+                                              width: 20.0,
+                                              height: 20.0,
+                                              decoration: BoxDecoration(
+                                                color: _model.option?.color,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        100.0),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 1.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        if ((_model.option != null) &&
+                                            _model.option!.hasColor() &&
+                                            _model.option!.hasIcon())
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 5.0, 0.0),
+                                            child: Stack(
+                                              children: [
+                                                Opacity(
+                                                  opacity: 0.1,
+                                                  child: Container(
+                                                    width: 30.0,
+                                                    height: 30.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          valueOrDefault<Color>(
+                                                        _model.option?.color !=
+                                                                null
+                                                            ? _model
+                                                                .option?.color
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondary,
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondary,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.all(2.5),
+                                                  child: Container(
+                                                    width: 25.0,
+                                                    height: 25.0,
+                                                    child: custom_widgets
+                                                        .IconFromText(
+                                                      width: 25.0,
+                                                      height: 25.0,
+                                                      name: _model.option!.icon,
+                                                      size: 25.0,
+                                                      color:
+                                                          valueOrDefault<Color>(
+                                                        _model.option?.color !=
+                                                                null
+                                                            ? _model
+                                                                .option?.color
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondary,
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondary,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  );
+                                } else {
+                                  return Container(
+                                    width: 0.0,
+                                    decoration: BoxDecoration(),
+                                    alignment: AlignmentDirectional(1.0, 0.0),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        if (_model.option != null)
+                          Expanded(
+                            child: Wrap(
+                              spacing: 10.0,
+                              runSpacing: 0.0,
+                              alignment: WrapAlignment.start,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              direction: Axis.horizontal,
+                              runAlignment: WrapAlignment.center,
+                              verticalDirection: VerticalDirection.down,
+                              clipBehavior: Clip.none,
+                              children: [
+                                AutoSizeText(
+                                  valueOrDefault<String>(
+                                    _model.option != null
+                                        ? _model.option?.display
+                                        : ' ',
+                                    'Name',
+                                  ),
+                                  textAlign: TextAlign.start,
+                                  maxLines: 1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.rubik(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        Container(
+                          decoration: BoxDecoration(),
+                          child: Builder(
+                            builder: (context) {
+                              if ((_model.option != null) &&
+                                  (widget!.disabled == false)) {
+                                return InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    _model.option = null;
+                                    safeSetState(() {});
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5.0, 0.0, 5.0, 0.0),
+                                        child: Icon(
+                                          Icons.close_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 16.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return Container(
+                                  width: 40.0,
+                                  decoration: BoxDecoration(),
+                                  alignment: AlignmentDirectional(1.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 5.0, 0.0),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.caretDown,
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
                                       size: 16.0,
                                     ),
-                                    onPressed: () async {
-                                      _model.option = null;
-                                      safeSetState(() {});
-                                      safeSetState(() {
-                                        _model.dropdownTextController?.clear();
-                                      });
-                                    },
                                   ),
-                                  if ((_model.option != null) &&
-                                      _model.option!.hasColor())
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 5.0, 0.0),
-                                      child: Container(
-                                        width: 20.0,
-                                        height: 20.0,
-                                        decoration: BoxDecoration(
-                                          color: _model.option?.color,
-                                          borderRadius:
-                                              BorderRadius.circular(100.0),
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 1.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              );
-                            } else {
-                              return Container(
-                                width: 40.0,
-                                decoration: BoxDecoration(),
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: FaIcon(
-                                  FontAwesomeIcons.caretDown,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 16.0,
-                                ),
-                              );
-                            }
-                          },
+                                );
+                              }
+                            },
+                          ),
                         ),
-                      ].divide(SizedBox(width: 10.0)),
+                      ].divide(SizedBox(width: 0.0)),
                     ),
                   ),
                 ),

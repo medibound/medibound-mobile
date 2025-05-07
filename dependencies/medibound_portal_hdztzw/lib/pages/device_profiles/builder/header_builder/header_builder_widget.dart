@@ -1,8 +1,8 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/device_profiles/components/component/component_widget.dart';
 import '/utils/empty_list/empty_list_widget.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class HeaderBuilderWidget extends StatefulWidget {
     required this.varList,
   });
 
-  final List<DeviceVariableStruct>? varList;
+  final List<VariableStruct>? varList;
 
   @override
   State<HeaderBuilderWidget> createState() => _HeaderBuilderWidgetState();
@@ -51,6 +51,8 @@ class _HeaderBuilderWidgetState extends State<HeaderBuilderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       decoration: BoxDecoration(),
       child: Wrap(
@@ -70,8 +72,17 @@ class _HeaderBuilderWidgetState extends State<HeaderBuilderWidget> {
             child: Text(
               'Header Components',
               style: FlutterFlowTheme.of(context).titleLarge.override(
-                    fontFamily: 'Rubik',
+                    font: GoogleFonts.rubik(
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                    ),
                     letterSpacing: 0.0,
+                    fontWeight:
+                        FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).titleLarge.fontStyle,
                   ),
             ),
           ),
@@ -104,7 +115,7 @@ class _HeaderBuilderWidgetState extends State<HeaderBuilderWidget> {
             builder: (context, _, __) {
               return Container(
                 width: functions.getBlockWidth(100.0, 'SECTION', 10.0),
-                height: 122.0,
+                height: 120.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).alternate,
                   borderRadius: BorderRadius.circular(10.0),
@@ -117,7 +128,7 @@ class _HeaderBuilderWidgetState extends State<HeaderBuilderWidget> {
                 ),
                 alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 10.0, 10.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(7.5, 5.0, 7.5, 5.0),
                   child: Builder(
                     builder: (context) {
                       final headerComponents =
@@ -156,14 +167,19 @@ class _HeaderBuilderWidgetState extends State<HeaderBuilderWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      5.0, 5.0, 0.0, 0.0),
-                                  child: ComponentWidget(
-                                    key: Key(
-                                        'Keyg4r_${headerComponentsIndex}_of_${headerComponents.length}'),
+                                      5.0, 5.0, 0.0, 5.0),
+                                  child: custom_widgets.Component(
+                                    width: 100.0,
+                                    height: 100.0,
                                     totalHeight: 100.0,
+                                    variable: widget!.varList
+                                        ?.where((e) =>
+                                            e.info.code ==
+                                            headerComponentsItem
+                                                .variableIds.firstOrNull)
+                                        .toList()
+                                        ?.firstOrNull,
                                     block: headerComponentsItem,
-                                    spacing: 10.0,
-                                    varList: widget!.varList!,
                                   ),
                                 ),
                                 InkWell(

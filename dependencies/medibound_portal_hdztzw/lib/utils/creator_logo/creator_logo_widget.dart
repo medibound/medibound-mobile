@@ -51,10 +51,10 @@ class _CreatorLogoWidgetState extends State<CreatorLogoWidget> {
     return Wrap(
       spacing: 10.0,
       runSpacing: 0.0,
-      alignment: WrapAlignment.start,
+      alignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
       direction: Axis.horizontal,
-      runAlignment: WrapAlignment.start,
+      runAlignment: WrapAlignment.center,
       verticalDirection: VerticalDirection.down,
       clipBehavior: Clip.none,
       children: [
@@ -67,8 +67,8 @@ class _CreatorLogoWidgetState extends State<CreatorLogoWidget> {
             borderRadius: BorderRadius.circular(8.0),
             child: SvgPicture.asset(
               Theme.of(context).brightness == Brightness.dark
-                  ? 'dependencies/medibound_portal_hdztzw/assets/images/darkmodecreator.svg'
-                  : 'dependencies/medibound_portal_hdztzw/assets/images/lightmodecreator.svg',
+                  ? 'packages/medibound_portal_hdztzw/assets/images/darkmodecreator.svg'
+                  : 'packages/medibound_portal_hdztzw/assets/images/lightmodecreator.svg',
               width: 45.0,
               height: 40.0,
               fit: BoxFit.contain,
@@ -87,10 +87,16 @@ class _CreatorLogoWidgetState extends State<CreatorLogoWidget> {
               Text(
                 'medibound',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Rubik',
+                      font: GoogleFonts.rubik(
+                        fontWeight: FontWeight.bold,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
                       fontSize: 18.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.bold,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       lineHeight: 1.0,
                     ),
               ),
@@ -99,17 +105,25 @@ class _CreatorLogoWidgetState extends State<CreatorLogoWidget> {
                 children: [
                   Flexible(
                     child: GradientText(
-                      'creator',
+                      'connect',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Rubik',
+                            font: GoogleFonts.rubik(
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
                             color: FlutterFlowTheme.of(context).secondary,
                             fontSize: 34.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
-                            lineHeight: 1.0,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                            lineHeight: 0.85,
                           ),
                       colors: [
-                        FlutterFlowTheme.of(context).primary,
+                        FlutterFlowTheme.of(context).primaryText,
                         FlutterFlowTheme.of(context).secondary
                       ],
                       gradientDirection: GradientDirection.ttb,

@@ -63,7 +63,7 @@ class _LogoWidgetState extends State<LogoWidget> {
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: SvgPicture.asset(
-                'dependencies/medibound_portal_hdztzw/assets/images/medibound.svg',
+                'packages/medibound_portal_hdztzw/assets/images/medibound.svg',
                 width: 24.0,
                 height: 24.0,
                 fit: BoxFit.contain,
@@ -72,10 +72,16 @@ class _LogoWidgetState extends State<LogoWidget> {
             GradientText(
               'medibound',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Rubik',
+                    font: GoogleFonts.rubik(
+                      fontWeight: FontWeight.bold,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
                     fontSize: 18.0,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.bold,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     lineHeight: 1.0,
                   ),
               colors: [

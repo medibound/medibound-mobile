@@ -1,9 +1,9 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/device_profiles/components/component/component_widget.dart';
 import '/utils/empty_list/empty_list_widget.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class BodySectionWidget extends StatefulWidget {
 
   final BodySectionStruct? bodySection;
   final double? bodySectionWidth;
-  final List<DeviceVariableStruct>? varList;
+  final List<VariableStruct>? varList;
 
   @override
   State<BodySectionWidget> createState() => _BodySectionWidgetState();
@@ -56,6 +56,8 @@ class _BodySectionWidgetState extends State<BodySectionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       decoration: BoxDecoration(),
       child: Row(
@@ -71,7 +73,10 @@ class _BodySectionWidgetState extends State<BodySectionWidget> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(7.5),
+                  padding: EdgeInsets.all(valueOrDefault<double>(
+                    ((widget!.bodySectionWidth!) / 437.5) * 7.5,
+                    0.0,
+                  )),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -90,9 +95,22 @@ class _BodySectionWidgetState extends State<BodySectionWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .override(
-                                  fontFamily: 'Rubik',
+                                  font: GoogleFonts.rubik(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontStyle,
+                                  ),
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -109,11 +127,24 @@ class _BodySectionWidgetState extends State<BodySectionWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .titleMedium
                                 .override(
-                                  fontFamily: 'Rubik',
+                                  font: GoogleFonts.rubik(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontStyle,
+                                  ),
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -130,8 +161,21 @@ class _BodySectionWidgetState extends State<BodySectionWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Rubik',
+                                  font: GoogleFonts.rubik(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -172,8 +216,12 @@ class _BodySectionWidgetState extends State<BodySectionWidget> {
                                   }
 
                                   return Wrap(
-                                    spacing: 7.5,
-                                    runSpacing: 5.0,
+                                    spacing:
+                                        ((widget!.bodySectionWidth!) / 437.5) *
+                                            7.5,
+                                    runSpacing:
+                                        ((widget!.bodySectionWidth!) / 437.5) *
+                                            7.5,
                                     alignment: WrapAlignment.start,
                                     crossAxisAlignment:
                                         WrapCrossAlignment.start,
@@ -193,16 +241,21 @@ class _BodySectionWidgetState extends State<BodySectionWidget> {
                                           alignment:
                                               AlignmentDirectional(-1.0, -1.0),
                                           children: [
-                                            ComponentWidget(
-                                              key: Key(
-                                                  'Keyk3a_${componentsIndex}_of_${components.length}'),
+                                            custom_widgets.Component(
+                                              width: 100.0,
+                                              height: 100.0,
                                               totalHeight:
-                                                  ((widget!.bodySectionWidth!) -
-                                                          37.5) /
-                                                      4,
+                                                  ((widget!.bodySectionWidth!) /
+                                                          437.5) *
+                                                      100,
+                                              variable: widget!.varList
+                                                  ?.where((e) =>
+                                                      e.info.code ==
+                                                      componentsItem.variableIds
+                                                          .firstOrNull)
+                                                  .toList()
+                                                  ?.firstOrNull,
                                               block: componentsItem,
-                                              spacing: 7.5,
-                                              varList: widget!.varList!,
                                             ),
                                           ],
                                         ),

@@ -12,16 +12,20 @@ import '/flutter_flow/flutter_flow_util.dart';
 class BlockComponentStruct extends FFFirebaseStruct {
   BlockComponentStruct({
     CodedValueStruct? info,
-    String? size,
+    String? graphSize,
     Color? color,
-    String? subBlock,
+    String? blockType,
     List<String>? variableIds,
+    String? timeWindow,
+    String? tickerType,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _info = info,
-        _size = size,
+        _graphSize = graphSize,
         _color = color,
-        _subBlock = subBlock,
+        _blockType = blockType,
         _variableIds = variableIds,
+        _timeWindow = timeWindow,
+        _tickerType = tickerType,
         super(firestoreUtilData);
 
   // "info" field.
@@ -35,12 +39,12 @@ class BlockComponentStruct extends FFFirebaseStruct {
 
   bool hasInfo() => _info != null;
 
-  // "size" field.
-  String? _size;
-  String get size => _size ?? '';
-  set size(String? val) => _size = val;
+  // "graphSize" field.
+  String? _graphSize;
+  String get graphSize => _graphSize ?? '';
+  set graphSize(String? val) => _graphSize = val;
 
-  bool hasSize() => _size != null;
+  bool hasGraphSize() => _graphSize != null;
 
   // "color" field.
   Color? _color;
@@ -49,12 +53,12 @@ class BlockComponentStruct extends FFFirebaseStruct {
 
   bool hasColor() => _color != null;
 
-  // "sub_block" field.
-  String? _subBlock;
-  String get subBlock => _subBlock ?? '';
-  set subBlock(String? val) => _subBlock = val;
+  // "blockType" field.
+  String? _blockType;
+  String get blockType => _blockType ?? '';
+  set blockType(String? val) => _blockType = val;
 
-  bool hasSubBlock() => _subBlock != null;
+  bool hasBlockType() => _blockType != null;
 
   // "variable_ids" field.
   List<String>? _variableIds;
@@ -67,15 +71,31 @@ class BlockComponentStruct extends FFFirebaseStruct {
 
   bool hasVariableIds() => _variableIds != null;
 
+  // "timeWindow" field.
+  String? _timeWindow;
+  String get timeWindow => _timeWindow ?? '';
+  set timeWindow(String? val) => _timeWindow = val;
+
+  bool hasTimeWindow() => _timeWindow != null;
+
+  // "tickerType" field.
+  String? _tickerType;
+  String get tickerType => _tickerType ?? '';
+  set tickerType(String? val) => _tickerType = val;
+
+  bool hasTickerType() => _tickerType != null;
+
   static BlockComponentStruct fromMap(Map<String, dynamic> data) =>
       BlockComponentStruct(
         info: data['info'] is CodedValueStruct
             ? data['info']
             : CodedValueStruct.maybeFromMap(data['info']),
-        size: data['size'] as String?,
+        graphSize: data['graphSize'] as String?,
         color: getSchemaColor(data['color']),
-        subBlock: data['sub_block'] as String?,
+        blockType: data['blockType'] as String?,
         variableIds: getDataList(data['variable_ids']),
+        timeWindow: data['timeWindow'] as String?,
+        tickerType: data['tickerType'] as String?,
       );
 
   static BlockComponentStruct? maybeFromMap(dynamic data) => data is Map
@@ -84,10 +104,12 @@ class BlockComponentStruct extends FFFirebaseStruct {
 
   Map<String, dynamic> toMap() => {
         'info': _info?.toMap(),
-        'size': _size,
+        'graphSize': _graphSize,
         'color': _color,
-        'sub_block': _subBlock,
+        'blockType': _blockType,
         'variable_ids': _variableIds,
+        'timeWindow': _timeWindow,
+        'tickerType': _tickerType,
       }.withoutNulls;
 
   @override
@@ -96,22 +118,30 @@ class BlockComponentStruct extends FFFirebaseStruct {
           _info,
           ParamType.DataStruct,
         ),
-        'size': serializeParam(
-          _size,
+        'graphSize': serializeParam(
+          _graphSize,
           ParamType.String,
         ),
         'color': serializeParam(
           _color,
           ParamType.Color,
         ),
-        'sub_block': serializeParam(
-          _subBlock,
+        'blockType': serializeParam(
+          _blockType,
           ParamType.String,
         ),
         'variable_ids': serializeParam(
           _variableIds,
           ParamType.String,
           isList: true,
+        ),
+        'timeWindow': serializeParam(
+          _timeWindow,
+          ParamType.String,
+        ),
+        'tickerType': serializeParam(
+          _tickerType,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -123,8 +153,8 @@ class BlockComponentStruct extends FFFirebaseStruct {
           false,
           structBuilder: CodedValueStruct.fromSerializableMap,
         ),
-        size: deserializeParam(
-          data['size'],
+        graphSize: deserializeParam(
+          data['graphSize'],
           ParamType.String,
           false,
         ),
@@ -133,8 +163,8 @@ class BlockComponentStruct extends FFFirebaseStruct {
           ParamType.Color,
           false,
         ),
-        subBlock: deserializeParam(
-          data['sub_block'],
+        blockType: deserializeParam(
+          data['blockType'],
           ParamType.String,
           false,
         ),
@@ -142,6 +172,16 @@ class BlockComponentStruct extends FFFirebaseStruct {
           data['variable_ids'],
           ParamType.String,
           true,
+        ),
+        timeWindow: deserializeParam(
+          data['timeWindow'],
+          ParamType.String,
+          false,
+        ),
+        tickerType: deserializeParam(
+          data['tickerType'],
+          ParamType.String,
+          false,
         ),
       );
 
@@ -153,8 +193,8 @@ class BlockComponentStruct extends FFFirebaseStruct {
           false,
           structBuilder: CodedValueStruct.fromAlgoliaData,
         ),
-        size: convertAlgoliaParam(
-          data['size'],
+        graphSize: convertAlgoliaParam(
+          data['graphSize'],
           ParamType.String,
           false,
         ),
@@ -163,8 +203,8 @@ class BlockComponentStruct extends FFFirebaseStruct {
           ParamType.Color,
           false,
         ),
-        subBlock: convertAlgoliaParam(
-          data['sub_block'],
+        blockType: convertAlgoliaParam(
+          data['blockType'],
           ParamType.String,
           false,
         ),
@@ -172,6 +212,16 @@ class BlockComponentStruct extends FFFirebaseStruct {
           data['variable_ids'],
           ParamType.String,
           true,
+        ),
+        timeWindow: convertAlgoliaParam(
+          data['timeWindow'],
+          ParamType.String,
+          false,
+        ),
+        tickerType: convertAlgoliaParam(
+          data['tickerType'],
+          ParamType.String,
+          false,
         ),
         firestoreUtilData: FirestoreUtilData(
           clearUnsetFields: false,
@@ -187,22 +237,26 @@ class BlockComponentStruct extends FFFirebaseStruct {
     const listEquality = ListEquality();
     return other is BlockComponentStruct &&
         info == other.info &&
-        size == other.size &&
+        graphSize == other.graphSize &&
         color == other.color &&
-        subBlock == other.subBlock &&
-        listEquality.equals(variableIds, other.variableIds);
+        blockType == other.blockType &&
+        listEquality.equals(variableIds, other.variableIds) &&
+        timeWindow == other.timeWindow &&
+        tickerType == other.tickerType;
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([info, size, color, subBlock, variableIds]);
+  int get hashCode => const ListEquality().hash(
+      [info, graphSize, color, blockType, variableIds, timeWindow, tickerType]);
 }
 
 BlockComponentStruct createBlockComponentStruct({
   CodedValueStruct? info,
-  String? size,
+  String? graphSize,
   Color? color,
-  String? subBlock,
+  String? blockType,
+  String? timeWindow,
+  String? tickerType,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -210,9 +264,11 @@ BlockComponentStruct createBlockComponentStruct({
 }) =>
     BlockComponentStruct(
       info: info ?? (clearUnsetFields ? CodedValueStruct() : null),
-      size: size,
+      graphSize: graphSize,
       color: color,
-      subBlock: subBlock,
+      blockType: blockType,
+      timeWindow: timeWindow,
+      tickerType: tickerType,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

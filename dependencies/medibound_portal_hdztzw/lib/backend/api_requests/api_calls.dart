@@ -11,7 +11,7 @@ import 'package:ff_commons/api_requests/api_paging_params.dart';
 
 export 'package:ff_commons/api_requests/api_manager.dart' show ApiCallResponse;
 
-const _kPrivateApiFunctionName = 'ffPrivateApiCall';
+const _kPrivateApiFunctionName = 'invitePatient';
 
 /// Start API for UCUM Group Code
 
@@ -96,7 +96,7 @@ class GetUCUMSingleUnitCall {
       callType: ApiCallType.GET,
       headers: {},
       params: {
-        'df': "name,guidance,cs_code",
+        'df': "name",
         'terms': terms,
         'count': 1,
         'sf': "cs_code",
@@ -110,27 +110,224 @@ class GetUCUMSingleUnitCall {
     );
   }
 
-  List<String>? displays(dynamic response) => (getJsonField(
+  String? display(dynamic response) => castToType<String>(getJsonField(
         response,
-        r'''$[3][0:][0]''',
+        r'''$[1][0]''',
+      ));
+  String? code(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[1][0]''',
+      ));
+  String? description(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[3][:1][0]''',
+      ));
+}
+
+/// End API for UCUM Group Code
+
+/// Start Medibound Group Code
+
+class MediboundGroup {
+  static String getBaseUrl() => 'https://api.medibound.com/';
+  static Map<String, String> headers = {};
+  static GetOrganizationsCall getOrganizationsCall = GetOrganizationsCall();
+  static RefreshApiKeyCall refreshApiKeyCall = RefreshApiKeyCall();
+  static GetSecretKeyCall getSecretKeyCall = GetSecretKeyCall();
+  static GetPlansCall getPlansCall = GetPlansCall();
+  static GetBomSuggestionsCall getBomSuggestionsCall = GetBomSuggestionsCall();
+  static GetComponentSuggestionCall getComponentSuggestionCall =
+      GetComponentSuggestionCall();
+}
+
+class GetOrganizationsCall {
+  Future<ApiCallResponse> call({
+    String? jwt = '',
+  }) async {
+    final baseUrl = MediboundGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getOrganizations',
+      apiUrl: '${baseUrl}organizations/getOrganizations',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'token': jwt,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<ProfileStruct>? profiles(dynamic response) => (getJsonField(
+        response,
+        r'''$.organizations''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => ProfileStruct.maybeFromMap(x))
+          .withoutNulls
+          .toList();
+  List<ProfileStruct>? invites(dynamic response) => (getJsonField(
+        response,
+        r'''$.invites''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => ProfileStruct.maybeFromMap(x))
+          .withoutNulls
+          .toList();
+}
+
+class RefreshApiKeyCall {
+  Future<ApiCallResponse> call({
+    String? jwt = '',
+    String? organizationId = '',
+  }) async {
+    final baseUrl = MediboundGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'refreshApiKey',
+      apiUrl: '${baseUrl}organizations/refreshApiKey',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'token': jwt,
+        'organizationId': organizationId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? key(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.key''',
+      ));
+}
+
+class GetSecretKeyCall {
+  Future<ApiCallResponse> call({
+    String? jwt = '',
+    String? deviceProfileId = '',
+    String? deviceId = '',
+  }) async {
+    final baseUrl = MediboundGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getSecretKey',
+      apiUrl: '${baseUrl}device/getSecretKey',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'token': jwt,
+        'deviceProfileId': deviceProfileId,
+        'deviceId': deviceId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? key(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.key''',
+      ));
+}
+
+class GetPlansCall {
+  Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    final baseUrl = MediboundGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getPlans',
+      apiUrl: '${baseUrl}/payment/getPlans',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'token': token,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<String>? id(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].id''',
         true,
       ) as List?)
           ?.withoutNulls
           .map((x) => castToType<String>(x))
           .withoutNulls
           .toList();
-  List<String>? descriptions(dynamic response) => (getJsonField(
+  List<String>? name(dynamic response) => (getJsonField(
         response,
-        r'''$[3][0:][1]''',
+        r'''$[:].name''',
         true,
       ) as List?)
           ?.withoutNulls
           .map((x) => castToType<String>(x))
           .withoutNulls
           .toList();
-  List<String>? codes(dynamic response) => (getJsonField(
+  List<int>? maxTeamMembers(dynamic response) => (getJsonField(
         response,
-        r'''$[3][0:][2]''',
+        r'''$[:].metadata.max_team_members''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? maxDevices(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].metadata.max_devices''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? planId(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].metadata.plan_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List? monthly(dynamic response) => getJsonField(
+        response,
+        r'''$[:].pricing.monthly''',
+        true,
+      ) as List?;
+  List? annually(dynamic response) => getJsonField(
+        response,
+        r'''$[:].pricing.annually''',
+        true,
+      ) as List?;
+  List<String>? description(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].description''',
         true,
       ) as List?)
           ?.withoutNulls
@@ -139,7 +336,76 @@ class GetUCUMSingleUnitCall {
           .toList();
 }
 
-/// End API for UCUM Group Code
+class GetBomSuggestionsCall {
+  Future<ApiCallResponse> call({
+    String? deviceProfileId = '',
+  }) async {
+    final baseUrl = MediboundGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getBomSuggestions',
+      apiUrl: '${baseUrl}agent/getBomSuggestions',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'deviceProfileId': deviceProfileId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetComponentSuggestionCall {
+  Future<ApiCallResponse> call({
+    dynamic? dataJson,
+    String? token = '',
+  }) async {
+    final baseUrl = MediboundGroup.getBaseUrl();
+
+    final data = _serializeJson(dataJson);
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getComponentSuggestion',
+      apiUrl: '${baseUrl}agent/getComponentSuggestion',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'data': data,
+        'token': token,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? blockCode(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.blockCode''',
+      ));
+  String? timewindowCode(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.timewindowCode''',
+      ));
+  String? tickerCode(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.tickerCode''',
+      ));
+  String? colorCode(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.colorCode''',
+      ));
+}
+
+/// End Medibound Group Code
 
 String _toEncodable(dynamic item) {
   if (item is DocumentReference) {

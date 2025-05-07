@@ -1,6 +1,7 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import 'package:auto_size_text/auto_size_text.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -12,12 +13,10 @@ export 'status_token_model.dart';
 class StatusTokenWidget extends StatefulWidget {
   const StatusTokenWidget({
     super.key,
-    required this.status,
-    required this.color,
+    this.status,
   });
 
-  final String? status;
-  final Color? color;
+  final CodedValueStruct? status;
 
   @override
   State<StatusTokenWidget> createState() => _StatusTokenWidgetState();
@@ -49,50 +48,119 @@ class _StatusTokenWidgetState extends State<StatusTokenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.circular(30.0),
-        border: Border.all(
-          color: FlutterFlowTheme.of(context).alternate,
-          width: 1.0,
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(5.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 12.0,
-              height: 12.0,
-              decoration: BoxDecoration(
-                color: widget!.color,
-                shape: BoxShape.circle,
+    return Stack(
+      children: [
+        Opacity(
+          opacity: 0.2,
+          child: Container(
+            decoration: BoxDecoration(
+              color: valueOrDefault<Color>(
+                widget!.status?.color,
+                FlutterFlowTheme.of(context).secondary,
               ),
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-              child: AutoSizeText(
-                valueOrDefault<String>(
-                  widget!.status,
-                  'ACTIVE',
-                ).maybeHandleOverflow(
-                  maxChars: 10,
-                  replacement: '…',
-                ),
-                maxLines: 1,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Rubik',
-                      fontSize: 12.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(7.5, 5.0, 7.5, 5.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Opacity(
+                    opacity: 0.0,
+                    child: Container(
+                      width: 16.0,
+                      height: 16.0,
+                      child: custom_widgets.IconFromText(
+                        width: 16.0,
+                        height: 16.0,
+                        name: widget!.status!.icon,
+                        size: 16.0,
+                        color: widget!.status!.color!,
+                      ),
                     ),
+                  ),
+                  Opacity(
+                    opacity: 0.0,
+                    child: Text(
+                      valueOrDefault<String>(
+                        widget!.status?.display,
+                        'Status',
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.rubik(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                    ),
+                  ),
+                ].divide(SizedBox(width: 5.0)),
               ),
             ),
-          ],
+          ),
         ),
-      ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(7.5, 5.0, 7.5, 5.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 16.0,
+                  height: 16.0,
+                  child: custom_widgets.IconFromText(
+                    width: 16.0,
+                    height: 16.0,
+                    name: widget!.status!.icon,
+                    size: 16.0,
+                    color: widget!.status!.color!,
+                  ),
+                ),
+                Text(
+                  valueOrDefault<String>(
+                    widget!.status?.display,
+                    'Status',
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        font: GoogleFonts.rubik(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                        color: valueOrDefault<Color>(
+                          widget!.status?.color,
+                          FlutterFlowTheme.of(context).secondary,
+                        ),
+                        letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                ),
+              ].divide(SizedBox(width: 5.0)),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -6,8 +6,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/utils/dropdown/option_dropdown/option_dropdown_widget.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'create_device_variable_widget.dart' show CreateDeviceVariableWidget;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,9 +21,16 @@ class CreateDeviceVariableModel
     extends FlutterFlowModel<CreateDeviceVariableWidget> {
   ///  Local state fields for this component.
 
-  DeviceVariableStruct? variablePreset;
-  void updateVariablePresetStruct(Function(DeviceVariableStruct) updateFn) {
-    updateFn(variablePreset ??= DeviceVariableStruct());
+  String variableCode = '';
+
+  CodedValueStruct? selectedVariableType;
+  void updateSelectedVariableTypeStruct(Function(CodedValueStruct) updateFn) {
+    updateFn(selectedVariableType ??= CodedValueStruct());
+  }
+
+  VariableStruct? selectedPreset;
+  void updateSelectedPresetStruct(Function(VariableStruct) updateFn) {
+    updateFn(selectedPreset ??= VariableStruct());
   }
 
   ///  State fields for stateful widgets in this component.
@@ -49,12 +58,8 @@ class CreateDeviceVariableModel
     return null;
   }
 
-  // Model for VariableType.
-  late OptionDropdownModel variableTypeModel;
   // State field(s) for IsList widget.
   bool? isListValue;
-  // Model for PresetIntegration.
-  late OptionDropdownModel presetIntegrationModel;
   // State field(s) for IsRanged widget.
   bool? isRangedValue;
   // State field(s) for LowerBound widget.
@@ -71,8 +76,6 @@ class CreateDeviceVariableModel
   @override
   void initState(BuildContext context) {
     variableNameTextControllerValidator = _variableNameTextControllerValidator;
-    variableTypeModel = createModel(context, () => OptionDropdownModel());
-    presetIntegrationModel = createModel(context, () => OptionDropdownModel());
     unitModel = createModel(context, () => OptionDropdownModel());
   }
 
@@ -81,8 +84,6 @@ class CreateDeviceVariableModel
     variableNameFocusNode?.dispose();
     variableNameTextController?.dispose();
 
-    variableTypeModel.dispose();
-    presetIntegrationModel.dispose();
     lowerBoundFocusNode?.dispose();
     lowerBoundTextController?.dispose();
 

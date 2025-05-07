@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class ComponentProfileTileWidget extends StatefulWidget {
     required this.widget,
     this.icon,
     double? padding,
+    this.subPhotoUrl,
+    this.iconFromText,
     this.color,
   })  : this.titleSize = titleSize ?? 14.0,
         this.photoSize = photoSize ?? 35.0,
@@ -37,6 +40,8 @@ class ComponentProfileTileWidget extends StatefulWidget {
   final Widget Function()? widget;
   final Widget? icon;
   final double padding;
+  final String? subPhotoUrl;
+  final String? iconFromText;
   final Color? color;
 
   @override
@@ -111,26 +116,145 @@ class _ComponentProfileTileWidgetState
                               0.0, 0.0, 10.0, 0.0),
                           child: widget!.icon!,
                         );
+                      } else if (widget!.iconFromText != null &&
+                          widget!.iconFromText != '') {
+                        return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 5.0, 0.0),
+                          child: Stack(
+                            children: [
+                              Opacity(
+                                opacity: 0.1,
+                                child: Container(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  decoration: BoxDecoration(
+                                    color: valueOrDefault<Color>(
+                                      widget!.color != null
+                                          ? widget!.color
+                                          : FlutterFlowTheme.of(context)
+                                              .secondary,
+                                      FlutterFlowTheme.of(context).secondary,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(2.5),
+                                child: Container(
+                                  width: 25.0,
+                                  height: 25.0,
+                                  child: custom_widgets.IconFromText(
+                                    width: 25.0,
+                                    height: 25.0,
+                                    name: widget!.iconFromText!,
+                                    size: 25.0,
+                                    color: valueOrDefault<Color>(
+                                      widget!.color != null
+                                          ? widget!.color
+                                          : FlutterFlowTheme.of(context)
+                                              .secondary,
+                                      FlutterFlowTheme.of(context).secondary,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                       } else if (widget!.photoUrl != null &&
                           widget!.photoUrl != '') {
-                        return Visibility(
-                          visible: widget!.photoUrl != null &&
-                              widget!.photoUrl != '',
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 8.0, 0.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(40.0),
-                              child: CachedNetworkImage(
-                                fadeInDuration: Duration(milliseconds: 500),
-                                fadeOutDuration: Duration(milliseconds: 500),
-                                imageUrl: widget!.photoUrl!,
-                                width: widget!.photoSize,
-                                height: widget!.photoSize,
-                                fit: BoxFit.cover,
+                        return Stack(
+                          alignment: AlignmentDirectional(1.0, 1.0),
+                          children: [
+                            Transform.scale(
+                              scaleX: widget!.subPhotoUrl != null &&
+                                      widget!.subPhotoUrl != ''
+                                  ? 0.9
+                                  : 1.0,
+                              scaleY: widget!.subPhotoUrl != null &&
+                                      widget!.subPhotoUrl != ''
+                                  ? 0.9
+                                  : 1.0,
+                              alignment: AlignmentDirectional(-1.0, -1.0),
+                              child: Visibility(
+                                visible: widget!.photoUrl != null &&
+                                    widget!.photoUrl != '',
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 8.0, 0.0),
+                                  child: Container(
+                                    width: valueOrDefault<double>(
+                                      widget!.photoSize,
+                                      35.0,
+                                    ),
+                                    height: valueOrDefault<double>(
+                                      widget!.photoSize,
+                                      35.0,
+                                    ),
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: CachedNetworkImage(
+                                      fadeInDuration:
+                                          Duration(milliseconds: 500),
+                                      fadeOutDuration:
+                                          Duration(milliseconds: 500),
+                                      imageUrl: valueOrDefault<String>(
+                                        widget!.photoUrl,
+                                        'https://picsum.photos/seed/338/600',
+                                      ),
+                                      fit: BoxFit.cover,
+                                      errorWidget:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                        'packages/medibound_portal_hdztzw/assets/images/error_image.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            if (widget!.subPhotoUrl != null &&
+                                widget!.subPhotoUrl != '')
+                              Transform.translate(
+                                offset: Offset(0.0, 0.0),
+                                child: Visibility(
+                                  visible: widget!.photoUrl != null &&
+                                      widget!.photoUrl != '',
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 8.0, 0.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      child: CachedNetworkImage(
+                                        fadeInDuration:
+                                            Duration(milliseconds: 500),
+                                        fadeOutDuration:
+                                            Duration(milliseconds: 500),
+                                        imageUrl: valueOrDefault<String>(
+                                          widget!.subPhotoUrl,
+                                          'https://picsum.photos/seed/338/600',
+                                        ),
+                                        width: valueOrDefault<double>(
+                                          widget!.photoSize * 0.5,
+                                          17.5,
+                                        ),
+                                        height: valueOrDefault<double>(
+                                          widget!.photoSize * 0.5,
+                                          17.5,
+                                        ),
+                                        fit: BoxFit.cover,
+                                        alignment: Alignment(1.0, 1.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
                         );
                       } else if (widget!.color != null) {
                         return Visibility(
@@ -170,35 +294,65 @@ class _ComponentProfileTileWidgetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget!.display!,
+                          valueOrDefault<String>(
+                            widget!.display,
+                            'Title',
+                          ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Rubik',
+                                    font: GoogleFonts.rubik(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     fontSize: widget!.titleSize,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                         ),
-                        Text(
-                          valueOrDefault<String>(
-                            widget!.subtitle,
-                            ' subtitle',
+                        if (widget!.subtitle != null && widget!.subtitle != '')
+                          Text(
+                            valueOrDefault<String>(
+                              widget!.subtitle,
+                              ' subtitle',
+                            ).maybeHandleOverflow(
+                              maxChars: 30,
+                              replacement: '…',
+                            ),
+                            maxLines: 1,
+                            style:
+                                FlutterFlowTheme.of(context).bodySmall.override(
+                                      font: GoogleFonts.rubik(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .fontStyle,
+                                      ),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontStyle,
+                                    ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodySmall
-                              .override(
-                                fontFamily: 'Rubik',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                letterSpacing: 0.0,
-                              ),
-                        ),
                       ],
                     ),
                   ),
                   Spacer(),
                   Builder(builder: (_) {
-                    return widget.widget!();
+                    return widget.widget != null
+                        ? widget.widget!()
+                        : SizedBox.shrink();
                   }),
                   Container(
                     width: 20.0,

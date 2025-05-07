@@ -6,9 +6,9 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import '/utils/dropdown/option_dropdown/option_dropdown_widget.dart';
 import '/utils/image_picker/image_picker_widget.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'create_organization_widget.dart' show CreateOrganizationWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
@@ -19,6 +19,13 @@ import 'package:provider/provider.dart';
 
 class CreateOrganizationModel
     extends FlutterFlowModel<CreateOrganizationWidget> {
+  ///  Local state fields for this component.
+
+  CodedValueStruct? selectedCategory;
+  void updateSelectedCategoryStruct(Function(CodedValueStruct) updateFn) {
+    updateFn(selectedCategory ??= CodedValueStruct());
+  }
+
   ///  State fields for stateful widgets in this component.
 
   final formKey2 = GlobalKey<FormState>();
@@ -66,8 +73,6 @@ class CreateOrganizationModel
     return null;
   }
 
-  // Model for OrganizationCategory.
-  late OptionDropdownModel organizationCategoryModel;
   // State field(s) for Address widget.
   FocusNode? addressFocusNode;
   TextEditingController? addressTextController;
@@ -126,8 +131,6 @@ class CreateOrganizationModel
     organizationNameTextControllerValidator =
         _organizationNameTextControllerValidator;
     websiteTextControllerValidator = _websiteTextControllerValidator;
-    organizationCategoryModel =
-        createModel(context, () => OptionDropdownModel());
     addressTextControllerValidator = _addressTextControllerValidator;
     supportEmailTextControllerValidator = _supportEmailTextControllerValidator;
     privacyPolicyTextControllerValidator =
@@ -143,7 +146,6 @@ class CreateOrganizationModel
     websiteFocusNode?.dispose();
     websiteTextController?.dispose();
 
-    organizationCategoryModel.dispose();
     addressFocusNode?.dispose();
     addressTextController?.dispose();
 

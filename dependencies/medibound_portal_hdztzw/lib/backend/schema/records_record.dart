@@ -32,10 +32,10 @@ class RecordsRecord extends FirestoreRecord {
   DocumentReference? get template => _template;
   bool hasTemplate() => _template != null;
 
-  // "data" field.
-  List<DeviceVariableStruct>? _data;
-  List<DeviceVariableStruct> get data => _data ?? const [];
-  bool hasData() => _data != null;
+  // "created_time" field.
+  DateTime? _createdTime;
+  DateTime? get createdTime => _createdTime;
+  bool hasCreatedTime() => _createdTime != null;
 
   void _initializeFields() {
     _info = snapshotData['info'] is CodedValueStruct
@@ -43,10 +43,7 @@ class RecordsRecord extends FirestoreRecord {
         : CodedValueStruct.maybeFromMap(snapshotData['info']);
     _owner = snapshotData['owner'] as DocumentReference?;
     _template = snapshotData['template'] as DocumentReference?;
-    _data = getStructList(
-      snapshotData['data'],
-      DeviceVariableStruct.fromMap,
-    );
+    _createdTime = snapshotData['created_time'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -87,12 +84,14 @@ Map<String, dynamic> createRecordsRecordData({
   CodedValueStruct? info,
   DocumentReference? owner,
   DocumentReference? template,
+  DateTime? createdTime,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'info': CodedValueStruct().toMap(),
       'owner': owner,
       'template': template,
+      'created_time': createdTime,
     }.withoutNulls,
   );
 
@@ -107,16 +106,15 @@ class RecordsRecordDocumentEquality implements Equality<RecordsRecord> {
 
   @override
   bool equals(RecordsRecord? e1, RecordsRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.info == e2?.info &&
         e1?.owner == e2?.owner &&
         e1?.template == e2?.template &&
-        listEquality.equals(e1?.data, e2?.data);
+        e1?.createdTime == e2?.createdTime;
   }
 
   @override
-  int hash(RecordsRecord? e) =>
-      const ListEquality().hash([e?.info, e?.owner, e?.template, e?.data]);
+  int hash(RecordsRecord? e) => const ListEquality()
+      .hash([e?.info, e?.owner, e?.template, e?.createdTime]);
 
   @override
   bool isValidKey(Object? o) => o is RecordsRecord;

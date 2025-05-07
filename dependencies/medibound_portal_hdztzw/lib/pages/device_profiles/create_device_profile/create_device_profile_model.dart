@@ -10,9 +10,10 @@ import '/pages/device_profiles/builder/record_viewer/record_viewer_widget.dart';
 import '/pages/device_profiles/builder/select_component/select_component_widget.dart';
 import '/pages/device_profiles/variables/create_device_variable/create_device_variable_widget.dart';
 import '/utils/dropdown/option_dropdown/option_dropdown_widget.dart';
-import '/utils/dropdown/profile_dropdown/profile_dropdown_widget.dart';
+import '/utils/empty_list/empty_list_widget.dart';
 import '/utils/variable_list_tile/variable_list_tile_widget.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'create_device_profile_widget.dart' show CreateDeviceProfileWidget;
 import 'package:styled_divider/styled_divider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -29,20 +30,26 @@ class CreateDeviceProfileModel
     extends FlutterFlowModel<CreateDeviceProfileWidget> {
   ///  Local state fields for this component.
 
-  List<DeviceVariableStruct> variableList = [];
-  void addToVariableList(DeviceVariableStruct item) => variableList.add(item);
-  void removeFromVariableList(DeviceVariableStruct item) =>
-      variableList.remove(item);
+  List<VariableStruct> variableList = [];
+  void addToVariableList(VariableStruct item) => variableList.add(item);
+  void removeFromVariableList(VariableStruct item) => variableList.remove(item);
   void removeAtIndexFromVariableList(int index) => variableList.removeAt(index);
-  void insertAtIndexInVariableList(int index, DeviceVariableStruct item) =>
+  void insertAtIndexInVariableList(int index, VariableStruct item) =>
       variableList.insert(index, item);
   void updateVariableListAtIndex(
-          int index, Function(DeviceVariableStruct) updateFn) =>
+          int index, Function(VariableStruct) updateFn) =>
       variableList[index] = updateFn(variableList[index]);
 
   double windowWidth = 660.0;
 
   double? windowHeight = 600.0;
+
+  OrganizationsRecord? selectedOrganization;
+
+  CodedValueStruct? selectedDeviceCategory;
+  void updateSelectedDeviceCategoryStruct(Function(CodedValueStruct) updateFn) {
+    updateFn(selectedDeviceCategory ??= CodedValueStruct());
+  }
 
   ///  State fields for stateful widgets in this component.
 
@@ -85,10 +92,6 @@ class CreateDeviceProfileModel
     return null;
   }
 
-  // Model for ProfileDropdown component.
-  late ProfileDropdownModel profileDropdownModel;
-  // Model for Type.
-  late OptionDropdownModel typeModel;
   // State field(s) for ManualLink widget.
   FocusNode? manualLinkFocusNode;
   TextEditingController? manualLinkTextController;
@@ -153,8 +156,6 @@ class CreateDeviceProfileModel
   void initState(BuildContext context) {
     deviceNameTextControllerValidator = _deviceNameTextControllerValidator;
     descriptionTextControllerValidator = _descriptionTextControllerValidator;
-    profileDropdownModel = createModel(context, () => ProfileDropdownModel());
-    typeModel = createModel(context, () => OptionDropdownModel());
     manualLinkTextControllerValidator = _manualLinkTextControllerValidator;
     modelNumberTextControllerValidator = _modelNumberTextControllerValidator;
     udiTextControllerValidator = _udiTextControllerValidator;
@@ -164,7 +165,6 @@ class CreateDeviceProfileModel
     bodyBuilderModel = createModel(context, () => BodyBuilderModel());
     selectComponentModel = createModel(context, () => SelectComponentModel());
     recordViewerModel = createModel(context, () => RecordViewerModel());
-    profileDropdownModel.textControllerValidator = _formTextFieldValidator5;
   }
 
   @override
@@ -175,8 +175,6 @@ class CreateDeviceProfileModel
     descriptionFocusNode?.dispose();
     descriptionTextController?.dispose();
 
-    profileDropdownModel.dispose();
-    typeModel.dispose();
     manualLinkFocusNode?.dispose();
     manualLinkTextController?.dispose();
 
@@ -192,15 +190,5 @@ class CreateDeviceProfileModel
     bodyBuilderModel.dispose();
     selectComponentModel.dispose();
     recordViewerModel.dispose();
-  }
-
-  /// Additional helper methods.
-
-  String? _formTextFieldValidator5(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'label is required';
-    }
-
-    return null;
   }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
+import 'flutter_flow/request_manager.dart';
+import "package:medibound_portal_hdztzw/backend/backend.dart"
+    as medibound_portal_hdztzw_backend;
+import "package:medibound_portal_hdztzw/backend/schema/structs/index.dart"
+    as medibound_portal_hdztzw_data_schema;
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -22,32 +25,34 @@ class FFAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<BluetoothDeviceStruct> _ConnectedDevices = [];
-  List<BluetoothDeviceStruct> get ConnectedDevices => _ConnectedDevices;
-  set ConnectedDevices(List<BluetoothDeviceStruct> value) {
-    _ConnectedDevices = value;
+  medibound_portal_hdztzw_data_schema.RouteStruct _currentRoute =
+      medibound_portal_hdztzw_data_schema.RouteStruct();
+  medibound_portal_hdztzw_data_schema.RouteStruct get currentRoute =>
+      _currentRoute;
+  set currentRoute(medibound_portal_hdztzw_data_schema.RouteStruct value) {
+    _currentRoute = value;
   }
 
-  void addToConnectedDevices(BluetoothDeviceStruct value) {
-    ConnectedDevices.add(value);
+  void updateCurrentRouteStruct(
+      Function(medibound_portal_hdztzw_data_schema.RouteStruct) updateFn) {
+    updateFn(_currentRoute);
   }
 
-  void removeFromConnectedDevices(BluetoothDeviceStruct value) {
-    ConnectedDevices.remove(value);
-  }
-
-  void removeAtIndexFromConnectedDevices(int index) {
-    ConnectedDevices.removeAt(index);
-  }
-
-  void updateConnectedDevicesAtIndex(
-    int index,
-    BluetoothDeviceStruct Function(BluetoothDeviceStruct) updateFn,
-  ) {
-    ConnectedDevices[index] = updateFn(_ConnectedDevices[index]);
-  }
-
-  void insertAtIndexInConnectedDevices(int index, BluetoothDeviceStruct value) {
-    ConnectedDevices.insert(index, value);
-  }
+  final _homePageRecordManager = StreamRequestManager<
+      List<medibound_portal_hdztzw_backend.RecordsRecord>>();
+  Stream<List<medibound_portal_hdztzw_backend.RecordsRecord>> homePageRecord({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<medibound_portal_hdztzw_backend.RecordsRecord>>
+            Function()
+        requestFn,
+  }) =>
+      _homePageRecordManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearHomePageRecordCache() => _homePageRecordManager.clear();
+  void clearHomePageRecordCacheKey(String? uniqueKey) =>
+      _homePageRecordManager.clearRequest(uniqueKey);
 }

@@ -27,23 +27,39 @@ class MessageRecord extends FirestoreRecord {
   DateTime? get createdTime => _createdTime;
   bool hasCreatedTime() => _createdTime != null;
 
-  // "sent_by" field.
-  DocumentReference? _sentBy;
-  DocumentReference? get sentBy => _sentBy;
-  bool hasSentBy() => _sentBy != null;
+  // "record" field.
+  DocumentReference? _record;
+  DocumentReference? get record => _record;
+  bool hasRecord() => _record != null;
 
-  // "attachment" field.
-  DocumentReference? _attachment;
-  DocumentReference? get attachment => _attachment;
-  bool hasAttachment() => _attachment != null;
+  // "device_profile" field.
+  DocumentReference? _deviceProfile;
+  DocumentReference? get deviceProfile => _deviceProfile;
+  bool hasDeviceProfile() => _deviceProfile != null;
+
+  // "embed" field.
+  MessageEmbedStruct? _embed;
+  MessageEmbedStruct get embed => _embed ?? MessageEmbedStruct();
+  bool hasEmbed() => _embed != null;
+
+  // "sent_by" field.
+  ProfileStruct? _sentBy;
+  ProfileStruct get sentBy => _sentBy ?? ProfileStruct();
+  bool hasSentBy() => _sentBy != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _message = snapshotData['message'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
-    _sentBy = snapshotData['sent_by'] as DocumentReference?;
-    _attachment = snapshotData['attachment'] as DocumentReference?;
+    _record = snapshotData['record'] as DocumentReference?;
+    _deviceProfile = snapshotData['device_profile'] as DocumentReference?;
+    _embed = snapshotData['embed'] is MessageEmbedStruct
+        ? snapshotData['embed']
+        : MessageEmbedStruct.maybeFromMap(snapshotData['embed']);
+    _sentBy = snapshotData['sent_by'] is ProfileStruct
+        ? snapshotData['sent_by']
+        : ProfileStruct.maybeFromMap(snapshotData['sent_by']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -88,17 +104,27 @@ class MessageRecord extends FirestoreRecord {
 Map<String, dynamic> createMessageRecordData({
   String? message,
   DateTime? createdTime,
-  DocumentReference? sentBy,
-  DocumentReference? attachment,
+  DocumentReference? record,
+  DocumentReference? deviceProfile,
+  MessageEmbedStruct? embed,
+  ProfileStruct? sentBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'message': message,
       'created_time': createdTime,
-      'sent_by': sentBy,
-      'attachment': attachment,
+      'record': record,
+      'device_profile': deviceProfile,
+      'embed': MessageEmbedStruct().toMap(),
+      'sent_by': ProfileStruct().toMap(),
     }.withoutNulls,
   );
+
+  // Handle nested data for "embed" field.
+  addMessageEmbedStructData(firestoreData, embed, 'embed');
+
+  // Handle nested data for "sent_by" field.
+  addProfileStructData(firestoreData, sentBy, 'sent_by');
 
   return firestoreData;
 }
@@ -110,13 +136,21 @@ class MessageRecordDocumentEquality implements Equality<MessageRecord> {
   bool equals(MessageRecord? e1, MessageRecord? e2) {
     return e1?.message == e2?.message &&
         e1?.createdTime == e2?.createdTime &&
-        e1?.sentBy == e2?.sentBy &&
-        e1?.attachment == e2?.attachment;
+        e1?.record == e2?.record &&
+        e1?.deviceProfile == e2?.deviceProfile &&
+        e1?.embed == e2?.embed &&
+        e1?.sentBy == e2?.sentBy;
   }
 
   @override
-  int hash(MessageRecord? e) => const ListEquality()
-      .hash([e?.message, e?.createdTime, e?.sentBy, e?.attachment]);
+  int hash(MessageRecord? e) => const ListEquality().hash([
+        e?.message,
+        e?.createdTime,
+        e?.record,
+        e?.deviceProfile,
+        e?.embed,
+        e?.sentBy
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is MessageRecord;

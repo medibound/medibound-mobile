@@ -24,10 +24,7 @@ async function generateAndWrapKey() {
     plaintext: aesKey.toString('base64'),
   });
 
-  return {
-    wrappedKey: result.ciphertext.toString('base64'), // Encrypted key
-    rawKey: aesKey.toString('base64'),                // Never expose this!
-  };
+  return aesKey.toString('base64');
 }
 
 exports.createDeviceKey = functions.region('us-central1').runWith({
@@ -38,16 +35,7 @@ exports.createDeviceKey = functions.region('us-central1').runWith({
       return;
     }
 
-    const privateKeyInfo = await generateAndWrapKey();
-    const publicKeyInfo = await generateAndWrapKey();
-
-
-    return {
-      "privateWrappedKey": privateKeyInfo.wrappedKey,
-      "privateRawKey": privateKeyInfo.rawKey,
-      "publicWrappedKey": publicKeyInfo.wrappedKey,
-      "publicRawKey": publicKeyInfo.rawKey,
-    };
+    return await generateAndWrapKey();
 
   }
 );

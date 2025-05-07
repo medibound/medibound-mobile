@@ -1,4 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import "package:medibound_portal_hdztzw/backend/backend.dart"
+    as medibound_portal_hdztzw_backend;
 import 'package:medibound_portal_hdztzw/flutter_flow/flutter_flow_util.dart'
     as medibound_portal_hdztzw_util
     show wrapWithModel, createModel, FlutterFlowDynamicModels;
@@ -16,6 +18,12 @@ class RecordModel extends FlutterFlowModel<RecordWidget> {
   late medibound_portal_hdztzw.EmptyModel emptyModel;
   // Model for Header component.
   late medibound_portal_hdztzw.HeaderModel headerModel;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  medibound_portal_hdztzw_backend.AgentsRecord? agentMedi;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  medibound_portal_hdztzw_backend.MessagesRecord? messageGroup;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  medibound_portal_hdztzw_backend.MessageRecord? messageInitial;
 
   @override
   void initState(BuildContext context) {

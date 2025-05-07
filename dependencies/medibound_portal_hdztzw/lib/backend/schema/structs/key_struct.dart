@@ -11,32 +11,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class KeyStruct extends FFFirebaseStruct {
   KeyStruct({
-    String? privateWrappedKey,
-    String? privateRawKey,
     DateTime? createdTime,
-    String? publicWrappedKey,
-    String? publicRawKey,
+    String? hintKey,
+    String? secret,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _privateWrappedKey = privateWrappedKey,
-        _privateRawKey = privateRawKey,
-        _createdTime = createdTime,
-        _publicWrappedKey = publicWrappedKey,
-        _publicRawKey = publicRawKey,
+  })  : _createdTime = createdTime,
+        _hintKey = hintKey,
+        _secret = secret,
         super(firestoreUtilData);
-
-  // "privateWrappedKey" field.
-  String? _privateWrappedKey;
-  String get privateWrappedKey => _privateWrappedKey ?? '';
-  set privateWrappedKey(String? val) => _privateWrappedKey = val;
-
-  bool hasPrivateWrappedKey() => _privateWrappedKey != null;
-
-  // "privateRawKey" field.
-  String? _privateRawKey;
-  String get privateRawKey => _privateRawKey ?? '';
-  set privateRawKey(String? val) => _privateRawKey = val;
-
-  bool hasPrivateRawKey() => _privateRawKey != null;
 
   // "created_time" field.
   DateTime? _createdTime;
@@ -45,114 +27,82 @@ class KeyStruct extends FFFirebaseStruct {
 
   bool hasCreatedTime() => _createdTime != null;
 
-  // "publicWrappedKey" field.
-  String? _publicWrappedKey;
-  String get publicWrappedKey => _publicWrappedKey ?? '';
-  set publicWrappedKey(String? val) => _publicWrappedKey = val;
+  // "hint_key" field.
+  String? _hintKey;
+  String get hintKey => _hintKey ?? '';
+  set hintKey(String? val) => _hintKey = val;
 
-  bool hasPublicWrappedKey() => _publicWrappedKey != null;
+  bool hasHintKey() => _hintKey != null;
 
-  // "publicRawKey" field.
-  String? _publicRawKey;
-  String get publicRawKey => _publicRawKey ?? '';
-  set publicRawKey(String? val) => _publicRawKey = val;
+  // "secret" field.
+  String? _secret;
+  String get secret => _secret ?? '';
+  set secret(String? val) => _secret = val;
 
-  bool hasPublicRawKey() => _publicRawKey != null;
+  bool hasSecret() => _secret != null;
 
   static KeyStruct fromMap(Map<String, dynamic> data) => KeyStruct(
-        privateWrappedKey: data['privateWrappedKey'] as String?,
-        privateRawKey: data['privateRawKey'] as String?,
         createdTime: data['created_time'] as DateTime?,
-        publicWrappedKey: data['publicWrappedKey'] as String?,
-        publicRawKey: data['publicRawKey'] as String?,
+        hintKey: data['hint_key'] as String?,
+        secret: data['secret'] as String?,
       );
 
   static KeyStruct? maybeFromMap(dynamic data) =>
       data is Map ? KeyStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
-        'privateWrappedKey': _privateWrappedKey,
-        'privateRawKey': _privateRawKey,
         'created_time': _createdTime,
-        'publicWrappedKey': _publicWrappedKey,
-        'publicRawKey': _publicRawKey,
+        'hint_key': _hintKey,
+        'secret': _secret,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'privateWrappedKey': serializeParam(
-          _privateWrappedKey,
-          ParamType.String,
-        ),
-        'privateRawKey': serializeParam(
-          _privateRawKey,
-          ParamType.String,
-        ),
         'created_time': serializeParam(
           _createdTime,
           ParamType.DateTime,
         ),
-        'publicWrappedKey': serializeParam(
-          _publicWrappedKey,
+        'hint_key': serializeParam(
+          _hintKey,
           ParamType.String,
         ),
-        'publicRawKey': serializeParam(
-          _publicRawKey,
+        'secret': serializeParam(
+          _secret,
           ParamType.String,
         ),
       }.withoutNulls;
 
   static KeyStruct fromSerializableMap(Map<String, dynamic> data) => KeyStruct(
-        privateWrappedKey: deserializeParam(
-          data['privateWrappedKey'],
-          ParamType.String,
-          false,
-        ),
-        privateRawKey: deserializeParam(
-          data['privateRawKey'],
-          ParamType.String,
-          false,
-        ),
         createdTime: deserializeParam(
           data['created_time'],
           ParamType.DateTime,
           false,
         ),
-        publicWrappedKey: deserializeParam(
-          data['publicWrappedKey'],
+        hintKey: deserializeParam(
+          data['hint_key'],
           ParamType.String,
           false,
         ),
-        publicRawKey: deserializeParam(
-          data['publicRawKey'],
+        secret: deserializeParam(
+          data['secret'],
           ParamType.String,
           false,
         ),
       );
 
   static KeyStruct fromAlgoliaData(Map<String, dynamic> data) => KeyStruct(
-        privateWrappedKey: convertAlgoliaParam(
-          data['privateWrappedKey'],
-          ParamType.String,
-          false,
-        ),
-        privateRawKey: convertAlgoliaParam(
-          data['privateRawKey'],
-          ParamType.String,
-          false,
-        ),
         createdTime: convertAlgoliaParam(
           data['created_time'],
           ParamType.DateTime,
           false,
         ),
-        publicWrappedKey: convertAlgoliaParam(
-          data['publicWrappedKey'],
+        hintKey: convertAlgoliaParam(
+          data['hint_key'],
           ParamType.String,
           false,
         ),
-        publicRawKey: convertAlgoliaParam(
-          data['publicRawKey'],
+        secret: convertAlgoliaParam(
+          data['secret'],
           ParamType.String,
           false,
         ),
@@ -168,40 +118,28 @@ class KeyStruct extends FFFirebaseStruct {
   @override
   bool operator ==(Object other) {
     return other is KeyStruct &&
-        privateWrappedKey == other.privateWrappedKey &&
-        privateRawKey == other.privateRawKey &&
         createdTime == other.createdTime &&
-        publicWrappedKey == other.publicWrappedKey &&
-        publicRawKey == other.publicRawKey;
+        hintKey == other.hintKey &&
+        secret == other.secret;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([
-        privateWrappedKey,
-        privateRawKey,
-        createdTime,
-        publicWrappedKey,
-        publicRawKey
-      ]);
+  int get hashCode => const ListEquality().hash([createdTime, hintKey, secret]);
 }
 
 KeyStruct createKeyStruct({
-  String? privateWrappedKey,
-  String? privateRawKey,
   DateTime? createdTime,
-  String? publicWrappedKey,
-  String? publicRawKey,
+  String? hintKey,
+  String? secret,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     KeyStruct(
-      privateWrappedKey: privateWrappedKey,
-      privateRawKey: privateRawKey,
       createdTime: createdTime,
-      publicWrappedKey: publicWrappedKey,
-      publicRawKey: publicRawKey,
+      hintKey: hintKey,
+      secret: secret,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

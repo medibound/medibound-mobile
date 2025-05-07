@@ -1,7 +1,5 @@
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -72,10 +70,16 @@ class _ListGraphWidgetState extends State<ListGraphWidget> {
                     'Requests',
                   ),
                   style: FlutterFlowTheme.of(context).bodyLarge.override(
-                        fontFamily: 'Rubik',
+                        font: GoogleFonts.rubik(
+                          fontWeight: FontWeight.w500,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                        ),
                         color: FlutterFlowTheme.of(context).secondary,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                       ),
                 ),
                 Text(
@@ -84,29 +88,21 @@ class _ListGraphWidgetState extends State<ListGraphWidget> {
                     'In ____',
                   ),
                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                        fontFamily: 'Rubik',
+                        font: GoogleFonts.rubik(
+                          fontWeight:
+                              FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                        ),
                         color: FlutterFlowTheme.of(context).secondaryText,
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodySmall.fontStyle,
                       ),
                 ),
               ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Container(
-              width: 120.0,
-              height: double.infinity,
-              child: custom_widgets.SplineAreaGraph(
-                width: 120.0,
-                height: double.infinity,
-                color: FlutterFlowTheme.of(context).secondary,
-                variable: DeviceVariableStruct(
-                  data: VariableDataStruct(
-                    number: widget!.numberArray,
-                  ),
-                ),
-              ),
             ),
           ),
         ],

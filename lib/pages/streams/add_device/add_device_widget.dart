@@ -1,15 +1,7 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/backend/custom_cloud_functions/custom_cloud_function_response_manager.dart';
-import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/utils/device_tile/device_tile_widget.dart';
 import "package:medibound_portal_hdztzw/backend/backend.dart"
     as medibound_portal_hdztzw_backend;
 import '/custom_code/actions/index.dart' as actions;
-import 'package:medibound_portal_hdztzw/app_state.dart'
-    as medibound_portal_hdztzw_app_state;
 import 'package:medibound_portal_hdztzw/flutter_flow/flutter_flow_util.dart'
     as medibound_portal_hdztzw_util
     show wrapWithModel, createModel, FlutterFlowDynamicModels;
@@ -19,16 +11,12 @@ import 'package:medibound_portal_hdztzw/utils/empty/empty_widget.dart'
     as medibound_portal_hdztzw;
 import 'package:medibound_portal_hdztzw/utils/loading/loading_widget.dart'
     as medibound_portal_hdztzw;
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:collection/collection.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'add_device_model.dart';
 export 'add_device_model.dart';
 
@@ -39,11 +27,8 @@ class AddDeviceWidget extends StatefulWidget {
   State<AddDeviceWidget> createState() => _AddDeviceWidgetState();
 }
 
-class _AddDeviceWidgetState extends State<AddDeviceWidget>
-    with TickerProviderStateMixin {
+class _AddDeviceWidgetState extends State<AddDeviceWidget> {
   late AddDeviceModel _model;
-
-  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -59,51 +44,9 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 1500));
-      await actions.getDevices(
-        (device) async {
-          _model.deviceSearch =
-              await medibound_portal_hdztzw_backend.queryDeviceRecordOnce(
-            queryBuilder: (deviceRecord) => deviceRecord.where(
-              'info.code',
-              isEqualTo: device.deviceId,
-            ),
-          );
-
-          FFAppState().update(() {});
-          if (((_model.deviceSearch != null &&
-                      (_model.deviceSearch)!.isNotEmpty) ==
-                  true) &&
-              valueOrDefault<bool>(
-                _model.deviceSearch?.firstOrNull?.owner != currentUserReference,
-                true,
-              )) {
-            _model.addToBtDevicesAvailable(BluetoothDeviceStruct(
-              name: device.name,
-              id: device.id,
-              deviceId: device.deviceId,
-              ref: _model.deviceSearch?.firstOrNull?.reference,
-            ));
-            _model.updatePage(() {});
-          }
-        },
-      );
     });
 
-    animationsMap.addAll({
-      'rowOnPageLoadAnimation': AnimationInfo(
-        loop: true,
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          ShimmerEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 1600.0.ms,
-            color: FlutterFlowTheme.of(context).secondaryBackground,
-            angle: 0.524,
-          ),
-        ],
-      ),
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -115,9 +58,6 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-    context.watch<medibound_portal_hdztzw_app_state.FFAppState>();
-
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -129,7 +69,7 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 20.0),
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 20.0),
         child: SafeArea(
           child: Container(
             decoration: BoxDecoration(),
@@ -158,370 +98,43 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                               PageController(initialPage: 0),
                           scrollDirection: Axis.horizontal,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Select an available device',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  Builder(
-                                    builder: (context) {
-                                      if (_model
-                                          .btDevicesAvailable.isNotEmpty) {
-                                        return Container(
-                                          decoration: BoxDecoration(),
-                                          child: Builder(
-                                            builder: (context) {
-                                              final btDevices = _model
-                                                  .btDevicesAvailable
-                                                  .toList();
-
-                                              return SingleChildScrollView(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: List.generate(
-                                                      btDevices.length,
-                                                      (btDevicesIndex) {
-                                                    final btDevicesItem =
-                                                        btDevices[
-                                                            btDevicesIndex];
-                                                    return StreamBuilder<
-                                                        medibound_portal_hdztzw_backend
-                                                        .DeviceRecord>(
-                                                      stream:
-                                                          medibound_portal_hdztzw_backend
-                                                                  .DeviceRecord
-                                                              .getDocument(
-                                                                  btDevicesItem
-                                                                      .ref!),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 25.0,
-                                                              height: 25.0,
-                                                              child:
-                                                                  SpinKitPulse(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                size: 25.0,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-
-                                                        final containerDeviceRecord =
-                                                            snapshot.data!;
-
-                                                        return InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            _model.bTDeviceSelected =
-                                                                btDevicesItem;
-                                                            safeSetState(() {});
-                                                            await _model
-                                                                .pageViewController
-                                                                ?.nextPage(
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      300),
-                                                              curve:
-                                                                  Curves.ease,
-                                                            );
-                                                          },
-                                                          child: Container(
-                                                            width: 175.0,
-                                                            height: 130.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                            ),
-                                                            child:
-                                                                wrapWithModel(
-                                                              model: _model
-                                                                  .deviceTileModels
-                                                                  .getModel(
-                                                                btDevicesItem
-                                                                    .id,
-                                                                btDevicesIndex,
-                                                              ),
-                                                              updateCallback: () =>
-                                                                  safeSetState(
-                                                                      () {}),
-                                                              updateOnChange:
-                                                                  true,
-                                                              child:
-                                                                  DeviceTileWidget(
-                                                                key: Key(
-                                                                  'Keycy3_${btDevicesItem.id}',
-                                                                ),
-                                                                cornerIcon:
-                                                                    FaIcon(
-                                                                  FontAwesomeIcons
-                                                                      .plus,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  size: 16.0,
-                                                                ),
-                                                                optionsButtonShow:
-                                                                    false,
-                                                                statusColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .alternate,
-                                                                status: ' ',
-                                                                device:
-                                                                    containerDeviceRecord,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  }).divide(
-                                                      SizedBox(width: 10.0)),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      } else {
-                                        return ClipRRect(
-                                          child: Container(
-                                            decoration: BoxDecoration(),
-                                            child: SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Container(
-                                                    width: 175.0,
-                                                    height: 130.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: 175.0,
-                                                    height: 130.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: 175.0,
-                                                    height: 130.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0),
-                                                    ),
-                                                  ),
-                                                ].divide(SizedBox(width: 10.0)),
-                                              ),
-                                            ).animateOnPageLoad(animationsMap[
-                                                'rowOnPageLoadAnimation']!),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                ].divide(SizedBox(height: 10.0)),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Select an verification method',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Rubik',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            _model.barcodeId =
-                                                await FlutterBarcodeScanner
-                                                    .scanBarcode(
-                                              '#C62828', // scanning line color
-                                              'Cancel', // cancel button text
-                                              true, // whether to show the flash icon
-                                              ScanMode.QR,
-                                            );
-
-                                            _model.deviceSelected =
-                                                await medibound_portal_hdztzw_backend
-                                                        .DeviceRecord
-                                                    .getDocumentOnce(_model
-                                                        .bTDeviceSelected!
-                                                        .ref!);
-                                            try {
-                                              final result =
-                                                  await FirebaseFunctions
-                                                          .instanceFor(
-                                                              region:
-                                                                  'us-central1')
-                                                      .httpsCallable('checkKey')
-                                                      .call({
-                                                "key": _model.barcodeId,
-                                                "publicWrappedKey": _model
-                                                    .deviceSelected!
-                                                    .key
-                                                    .publicWrappedKey,
-                                                "privateWrappedKey": _model
-                                                    .deviceSelected!
-                                                    .key
-                                                    .privateWrappedKey,
-                                              });
-                                              _model.validationKey =
-                                                  CheckKeyCloudFunctionCallResponse(
-                                                data: result.data,
-                                                succeeded: true,
-                                                resultAsString:
-                                                    result.data.toString(),
-                                                jsonBody: result.data,
-                                              );
-                                            } on FirebaseFunctionsException catch (error) {
-                                              _model.validationKey =
-                                                  CheckKeyCloudFunctionCallResponse(
-                                                errorCode: error.code,
-                                                succeeded: false,
-                                              );
-                                            }
-
-                                            if (_model.validationKey?.data !=
-                                                    null &&
-                                                _model.validationKey?.data !=
-                                                    '') {
-                                              await _model.pageViewController
-                                                  ?.nextPage(
-                                                duration:
-                                                    Duration(milliseconds: 300),
-                                                curve: Curves.ease,
-                                              );
-
-                                              await _model
-                                                  .deviceSelected!.reference
-                                                  .update(
-                                                      medibound_portal_hdztzw_backend
-                                                          .createDeviceRecordData(
-                                                storedId:
-                                                    _model.bTDeviceSelected?.id,
-                                                storedKey:
-                                                    _model.validationKey?.data,
-                                                owner: currentUserReference,
-                                              ));
-                                              _model.connected =
-                                                  await actions.connectDevice(
-                                                _model.bTDeviceSelected!,
-                                                (device) async {},
-                                              );
-                                              if (_model.connected!) {
-                                                Navigator.pop(context);
-                                              } else {
-                                                await _model.pageViewController
-                                                    ?.previousPage(
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  curve: Curves.ease,
-                                                );
-                                              }
-                                            }
-
-                                            safeSetState(() {});
-                                          },
-                                          child: medibound_portal_hdztzw_util
-                                              .wrapWithModel(
-                                            model: _model
-                                                .componentProfileTileModel1,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: medibound_portal_hdztzw
-                                                .ComponentProfileTileWidget(
-                                              display: 'Secure Scan',
-                                              subtitle: 'Use the barcode',
-                                              photoUrl: '',
-                                              titleSize: 20.0,
-                                              photoSize: 40.0,
-                                              height: 75.0,
-                                              icon: Icon(
-                                                Icons.qr_code_scanner_rounded,
-                                                color:
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 0.0, 20.0, 0.0),
+                              child: Container(
+                                decoration: BoxDecoration(),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Select an verification method',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.rubik(
+                                                fontWeight:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 24.0,
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
                                               ),
-                                              widget: () =>
-                                                  medibound_portal_hdztzw
-                                                      .EmptyWidget(),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
                                             ),
-                                          ),
-                                        ),
                                       ),
-                                    ),
-                                    Opacity(
-                                      opacity: 0.5,
-                                      child: ClipRRect(
+                                      ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                         child: Container(
@@ -529,37 +142,193 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
                                           ),
-                                          child: medibound_portal_hdztzw_util
-                                              .wrapWithModel(
-                                            model: _model
-                                                .componentProfileTileModel2,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: medibound_portal_hdztzw
-                                                .ComponentProfileTileWidget(
-                                              display: 'Contactless Tap',
-                                              subtitle:
-                                                  'Contactless via NFC\nComing Soon',
-                                              photoUrl: '',
-                                              titleSize: 20.0,
-                                              photoSize: 40.0,
-                                              height: 75.0,
-                                              icon: Icon(
-                                                Icons.nfc,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 24.0,
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              _model.barcodeId =
+                                                  await FlutterBarcodeScanner
+                                                      .scanBarcode(
+                                                '#C62828', // scanning line color
+                                                'Cancel', // cancel button text
+                                                true, // whether to show the flash icon
+                                                ScanMode.QR,
+                                              );
+
+                                              _model.devicePull =
+                                                  await medibound_portal_hdztzw_backend
+                                                      .queryDeviceRecordOnce(
+                                                queryBuilder: (deviceRecord) =>
+                                                    deviceRecord.where(
+                                                  'info.code',
+                                                  isEqualTo: _model.barcodeId,
+                                                ),
+                                              );
+                                              if (_model.devicePull != null &&
+                                                  (_model.devicePull)!
+                                                      .isNotEmpty) {
+                                                if (!_model
+                                                    .devicePull!.firstOrNull!
+                                                    .hasOwner()) {
+                                                  await _model
+                                                      .pageViewController
+                                                      ?.nextPage(
+                                                    duration: Duration(
+                                                        milliseconds: 300),
+                                                    curve: Curves.ease,
+                                                  );
+                                                  _model.isConnected =
+                                                      await actions
+                                                          .checkDeviceBLE(
+                                                    _model
+                                                        .devicePull!
+                                                        .firstOrNull!
+                                                        .reference
+                                                        .id,
+                                                  );
+                                                  if (_model.isConnected!) {
+                                                    Navigator.pop(context);
+                                                  } else {
+                                                    await _model
+                                                        .pageViewController
+                                                        ?.previousPage(
+                                                      duration: Duration(
+                                                          milliseconds: 300),
+                                                      curve: Curves.ease,
+                                                    );
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'Device not detected'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  }
+                                                } else {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'Device is already set up'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                }
+                                              } else {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                          'No Device Found'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              }
+
+                                              safeSetState(() {});
+                                            },
+                                            child: medibound_portal_hdztzw_util
+                                                .wrapWithModel(
+                                              model: _model
+                                                  .componentProfileTileModel1,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child: medibound_portal_hdztzw
+                                                  .ComponentProfileTileWidget(
+                                                display: 'Secure Scan',
+                                                subtitle: 'Use the barcode',
+                                                titleSize: 20.0,
+                                                photoSize: 40.0,
+                                                height: 75.0,
+                                                icon: Icon(
+                                                  Icons.qr_code_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  size: 24.0,
+                                                ),
+                                                widget: () =>
+                                                    medibound_portal_hdztzw
+                                                        .EmptyWidget(),
                                               ),
-                                              widget: () =>
-                                                  medibound_portal_hdztzw
-                                                      .EmptyWidget(),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ].divide(SizedBox(height: 10.0)),
+                                      Opacity(
+                                        opacity: 0.5,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            child: medibound_portal_hdztzw_util
+                                                .wrapWithModel(
+                                              model: _model
+                                                  .componentProfileTileModel2,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child: medibound_portal_hdztzw
+                                                  .ComponentProfileTileWidget(
+                                                display: 'Contactless Tap',
+                                                subtitle:
+                                                    'Transfer with NFC\nComing Soon',
+                                                titleSize: 20.0,
+                                                photoSize: 40.0,
+                                                height: 75.0,
+                                                icon: Icon(
+                                                  Icons.nfc_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  size: 24.0,
+                                                ),
+                                                widget: () =>
+                                                    medibound_portal_hdztzw
+                                                        .EmptyWidget(),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ].divide(SizedBox(height: 10.0)),
+                                  ),
                                 ),
                               ),
                             ),
@@ -574,8 +343,25 @@ class _AddDeviceWidgetState extends State<AddDeviceWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Rubik',
+                                          font: GoogleFonts.rubik(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                   if (responsiveVisibility(

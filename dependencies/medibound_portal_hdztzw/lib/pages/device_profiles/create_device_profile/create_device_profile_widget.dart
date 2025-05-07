@@ -10,9 +10,10 @@ import '/pages/device_profiles/builder/record_viewer/record_viewer_widget.dart';
 import '/pages/device_profiles/builder/select_component/select_component_widget.dart';
 import '/pages/device_profiles/variables/create_device_variable/create_device_variable_widget.dart';
 import '/utils/dropdown/option_dropdown/option_dropdown_widget.dart';
-import '/utils/dropdown/profile_dropdown/profile_dropdown_widget.dart';
+import '/utils/empty_list/empty_list_widget.dart';
 import '/utils/variable_list_tile/variable_list_tile_widget.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:styled_divider/styled_divider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,7 +28,12 @@ import 'create_device_profile_model.dart';
 export 'create_device_profile_model.dart';
 
 class CreateDeviceProfileWidget extends StatefulWidget {
-  const CreateDeviceProfileWidget({super.key});
+  const CreateDeviceProfileWidget({
+    super.key,
+    required this.organizations,
+  });
+
+  final List<OrganizationsRecord>? organizations;
 
   @override
   State<CreateDeviceProfileWidget> createState() =>
@@ -103,7 +109,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                   child: PageView(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: _model.pageViewController ??=
-                        PageController(initialPage: 0),
+                        PageController(initialPage: 2),
                     onPageChanged: (_) async {
                       await Future.delayed(const Duration(milliseconds: 200));
                       _model.windowWidth =
@@ -138,8 +144,25 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .headlineMedium
                                         .override(
-                                          fontFamily: 'Rubik',
+                                          font: GoogleFonts.rubik(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                   Padding(
@@ -151,8 +174,25 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Rubik',
+                                            font: GoogleFonts.rubik(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -181,34 +221,66 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          isDense: false,
+                                          isDense: true,
                                           labelText: 'Device Name',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                            fontFamily: 'Rubik',
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            shadows: [
-                                              Shadow(
-                                                color:
+                                          labelStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
                                                     FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                                shadows: [
+                                                  Shadow(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .customColor1,
-                                                offset: Offset(0.0, 2.0),
-                                                blurRadius: 40.0,
-                                              )
-                                            ],
-                                          ),
+                                                    offset: Offset(0.0, 2.0),
+                                                    blurRadius: 40.0,
+                                                  )
+                                                ],
+                                                lineHeight: 1.0,
+                                              ),
                                           alignLabelWithHint: false,
                                           hintText: 'Flux Capacitor',
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                                lineHeight: 1.0,
+                                              ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -252,7 +324,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .alternate,
-                                          contentPadding: EdgeInsets.all(20.0),
+                                          contentPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 19.0, 20.0, 19.0),
                                           hoverColor:
                                               FlutterFlowTheme.of(context)
                                                   .customColor1,
@@ -260,8 +334,26 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Rubik',
+                                              font: GoogleFonts.rubik(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                              lineHeight: 1.0,
                                             ),
                                         keyboardType: TextInputType.name,
                                         cursorColor:
@@ -283,35 +375,67 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          isDense: false,
-                                          labelText: 'Short Description',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                            fontFamily: 'Rubik',
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            shadows: [
-                                              Shadow(
-                                                color:
+                                          isDense: true,
+                                          labelText: 'Description',
+                                          labelStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
                                                     FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                                shadows: [
+                                                  Shadow(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .customColor1,
-                                                offset: Offset(0.0, 2.0),
-                                                blurRadius: 40.0,
-                                              )
-                                            ],
-                                          ),
+                                                    offset: Offset(0.0, 2.0),
+                                                    blurRadius: 40.0,
+                                                  )
+                                                ],
+                                                lineHeight: 1.0,
+                                              ),
                                           alignLabelWithHint: false,
                                           hintText:
                                               'The innovation that makes time travel possible',
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                                lineHeight: 1.0,
+                                              ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -355,7 +479,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .alternate,
-                                          contentPadding: EdgeInsets.all(20.0),
+                                          contentPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 19.0, 20.0, 19.0),
                                           hoverColor:
                                               FlutterFlowTheme.of(context)
                                                   .customColor1,
@@ -363,9 +489,28 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Rubik',
+                                              font: GoogleFonts.rubik(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                              lineHeight: 1.0,
                                             ),
+                                        maxLines: 5,
                                         cursorColor:
                                             FlutterFlowTheme.of(context)
                                                 .primaryText,
@@ -374,24 +519,53 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                             .asValidator(context),
                                       ),
                                     ),
-                                    wrapWithModel(
-                                      model: _model.profileDropdownModel,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: ProfileDropdownWidget(
-                                        width: MediaQuery.sizeOf(context).width,
-                                        label: 'Owner Organization',
-                                        collectionType:
-                                            CollectionProfiles.ORGANIZATIONS,
+                                    Container(
+                                      decoration: BoxDecoration(),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 10.0, 0.0, 0.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 40.0,
+                                          child: custom_widgets.ProfileDropdown(
+                                            width: double.infinity,
+                                            height: 40.0,
+                                            hintText: 'Owner Organization',
+                                            circle: false,
+                                            items: widget!.organizations!
+                                                .map((e) => e.profile)
+                                                .toList(),
+                                            onChanged: (item) async {
+                                              _model.selectedOrganization =
+                                                  widget!.organizations
+                                                      ?.where((e) =>
+                                                          e.profile.uid ==
+                                                          item.uid)
+                                                      .toList()
+                                                      ?.firstOrNull;
+                                              safeSetState(() {});
+                                            },
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    wrapWithModel(
-                                      model: _model.typeModel,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: OptionDropdownWidget(
-                                        width: MediaQuery.sizeOf(context).width,
-                                        label: 'Device Category',
-                                        optionsList: FFAppState().DeviceTypes,
-                                        onSelected: (optionSelected) async {},
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 10.0, 0.0, 0.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 40.0,
+                                        child: custom_widgets.Dropdown(
+                                          width: double.infinity,
+                                          height: 40.0,
+                                          hintText: 'Device Category',
+                                          items: FFAppState().DeviceTypes,
+                                          onChanged: (item) async {
+                                            _model.selectedDeviceCategory =
+                                                item;
+                                            safeSetState(() {});
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -423,7 +597,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         },
                                         text: 'Next',
                                         options: FFButtonOptions(
-                                          height: 40.0,
+                                          height: 42.5,
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
@@ -432,14 +606,33 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    fontSize: 14.0,
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
                                           elevation: 0.0,
                                           borderRadius:
                                               BorderRadius.circular(10.0),
@@ -486,8 +679,25 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .headlineMedium
                                         .override(
-                                          fontFamily: 'Rubik',
+                                          font: GoogleFonts.rubik(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                   Padding(
@@ -499,8 +709,25 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Rubik',
+                                            font: GoogleFonts.rubik(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -529,35 +756,67 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          isDense: false,
+                                          isDense: true,
                                           labelText: 'Manual Link',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                            fontFamily: 'Rubik',
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            shadows: [
-                                              Shadow(
-                                                color:
+                                          labelStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
                                                     FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                                shadows: [
+                                                  Shadow(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .customColor1,
-                                                offset: Offset(0.0, 2.0),
-                                                blurRadius: 40.0,
-                                              )
-                                            ],
-                                          ),
+                                                    offset: Offset(0.0, 2.0),
+                                                    blurRadius: 40.0,
+                                                  )
+                                                ],
+                                                lineHeight: 1.0,
+                                              ),
                                           alignLabelWithHint: false,
                                           hintText:
                                               'https://timemachine.com/manual.pdf',
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                                lineHeight: 1.0,
+                                              ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -601,7 +860,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .alternate,
-                                          contentPadding: EdgeInsets.all(20.0),
+                                          contentPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 19.0, 20.0, 19.0),
                                           hoverColor:
                                               FlutterFlowTheme.of(context)
                                                   .customColor1,
@@ -609,8 +870,26 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Rubik',
+                                              font: GoogleFonts.rubik(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                              lineHeight: 1.0,
                                             ),
                                         keyboardType: TextInputType.name,
                                         cursorColor:
@@ -632,34 +911,66 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          isDense: false,
+                                          isDense: true,
                                           labelText: 'Model Number',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                            fontFamily: 'Rubik',
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            shadows: [
-                                              Shadow(
-                                                color:
+                                          labelStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
                                                     FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                                shadows: [
+                                                  Shadow(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .customColor1,
-                                                offset: Offset(0.0, 2.0),
-                                                blurRadius: 40.0,
-                                              )
-                                            ],
-                                          ),
+                                                    offset: Offset(0.0, 2.0),
+                                                    blurRadius: 40.0,
+                                                  )
+                                                ],
+                                                lineHeight: 1.0,
+                                              ),
                                           alignLabelWithHint: false,
                                           hintText: 'BTTF-DOC1985',
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                                lineHeight: 1.0,
+                                              ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -703,7 +1014,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .alternate,
-                                          contentPadding: EdgeInsets.all(20.0),
+                                          contentPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 19.0, 20.0, 19.0),
                                           hoverColor:
                                               FlutterFlowTheme.of(context)
                                                   .customColor1,
@@ -711,8 +1024,26 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Rubik',
+                                              font: GoogleFonts.rubik(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                              lineHeight: 1.0,
                                             ),
                                         cursorColor:
                                             FlutterFlowTheme.of(context)
@@ -732,36 +1063,68 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          isDense: false,
+                                          isDense: true,
                                           labelText:
                                               'Composite Unique Device Identifier',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                            fontFamily: 'Rubik',
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            shadows: [
-                                              Shadow(
-                                                color:
+                                          labelStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
                                                     FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                                shadows: [
+                                                  Shadow(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .customColor1,
-                                                offset: Offset(0.0, 2.0),
-                                                blurRadius: 40.0,
-                                              )
-                                            ],
-                                          ),
+                                                    offset: Offset(0.0, 2.0),
+                                                    blurRadius: 40.0,
+                                                  )
+                                                ],
+                                                lineHeight: 1.0,
+                                              ),
                                           alignLabelWithHint: false,
                                           hintText:
                                               '(01)00812195010001(17)251021(10)BTTF-DOC1985(21)OUTATIME',
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                                lineHeight: 1.0,
+                                              ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -805,7 +1168,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .alternate,
-                                          contentPadding: EdgeInsets.all(20.0),
+                                          contentPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 19.0, 20.0, 19.0),
                                           hoverColor:
                                               FlutterFlowTheme.of(context)
                                                   .customColor1,
@@ -813,8 +1178,26 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Rubik',
+                                              font: GoogleFonts.rubik(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                              lineHeight: 1.0,
                                             ),
                                         cursorColor:
                                             FlutterFlowTheme.of(context)
@@ -824,29 +1207,35 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                             .asValidator(context),
                                       ),
                                     ),
-                                    wrapWithModel(
-                                      model: _model.modeModel,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: OptionDropdownWidget(
-                                        width: MediaQuery.sizeOf(context).width,
-                                        label: 'Profile Mode',
-                                        disabled: false,
-                                        optionsList:
-                                            FFAppState().DeviceProfileModes,
-                                        onSelected: (optionSelected) async {},
+                                    if (false)
+                                      wrapWithModel(
+                                        model: _model.modeModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: OptionDropdownWidget(
+                                          width:
+                                              MediaQuery.sizeOf(context).width,
+                                          label: 'Profile Mode',
+                                          disabled: false,
+                                          optionsList:
+                                              FFAppState().DeviceProfileModes,
+                                          onSelected: (optionSelected) async {},
+                                        ),
                                       ),
-                                    ),
-                                    wrapWithModel(
-                                      model: _model.transferTypeModel,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: OptionDropdownWidget(
-                                        width: MediaQuery.sizeOf(context).width,
-                                        label: 'Transfer Type',
-                                        optionsList:
-                                            FFAppState().DeviceTransferTypes,
-                                        onSelected: (optionSelected) async {},
+                                    if (false)
+                                      wrapWithModel(
+                                        model: _model.transferTypeModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: OptionDropdownWidget(
+                                          width:
+                                              MediaQuery.sizeOf(context).width,
+                                          label: 'Transfer Type',
+                                          optionsList:
+                                              FFAppState().DeviceTransferTypes,
+                                          onSelected: (optionSelected) async {},
+                                        ),
                                       ),
-                                    ),
                                   ],
                                 ),
                               ),
@@ -882,12 +1271,31 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   context)
                                               .titleSmall
                                               .override(
-                                                fontFamily: 'Rubik',
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondary,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
                                               ),
                                           elevation: 0.0,
                                           borderRadius:
@@ -921,7 +1329,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         },
                                         text: 'Next',
                                         options: FFButtonOptions(
-                                          height: 40.0,
+                                          height: 42.5,
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
@@ -930,14 +1338,33 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    fontSize: 14.0,
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
                                           elevation: 0.0,
                                           borderRadius:
                                               BorderRadius.circular(10.0),
@@ -990,8 +1417,25 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .headlineMedium
                                             .override(
-                                              fontFamily: 'Rubik',
+                                              font: GoogleFonts.rubik(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineMedium
+                                                        .fontStyle,
+                                              ),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                       Padding(
@@ -1003,8 +1447,27 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
                                               .override(
-                                                fontFamily: 'Rubik',
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -1031,6 +1494,8 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                 width: 500.0,
                                                 child:
                                                     CreateDeviceVariableWidget(
+                                                  existingList:
+                                                      _model.variableList,
                                                   variableCallback:
                                                       (variable) async {
                                                     _model.addToVariableList(
@@ -1059,12 +1524,29 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         textStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
-                                              fontFamily: 'Rubik',
+                                              font: GoogleFonts.rubik(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondary,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
                                             ),
                                         elevation: 0.0,
                                         borderRadius:
@@ -1099,6 +1581,15 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         builder: (context) {
                                           final variables =
                                               _model.variableList.toList();
+                                          if (variables.isEmpty) {
+                                            return Center(
+                                              child: EmptyListWidget(
+                                                text: 'No Variables Added Yet',
+                                                image:
+                                                    'https://storage.googleapis.com/medibound-portal-hdztzw.firebasestorage.app/general/loading-icons/variableLoading.png',
+                                              ),
+                                            );
+                                          }
 
                                           return ListView.separated(
                                             padding: EdgeInsets.zero,
@@ -1118,7 +1609,13 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                 editCallback:
                                                     (variable) async {},
                                                 deleteCallback:
-                                                    (variable) async {},
+                                                    (variable) async {
+                                                  _model.removeFromVariableList(
+                                                      variable);
+                                                  _model.updatePage(() {});
+
+                                                  FFAppState().update(() {});
+                                                },
                                               );
                                             },
                                           );
@@ -1160,12 +1657,31 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   context)
                                               .titleSmall
                                               .override(
-                                                fontFamily: 'Rubik',
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondary,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
                                               ),
                                           elevation: 0.0,
                                           borderRadius:
@@ -1190,6 +1706,11 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   .validate()) {
                                             return;
                                           }
+                                          if ((_model
+                                                  .variableList.isNotEmpty) !=
+                                              true) {
+                                            return;
+                                          }
                                           await _model.pageViewController
                                               ?.nextPage(
                                             duration:
@@ -1199,7 +1720,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         },
                                         text: 'Next',
                                         options: FFButtonOptions(
-                                          height: 40.0,
+                                          height: 42.5,
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
@@ -1208,14 +1729,33 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    fontSize: 14.0,
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
                                           elevation: 0.0,
                                           borderRadius:
                                               BorderRadius.circular(10.0),
@@ -1283,8 +1823,30 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                             context)
                                                         .headlineMedium
                                                         .override(
-                                                          fontFamily: 'Rubik',
+                                                          font:
+                                                              GoogleFonts.rubik(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                   Padding(
@@ -1296,13 +1858,34 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                       'Drag-and-drop components fitted to your variables',
                                                       textAlign:
                                                           TextAlign.start,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .labelMedium
-                                                          .override(
-                                                            fontFamily: 'Rubik',
-                                                            letterSpacing: 0.0,
-                                                          ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .rubik(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                              ),
                                                     ),
                                                   ),
                                                 ],
@@ -1325,6 +1908,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                         .headerBuilderModel,
                                                     updateCallback: () =>
                                                         safeSetState(() {}),
+                                                    updateOnChange: true,
                                                     child: HeaderBuilderWidget(
                                                       varList:
                                                           _model.variableList,
@@ -1364,58 +1948,94 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    await _model
-                                                        .pageViewController
-                                                        ?.previousPage(
-                                                      duration: Duration(
-                                                          milliseconds: 300),
-                                                      curve: Curves.ease,
-                                                    );
-                                                  },
-                                                  text: 'Back',
-                                                  options: FFButtonOptions(
-                                                    height: 40.0,
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                                16.0, 0.0),
-                                                    iconPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    color: Color(0x00E0E3E7),
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Rubik',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                              if (((_model.headerBuilderModel
+                                                          .header.isNotEmpty) ==
+                                                      false) &&
+                                                  ((_model
+                                                          .bodyBuilderModel
+                                                          .bodySections
+                                                          .isNotEmpty) ==
+                                                      false))
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: FFButtonWidget(
+                                                    onPressed: () async {
+                                                      await _model
+                                                          .pageViewController
+                                                          ?.previousPage(
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        curve: Curves.ease,
+                                                      );
+                                                    },
+                                                    text: 'Back',
+                                                    options: FFButtonOptions(
+                                                      height: 40.0,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  16.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color: Color(0x00E0E3E7),
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .rubik(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontStyle,
+                                                                ),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                                fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                              ),
+                                                      elevation: 0.0,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                      hoverColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBackground,
+                                                      hoverTextColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .secondary,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                    elevation: 0.0,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    hoverColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryBackground,
-                                                    hoverTextColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
-                                                    hoverElevation: 0.0,
+                                                      hoverElevation: 0.0,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
                                               Align(
                                                 alignment: AlignmentDirectional(
                                                     0.0, 0.0),
@@ -1439,7 +2059,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   },
                                                   text: 'Next',
                                                   options: FFButtonOptions(
-                                                    height: 40.0,
+                                                    height: 42.5,
                                                     padding:
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(16.0, 0.0,
@@ -1455,9 +2075,31 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                             .of(context)
                                                         .titleSmall
                                                         .override(
-                                                          fontFamily: 'Rubik',
+                                                          font:
+                                                              GoogleFonts.rubik(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
                                                         ),
                                                     elevation: 0.0,
                                                     borderRadius:
@@ -1484,6 +2126,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                 ),
                               ),
                               VerticalDivider(
+                                width: 1.0,
                                 thickness: 1.0,
                                 color: FlutterFlowTheme.of(context).alternate,
                               ),
@@ -1494,7 +2137,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                   variablesList: _model.variableList,
                                 ),
                               ),
-                            ].divide(SizedBox(width: 15.0)),
+                            ].divide(SizedBox(width: 0.0)),
                           ),
                         ),
                       ),
@@ -1524,8 +2167,25 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .headlineMedium
                                         .override(
-                                          fontFamily: 'Rubik',
+                                          font: GoogleFonts.rubik(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                   Padding(
@@ -1537,8 +2197,25 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Rubik',
+                                            font: GoogleFonts.rubik(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -1557,8 +2234,8 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                       profile: ProfileStruct(
                                         displayName: _model
                                             .deviceNameTextController.text,
-                                        photoUrl: _model.profileDropdownModel
-                                            .profile?.photoUrl,
+                                        photoUrl: _model.selectedOrganization
+                                            ?.profile?.photoUrl,
                                       ),
                                       varList: _model.variableList,
                                     ),
@@ -1597,12 +2274,31 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   context)
                                               .titleSmall
                                               .override(
-                                                fontFamily: 'Rubik',
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondary,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
                                               ),
                                           elevation: 0.0,
                                           borderRadius:
@@ -1638,8 +2334,8 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                       organizationsRecord.where(
                                                 'profile.uid',
                                                 isEqualTo: _model
-                                                    .profileDropdownModel
-                                                    .profile
+                                                    .selectedOrganization
+                                                    ?.profile
                                                     ?.uid,
                                               ),
                                               singleRecord: true,
@@ -1684,7 +2380,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                   'edited_time': FieldValue
                                                       .serverTimestamp(),
                                                   'variables':
-                                                      getDeviceVariableListFirestoreData(
+                                                      getVariableListFirestoreData(
                                                     _model.variableList,
                                                   ),
                                                 },
@@ -1726,7 +2422,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                       DateTime.now(),
                                                   'edited_time': DateTime.now(),
                                                   'variables':
-                                                      getDeviceVariableListFirestoreData(
+                                                      getVariableListFirestoreData(
                                                     _model.variableList,
                                                   ),
                                                 },
@@ -1749,8 +2445,6 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                             firestoreBatch.set(
                                                 deviceProfilesRecordReference, {
                                               ...createDeviceProfilesRecordData(
-                                                mode: _model
-                                                    .modeModel.option?.code,
                                                 manualPath: _model
                                                     .manualLinkTextController
                                                     .text,
@@ -1759,12 +2453,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                     .text,
                                                 uniqueDeviceIdentifier: _model
                                                     .udiTextController.text,
-                                                transferType: _model
-                                                    .transferTypeModel
-                                                    .option
-                                                    ?.code,
                                                 type: _model
-                                                    .typeModel.option?.code,
+                                                    .selectedDeviceCategory
+                                                    ?.code,
                                                 recordTemplate: _model
                                                     .recordTemp?.reference,
                                                 info: createCodedValueStruct(
@@ -1793,8 +2484,6 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                 DeviceProfilesRecord
                                                     .getDocumentFromData({
                                               ...createDeviceProfilesRecordData(
-                                                mode: _model
-                                                    .modeModel.option?.code,
                                                 manualPath: _model
                                                     .manualLinkTextController
                                                     .text,
@@ -1803,12 +2492,9 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                     .text,
                                                 uniqueDeviceIdentifier: _model
                                                     .udiTextController.text,
-                                                transferType: _model
-                                                    .transferTypeModel
-                                                    .option
-                                                    ?.code,
                                                 type: _model
-                                                    .typeModel.option?.code,
+                                                    .selectedDeviceCategory
+                                                    ?.code,
                                                 recordTemplate: _model
                                                     .recordTemp?.reference,
                                                 info: createCodedValueStruct(
@@ -1842,6 +2528,16 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                                     clearUnsetFields: false,
                                                   ),
                                                 ));
+
+                                            firestoreBatch.update(
+                                                _model.recordTemp!.reference,
+                                                createRecordTemplateRecordData(
+                                                  source: createSourceStruct(
+                                                    uid: _model.deviceProfile
+                                                        ?.reference.id,
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                ));
                                             Navigator.pop(context);
                                           } finally {
                                             await firestoreBatch.commit();
@@ -1851,7 +2547,7 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                         },
                                         text: 'Create Device Profile',
                                         options: FFButtonOptions(
-                                          height: 40.0,
+                                          height: 42.5,
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
@@ -1859,16 +2555,35 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Rubik',
-                                                    color: Colors.white,
-                                                    fontSize: 14.0,
-                                                    letterSpacing: 0.0,
-                                                  ),
+                                              .secondary,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                font: GoogleFonts.rubik(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Colors.white,
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
                                           elevation: 0.0,
                                           borderRadius:
                                               BorderRadius.circular(10.0),
@@ -1893,9 +2608,18 @@ class _CreateDeviceProfileWidgetState extends State<CreateDeviceProfileWidget> {
                 'New Device Profile',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Rubik',
+                      font: GoogleFonts.rubik(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                      ),
                       color: FlutterFlowTheme.of(context).secondary,
                       letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
                     ),
               ),
             ),

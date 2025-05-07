@@ -50,11 +50,6 @@ class OrganizationsRecord extends FirestoreRecord {
   String get privacyPolicy => _privacyPolicy ?? '';
   bool hasPrivacyPolicy() => _privacyPolicy != null;
 
-  // "members" field.
-  List<RoledUserStruct>? _members;
-  List<RoledUserStruct> get members => _members ?? const [];
-  bool hasMembers() => _members != null;
-
   // "type" field.
   String? _type;
   String get type => _type ?? '';
@@ -65,6 +60,16 @@ class OrganizationsRecord extends FirestoreRecord {
   ProfileStruct get profile => _profile ?? ProfileStruct();
   bool hasProfile() => _profile != null;
 
+  // "owner" field.
+  DocumentReference? _owner;
+  DocumentReference? get owner => _owner;
+  bool hasOwner() => _owner != null;
+
+  // "api_key" field.
+  KeyStruct? _apiKey;
+  KeyStruct get apiKey => _apiKey ?? KeyStruct();
+  bool hasApiKey() => _apiKey != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
@@ -72,14 +77,14 @@ class OrganizationsRecord extends FirestoreRecord {
     _address = snapshotData['address'] as String?;
     _website = snapshotData['website'] as String?;
     _privacyPolicy = snapshotData['privacyPolicy'] as String?;
-    _members = getStructList(
-      snapshotData['members'],
-      RoledUserStruct.fromMap,
-    );
     _type = snapshotData['type'] as String?;
     _profile = snapshotData['profile'] is ProfileStruct
         ? snapshotData['profile']
         : ProfileStruct.maybeFromMap(snapshotData['profile']);
+    _owner = snapshotData['owner'] as DocumentReference?;
+    _apiKey = snapshotData['api_key'] is KeyStruct
+        ? snapshotData['api_key']
+        : KeyStruct.maybeFromMap(snapshotData['api_key']);
   }
 
   static CollectionReference get collection =>
@@ -120,15 +125,17 @@ class OrganizationsRecord extends FirestoreRecord {
           'address': snapshot.data['address'],
           'website': snapshot.data['website'],
           'privacyPolicy': snapshot.data['privacyPolicy'],
-          'members': safeGet(
-            () => (snapshot.data['members'] as Iterable)
-                .map((d) => RoledUserStruct.fromAlgoliaData(d).toMap())
-                .toList(),
-          ),
           'type': snapshot.data['type'],
           'profile':
               ProfileStruct.fromAlgoliaData(snapshot.data['profile'] ?? {})
                   .toMap(),
+          'owner': convertAlgoliaParam(
+            snapshot.data['owner'],
+            ParamType.DocumentReference,
+            false,
+          ),
+          'api_key':
+              KeyStruct.fromAlgoliaData(snapshot.data['api_key'] ?? {}).toMap(),
         },
         OrganizationsRecord.collection.doc(snapshot.objectID),
       );
@@ -173,6 +180,8 @@ Map<String, dynamic> createOrganizationsRecordData({
   String? privacyPolicy,
   String? type,
   ProfileStruct? profile,
+  DocumentReference? owner,
+  KeyStruct? apiKey,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -184,11 +193,16 @@ Map<String, dynamic> createOrganizationsRecordData({
       'privacyPolicy': privacyPolicy,
       'type': type,
       'profile': ProfileStruct().toMap(),
+      'owner': owner,
+      'api_key': KeyStruct().toMap(),
     }.withoutNulls,
   );
 
   // Handle nested data for "profile" field.
   addProfileStructData(firestoreData, profile, 'profile');
+
+  // Handle nested data for "api_key" field.
+  addKeyStructData(firestoreData, apiKey, 'api_key');
 
   return firestoreData;
 }
@@ -199,16 +213,16 @@ class OrganizationsRecordDocumentEquality
 
   @override
   bool equals(OrganizationsRecord? e1, OrganizationsRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.createdTime == e2?.createdTime &&
         e1?.editedTime == e2?.editedTime &&
         e1?.address == e2?.address &&
         e1?.website == e2?.website &&
         e1?.privacyPolicy == e2?.privacyPolicy &&
-        listEquality.equals(e1?.members, e2?.members) &&
         e1?.type == e2?.type &&
-        e1?.profile == e2?.profile;
+        e1?.profile == e2?.profile &&
+        e1?.owner == e2?.owner &&
+        e1?.apiKey == e2?.apiKey;
   }
 
   @override
@@ -219,9 +233,10 @@ class OrganizationsRecordDocumentEquality
         e?.address,
         e?.website,
         e?.privacyPolicy,
-        e?.members,
         e?.type,
-        e?.profile
+        e?.profile,
+        e?.owner,
+        e?.apiKey
       ]);
 
   @override

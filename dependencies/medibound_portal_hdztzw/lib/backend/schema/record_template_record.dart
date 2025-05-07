@@ -43,8 +43,8 @@ class RecordTemplateRecord extends FirestoreRecord {
   bool hasEditedTime() => _editedTime != null;
 
   // "variables" field.
-  List<DeviceVariableStruct>? _variables;
-  List<DeviceVariableStruct> get variables => _variables ?? const [];
+  List<VariableStruct>? _variables;
+  List<VariableStruct> get variables => _variables ?? const [];
   bool hasVariables() => _variables != null;
 
   // "source" field.
@@ -68,7 +68,7 @@ class RecordTemplateRecord extends FirestoreRecord {
     _editedTime = snapshotData['edited_time'] as DateTime?;
     _variables = getStructList(
       snapshotData['variables'],
-      DeviceVariableStruct.fromMap,
+      VariableStruct.fromMap,
     );
     _source = snapshotData['source'] is SourceStruct
         ? snapshotData['source']

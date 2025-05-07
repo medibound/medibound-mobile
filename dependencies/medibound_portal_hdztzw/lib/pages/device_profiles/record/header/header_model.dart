@@ -1,7 +1,6 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/device_profiles/components/component/component_widget.dart';
-import '/utils/empty_list/empty_list_widget.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'header_widget.dart' show HeaderWidget;
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';

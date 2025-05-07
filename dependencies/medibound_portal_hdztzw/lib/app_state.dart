@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
@@ -62,106 +63,6 @@ class FFAppState extends ChangeNotifier {
     Genders.insert(index, value);
   }
 
-  List<CodedValueStruct> _OrganizationTypes = [
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Manufacturer\",\"description\":\"production and assembly of physical goods or devices\",\"code\":\"OT01\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Software Developer\",\"description\":\"creating and maintaining software applications and systems\",\"code\":\"OT02\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Health and Wellness\",\"description\":\"physical and mental well-being, often through products, services, or programs\",\"code\":\"OT03\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Fitness and Sports\",\"description\":\"athletic performance, exercise equipment, sports training, or related services\",\"code\":\"OT04\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Research and Development\",\"description\":\"innovation, experimentation, and the development of new technologies or products\",\"code\":\"OT05\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Security and Privacy\",\"description\":\"protection of data, devices, or physical environments through advanced security measures\",\"code\":\"OT06\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Fashion and Design\",\"description\":\"apparel, accessories, and aesthetic-focused design solutions\",\"code\":\"OT07\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Retail and Distribution\",\"description\":\"sale, delivery, and logistics of products to end-users or other businesses\",\"code\":\"OT08\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Education\",\"description\":\"learning, teaching, and knowledge dissemination through programs, tools, or platforms\",\"code\":\"OT09\"}'))
-  ];
-  List<CodedValueStruct> get OrganizationTypes => _OrganizationTypes;
-  set OrganizationTypes(List<CodedValueStruct> value) {
-    _OrganizationTypes = value;
-  }
-
-  void addToOrganizationTypes(CodedValueStruct value) {
-    OrganizationTypes.add(value);
-  }
-
-  void removeFromOrganizationTypes(CodedValueStruct value) {
-    OrganizationTypes.remove(value);
-  }
-
-  void removeAtIndexFromOrganizationTypes(int index) {
-    OrganizationTypes.removeAt(index);
-  }
-
-  void updateOrganizationTypesAtIndex(
-    int index,
-    CodedValueStruct Function(CodedValueStruct) updateFn,
-  ) {
-    OrganizationTypes[index] = updateFn(_OrganizationTypes[index]);
-  }
-
-  void insertAtIndexInOrganizationTypes(int index, CodedValueStruct value) {
-    OrganizationTypes.insert(index, value);
-  }
-
-  List<CodedValueStruct> _DeviceTypes = [
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Health Rings\",\"description\":\"Wearables\",\"code\":\"DT01\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Smart Watches\",\"description\":\"Wearables\",\"code\":\"DT02\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Fitness Bands\",\"description\":\"Wearables\",\"code\":\"DT03\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Smart Glasses\",\"description\":\"Wearables\",\"code\":\"DT04\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Activity Trackers\",\"description\":\"Wearables\",\"code\":\"DT05\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Sleep Monitors\",\"description\":\"Wearables\",\"code\":\"DT06\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Heart Rate Monitors\",\"description\":\"Wearables\",\"code\":\"DT07\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Smart Clothing\",\"description\":\"Wearables\",\"code\":\"DT08\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"GPS Trackers\",\"description\":\"Wearables\",\"code\":\"DT09\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"UV Sensors\",\"description\":\"Wearables\",\"code\":\"DT10\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Other\",\"description\":\"Other\",\"code\":\"OTHER\"}'))
-  ];
-  List<CodedValueStruct> get DeviceTypes => _DeviceTypes;
-  set DeviceTypes(List<CodedValueStruct> value) {
-    _DeviceTypes = value;
-  }
-
-  void addToDeviceTypes(CodedValueStruct value) {
-    DeviceTypes.add(value);
-  }
-
-  void removeFromDeviceTypes(CodedValueStruct value) {
-    DeviceTypes.remove(value);
-  }
-
-  void removeAtIndexFromDeviceTypes(int index) {
-    DeviceTypes.removeAt(index);
-  }
-
-  void updateDeviceTypesAtIndex(
-    int index,
-    CodedValueStruct Function(CodedValueStruct) updateFn,
-  ) {
-    DeviceTypes[index] = updateFn(_DeviceTypes[index]);
-  }
-
-  void insertAtIndexInDeviceTypes(int index, CodedValueStruct value) {
-    DeviceTypes.insert(index, value);
-  }
-
   List<CodedValueStruct> _UserRoles = [
     CodedValueStruct.fromSerializableMap(jsonDecode(
         '{\"display\":\"Owner\",\"description\":\"\",\"code\":\"OWNER\"}')),
@@ -200,11 +101,9 @@ class FFAppState extends ChangeNotifier {
 
   List<CodedValueStruct> _DeviceTransferTypes = [
     CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Live Bluetooth Low Energy\",\"description\":\"Real-time, continuous data streaming for dynamic health monitoring.\",\"code\":\"LBLE\"}')),
+        '{\"display\":\"Live Bluetooth Low Energy\",\"description\":\"Real-time, continuous data streaming for dynamic health monitoring.\",\"code\":\"LBLE\",\"color\":\"#1b9aaa\",\"icon\":\"repeat_rounded\"}')),
     CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Static Bluetooth Low Energy\",\"description\":\"One-time data transfer for intermittent diagnostics and results.\",\"code\":\"SBLE\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Static NFC\",\"description\":\"Quick, contactless data exchange for static health information.\",\"code\":\"SNFC\"}'))
+        '{\"display\":\"Static Bluetooth Low Energy\",\"description\":\"One-time data transfer for intermittent diagnostics and results.\",\"code\":\"SBLE\",\"color\":\"#ffc43d\",\"icon\":\"repeat_one_rounded\"}'))
   ];
   List<CodedValueStruct> get DeviceTransferTypes => _DeviceTransferTypes;
   set DeviceTransferTypes(List<CodedValueStruct> value) {
@@ -236,9 +135,9 @@ class FFAppState extends ChangeNotifier {
 
   List<CodedValueStruct> _DeviceProfileModes = [
     CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Production\",\"description\":\"Live environment for real-world use and operations.\",\"code\":\"PROD\"}')),
+        '{\"display\":\"Production\",\"description\":\"Live environment for real-world use and operations.\",\"code\":\"PROD\",\"color\":\"#00d6a1\",\"icon\":\"rocket_launch_rounded\"}')),
     CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Development\",\"description\":\"Testing environment for development and debugging.\",\"code\":\"DEVM\"}'))
+        '{\"display\":\"Development\",\"description\":\"Testing environment for development and debugging.\",\"code\":\"DEVM\",\"color\":\"#ffc43d\",\"icon\":\"construction_rounded\"}'))
   ];
   List<CodedValueStruct> get DeviceProfileModes => _DeviceProfileModes;
   set DeviceProfileModes(List<CodedValueStruct> value) {
@@ -268,40 +167,6 @@ class FFAppState extends ChangeNotifier {
     DeviceProfileModes.insert(index, value);
   }
 
-  List<CodedValueStruct> _DeviceVariableTypes = [
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"String\",\"description\":\"A series of characters\",\"code\":\"STRING\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Number\",\"description\":\"A series of decimal numbers\",\"code\":\"NUMBER\"}'))
-  ];
-  List<CodedValueStruct> get DeviceVariableTypes => _DeviceVariableTypes;
-  set DeviceVariableTypes(List<CodedValueStruct> value) {
-    _DeviceVariableTypes = value;
-  }
-
-  void addToDeviceVariableTypes(CodedValueStruct value) {
-    DeviceVariableTypes.add(value);
-  }
-
-  void removeFromDeviceVariableTypes(CodedValueStruct value) {
-    DeviceVariableTypes.remove(value);
-  }
-
-  void removeAtIndexFromDeviceVariableTypes(int index) {
-    DeviceVariableTypes.removeAt(index);
-  }
-
-  void updateDeviceVariableTypesAtIndex(
-    int index,
-    CodedValueStruct Function(CodedValueStruct) updateFn,
-  ) {
-    DeviceVariableTypes[index] = updateFn(_DeviceVariableTypes[index]);
-  }
-
-  void insertAtIndexInDeviceVariableTypes(int index, CodedValueStruct value) {
-    DeviceVariableTypes.insert(index, value);
-  }
-
   List<CodedValueStruct> _EmptyDropdown = [];
   List<CodedValueStruct> get EmptyDropdown => _EmptyDropdown;
   set EmptyDropdown(List<CodedValueStruct> value) {
@@ -329,87 +194,6 @@ class FFAppState extends ChangeNotifier {
 
   void insertAtIndexInEmptyDropdown(int index, CodedValueStruct value) {
     EmptyDropdown.insert(index, value);
-  }
-
-  List<DeviceVariableStruct> _DeviceVariablePresetIntegrations = [
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Active Energy Burned\\\",\\\"description\\\":\\\"The amount of active energy burned.\\\",\\\"code\\\":\\\"ACTIVE_ENERGY_BURNED\\\"}\",\"is_list\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"cal\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Basal Energy Burned\\\",\\\"description\\\":\\\"The amount of basal energy burned.\\\",\\\"code\\\":\\\"BASAL_ENERGY_BURNED\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"cal\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Blood Glucose\\\",\\\"description\\\":\\\"The user\'s blood glucose level.\\\",\\\"code\\\":\\\"BLOOD_GLUCOSE\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"200.0\\\",\\\"lower_bound\\\":\\\"70.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"mg/dL\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Blood Oxygen\\\",\\\"description\\\":\\\"The user\'s blood oxygen level.\\\",\\\"code\\\":\\\"BLOOD_OXYGEN\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"100.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"%\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Blood Pressure Diastolic\\\",\\\"description\\\":\\\"The user\'s diastolic blood pressure.\\\",\\\"code\\\":\\\"BLOOD_PRESSURE_DIASTOLIC\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"90.0\\\",\\\"lower_bound\\\":\\\"60.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"mm[Hg]\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Blood Pressure Systolic\\\",\\\"description\\\":\\\"The user\'s systolic blood pressure.\\\",\\\"code\\\":\\\"BLOOD_PRESSURE_SYSTOLIC\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"140.0\\\",\\\"lower_bound\\\":\\\"90.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"mm[Hg]\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Body Fat Percentage\\\",\\\"description\\\":\\\"The user\'s body fat percentage.\\\",\\\"code\\\":\\\"BODY_FAT_PERCENTAGE\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"100.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"%\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Body Mass Index\\\",\\\"description\\\":\\\"The user\'s body mass index (BMI).\\\",\\\"code\\\":\\\"BODY_MASS_INDEX\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"30.0\\\",\\\"lower_bound\\\":\\\"18.5\\\"}\",\"type\":\"NUMBER\",\"unit\":\"{none}\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Body Temperature\\\",\\\"description\\\":\\\"The user\'s body temperature.\\\",\\\"code\\\":\\\"BODY_TEMPERATURE\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"50.0\\\",\\\"lower_bound\\\":\\\"30.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"Cel\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Flights Climbed\\\",\\\"description\\\":\\\"The number of flights of stairs climbed.\\\",\\\"code\\\":\\\"FLIGHTS_CLIMBED\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"{count}\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Heart Rate\\\",\\\"description\\\":\\\"The user\'s heart rate.\\\",\\\"code\\\":\\\"HEART_RATE\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"180.0\\\",\\\"lower_bound\\\":\\\"40.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"/min\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Height\\\",\\\"description\\\":\\\"The user\'s height.\\\",\\\"code\\\":\\\"HEIGHT\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"m\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Nutrition\\\",\\\"description\\\":\\\"The user\'s nutrition data.\\\",\\\"code\\\":\\\"NUTRITION\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"{none}\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Respiratory Rate\\\",\\\"description\\\":\\\"The user\'s respiratory rate.\\\",\\\"code\\\":\\\"RESPIRATORY_RATE\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"30.0\\\",\\\"lower_bound\\\":\\\"10.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"res/min\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Resting Heart Rate\\\",\\\"description\\\":\\\"The user\'s resting heart rate.\\\",\\\"code\\\":\\\"RESTING_HEART_RATE\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"true\",\"range\":\"{\\\"upper_bound\\\":\\\"100.0\\\",\\\"lower_bound\\\":\\\"40.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"/min\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Sleep Asleep\\\",\\\"description\\\":\\\"The time spent asleep.\\\",\\\"code\\\":\\\"SLEEP_ASLEEP\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"min\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Sleep Awake\\\",\\\"description\\\":\\\"The time spent awake.\\\",\\\"code\\\":\\\"SLEEP_AWAKE\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"min\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Sleep Deep\\\",\\\"description\\\":\\\"The time spent in deep sleep.\\\",\\\"code\\\":\\\"SLEEP_DEEP\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"min\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Sleep REM\\\",\\\"description\\\":\\\"The time spent in REM sleep.\\\",\\\"code\\\":\\\"SLEEP_REM\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"min\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Steps\\\",\\\"description\\\":\\\"The number of steps taken.\\\",\\\"code\\\":\\\"STEPS\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"{count}\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Water\\\",\\\"description\\\":\\\"The amount of water consumed.\\\",\\\"code\\\":\\\"WATER\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"L\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Weight\\\",\\\"description\\\":\\\"The user\'s weight.\\\",\\\"code\\\":\\\"WEIGHT\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"kg\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Workout\\\",\\\"description\\\":\\\"The user\'s workout data.\\\",\\\"code\\\":\\\"WORKOUT\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"NUMBER\",\"unit\":\"{none}\"}')),
-    DeviceVariableStruct.fromSerializableMap(jsonDecode(
-        '{\"info\":\"{\\\"display\\\":\\\"Custom Profile\\\",\\\"description\\\":\\\"The user\'s custom data with more options.\\\",\\\"code\\\":\\\"CUSTOM_PROFILE\\\"}\",\"is_list\":\"false\",\"is_ranged\":\"false\",\"range\":\"{\\\"upper_bound\\\":\\\"0.0\\\",\\\"lower_bound\\\":\\\"0.0\\\"}\",\"type\":\"CUSTOM\",\"unit\":\"{none}\"}'))
-  ];
-  List<DeviceVariableStruct> get DeviceVariablePresetIntegrations =>
-      _DeviceVariablePresetIntegrations;
-  set DeviceVariablePresetIntegrations(List<DeviceVariableStruct> value) {
-    _DeviceVariablePresetIntegrations = value;
-  }
-
-  void addToDeviceVariablePresetIntegrations(DeviceVariableStruct value) {
-    DeviceVariablePresetIntegrations.add(value);
-  }
-
-  void removeFromDeviceVariablePresetIntegrations(DeviceVariableStruct value) {
-    DeviceVariablePresetIntegrations.remove(value);
-  }
-
-  void removeAtIndexFromDeviceVariablePresetIntegrations(int index) {
-    DeviceVariablePresetIntegrations.removeAt(index);
-  }
-
-  void updateDeviceVariablePresetIntegrationsAtIndex(
-    int index,
-    DeviceVariableStruct Function(DeviceVariableStruct) updateFn,
-  ) {
-    DeviceVariablePresetIntegrations[index] =
-        updateFn(_DeviceVariablePresetIntegrations[index]);
-  }
-
-  void insertAtIndexInDeviceVariablePresetIntegrations(
-      int index, DeviceVariableStruct value) {
-    DeviceVariablePresetIntegrations.insert(index, value);
   }
 
   List<CodedValueStruct> _BlockSize = [
@@ -448,56 +232,326 @@ class FFAppState extends ChangeNotifier {
     BlockSize.insert(index, value);
   }
 
-  List<CodedValueStruct> _BlockColors = [
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Crayola\",\"description\":\"Bright Pink\",\"code\":\"EF476F\",\"color\":\"#ef476f\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Amber\",\"description\":\"Sunset Orange\",\"code\":\"FFC43D\",\"color\":\"#ffc43d\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Emerald\",\"description\":\"Medibound Green\",\"code\":\"00D6A1\",\"color\":\"#00d6a1\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Munsell\",\"description\":\"Blue\",\"code\":\"1B9AAA\",\"color\":\"#1b9aaa\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Murrey\",\"description\":\"Purple\",\"code\":\"87255B\",\"color\":\"#87255b\"}'))
-  ];
-  List<CodedValueStruct> get BlockColors => _BlockColors;
-  set BlockColors(List<CodedValueStruct> value) {
-    _BlockColors = value;
+  List<CodedValueStruct> _VariableTypes = [];
+  List<CodedValueStruct> get VariableTypes => _VariableTypes;
+  set VariableTypes(List<CodedValueStruct> value) {
+    _VariableTypes = value;
   }
 
-  void addToBlockColors(CodedValueStruct value) {
-    BlockColors.add(value);
+  void addToVariableTypes(CodedValueStruct value) {
+    VariableTypes.add(value);
   }
 
-  void removeFromBlockColors(CodedValueStruct value) {
-    BlockColors.remove(value);
+  void removeFromVariableTypes(CodedValueStruct value) {
+    VariableTypes.remove(value);
   }
 
-  void removeAtIndexFromBlockColors(int index) {
-    BlockColors.removeAt(index);
+  void removeAtIndexFromVariableTypes(int index) {
+    VariableTypes.removeAt(index);
   }
 
-  void updateBlockColorsAtIndex(
+  void updateVariableTypesAtIndex(
     int index,
     CodedValueStruct Function(CodedValueStruct) updateFn,
   ) {
-    BlockColors[index] = updateFn(_BlockColors[index]);
+    VariableTypes[index] = updateFn(_VariableTypes[index]);
   }
 
-  void insertAtIndexInBlockColors(int index, CodedValueStruct value) {
-    BlockColors.insert(index, value);
+  void insertAtIndexInVariableTypes(int index, CodedValueStruct value) {
+    VariableTypes.insert(index, value);
   }
 
-  List<CodedValueStruct> _DeviceStatus = [
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Active\",\"description\":\"The device is fully functional and actively transmitting data.\",\"code\":\"ACTIVE\",\"color\":\"#01775a\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Inactive\",\"description\":\"The device is not currently in use but is available for activation.\",\"code\":\"INACTIVE\",\"color\":\"#d9fff67f\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Running\",\"description\":\"The device is actively operating and transmitting data in real time.\",\"code\":\"RUNNING\",\"color\":\"#f9cf58\"}')),
-    CodedValueStruct.fromSerializableMap(jsonDecode(
-        '{\"display\":\"Error\",\"description\":\"The device has encountered an issue that requires attention.\",\"code\":\"ERROR\",\"color\":\"#ff5963\"}'))
-  ];
+  List<CodedValueStruct> _VariableForms = [];
+  List<CodedValueStruct> get VariableForms => _VariableForms;
+  set VariableForms(List<CodedValueStruct> value) {
+    _VariableForms = value;
+  }
+
+  void addToVariableForms(CodedValueStruct value) {
+    VariableForms.add(value);
+  }
+
+  void removeFromVariableForms(CodedValueStruct value) {
+    VariableForms.remove(value);
+  }
+
+  void removeAtIndexFromVariableForms(int index) {
+    VariableForms.removeAt(index);
+  }
+
+  void updateVariableFormsAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    VariableForms[index] = updateFn(_VariableForms[index]);
+  }
+
+  void insertAtIndexInVariableForms(int index, CodedValueStruct value) {
+    VariableForms.insert(index, value);
+  }
+
+  List<CodedValueStruct> _GraphSizes = [];
+  List<CodedValueStruct> get GraphSizes => _GraphSizes;
+  set GraphSizes(List<CodedValueStruct> value) {
+    _GraphSizes = value;
+  }
+
+  void addToGraphSizes(CodedValueStruct value) {
+    GraphSizes.add(value);
+  }
+
+  void removeFromGraphSizes(CodedValueStruct value) {
+    GraphSizes.remove(value);
+  }
+
+  void removeAtIndexFromGraphSizes(int index) {
+    GraphSizes.removeAt(index);
+  }
+
+  void updateGraphSizesAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    GraphSizes[index] = updateFn(_GraphSizes[index]);
+  }
+
+  void insertAtIndexInGraphSizes(int index, CodedValueStruct value) {
+    GraphSizes.insert(index, value);
+  }
+
+  List<BlockTypeStruct> _BlockTypes = [];
+  List<BlockTypeStruct> get BlockTypes => _BlockTypes;
+  set BlockTypes(List<BlockTypeStruct> value) {
+    _BlockTypes = value;
+  }
+
+  void addToBlockTypes(BlockTypeStruct value) {
+    BlockTypes.add(value);
+  }
+
+  void removeFromBlockTypes(BlockTypeStruct value) {
+    BlockTypes.remove(value);
+  }
+
+  void removeAtIndexFromBlockTypes(int index) {
+    BlockTypes.removeAt(index);
+  }
+
+  void updateBlockTypesAtIndex(
+    int index,
+    BlockTypeStruct Function(BlockTypeStruct) updateFn,
+  ) {
+    BlockTypes[index] = updateFn(_BlockTypes[index]);
+  }
+
+  void insertAtIndexInBlockTypes(int index, BlockTypeStruct value) {
+    BlockTypes.insert(index, value);
+  }
+
+  List<CodedValueStruct> _TickerTypes = [];
+  List<CodedValueStruct> get TickerTypes => _TickerTypes;
+  set TickerTypes(List<CodedValueStruct> value) {
+    _TickerTypes = value;
+  }
+
+  void addToTickerTypes(CodedValueStruct value) {
+    TickerTypes.add(value);
+  }
+
+  void removeFromTickerTypes(CodedValueStruct value) {
+    TickerTypes.remove(value);
+  }
+
+  void removeAtIndexFromTickerTypes(int index) {
+    TickerTypes.removeAt(index);
+  }
+
+  void updateTickerTypesAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    TickerTypes[index] = updateFn(_TickerTypes[index]);
+  }
+
+  void insertAtIndexInTickerTypes(int index, CodedValueStruct value) {
+    TickerTypes.insert(index, value);
+  }
+
+  List<CodedValueStruct> _TimeWindows = [];
+  List<CodedValueStruct> get TimeWindows => _TimeWindows;
+  set TimeWindows(List<CodedValueStruct> value) {
+    _TimeWindows = value;
+  }
+
+  void addToTimeWindows(CodedValueStruct value) {
+    TimeWindows.add(value);
+  }
+
+  void removeFromTimeWindows(CodedValueStruct value) {
+    TimeWindows.remove(value);
+  }
+
+  void removeAtIndexFromTimeWindows(int index) {
+    TimeWindows.removeAt(index);
+  }
+
+  void updateTimeWindowsAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    TimeWindows[index] = updateFn(_TimeWindows[index]);
+  }
+
+  void insertAtIndexInTimeWindows(int index, CodedValueStruct value) {
+    TimeWindows.insert(index, value);
+  }
+
+  List<CodedValueStruct> _Colors = [];
+  List<CodedValueStruct> get Colors => _Colors;
+  set Colors(List<CodedValueStruct> value) {
+    _Colors = value;
+  }
+
+  void addToColors(CodedValueStruct value) {
+    Colors.add(value);
+  }
+
+  void removeFromColors(CodedValueStruct value) {
+    Colors.remove(value);
+  }
+
+  void removeAtIndexFromColors(int index) {
+    Colors.removeAt(index);
+  }
+
+  void updateColorsAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    Colors[index] = updateFn(_Colors[index]);
+  }
+
+  void insertAtIndexInColors(int index, CodedValueStruct value) {
+    Colors.insert(index, value);
+  }
+
+  List<VariableStruct> _VariablePresets = [];
+  List<VariableStruct> get VariablePresets => _VariablePresets;
+  set VariablePresets(List<VariableStruct> value) {
+    _VariablePresets = value;
+  }
+
+  void addToVariablePresets(VariableStruct value) {
+    VariablePresets.add(value);
+  }
+
+  void removeFromVariablePresets(VariableStruct value) {
+    VariablePresets.remove(value);
+  }
+
+  void removeAtIndexFromVariablePresets(int index) {
+    VariablePresets.removeAt(index);
+  }
+
+  void updateVariablePresetsAtIndex(
+    int index,
+    VariableStruct Function(VariableStruct) updateFn,
+  ) {
+    VariablePresets[index] = updateFn(_VariablePresets[index]);
+  }
+
+  void insertAtIndexInVariablePresets(int index, VariableStruct value) {
+    VariablePresets.insert(index, value);
+  }
+
+  List<CodedValueStruct> _OrganizationTypes = [];
+  List<CodedValueStruct> get OrganizationTypes => _OrganizationTypes;
+  set OrganizationTypes(List<CodedValueStruct> value) {
+    _OrganizationTypes = value;
+  }
+
+  void addToOrganizationTypes(CodedValueStruct value) {
+    OrganizationTypes.add(value);
+  }
+
+  void removeFromOrganizationTypes(CodedValueStruct value) {
+    OrganizationTypes.remove(value);
+  }
+
+  void removeAtIndexFromOrganizationTypes(int index) {
+    OrganizationTypes.removeAt(index);
+  }
+
+  void updateOrganizationTypesAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    OrganizationTypes[index] = updateFn(_OrganizationTypes[index]);
+  }
+
+  void insertAtIndexInOrganizationTypes(int index, CodedValueStruct value) {
+    OrganizationTypes.insert(index, value);
+  }
+
+  List<CodedValueStruct> _DeviceTypes = [];
+  List<CodedValueStruct> get DeviceTypes => _DeviceTypes;
+  set DeviceTypes(List<CodedValueStruct> value) {
+    _DeviceTypes = value;
+  }
+
+  void addToDeviceTypes(CodedValueStruct value) {
+    DeviceTypes.add(value);
+  }
+
+  void removeFromDeviceTypes(CodedValueStruct value) {
+    DeviceTypes.remove(value);
+  }
+
+  void removeAtIndexFromDeviceTypes(int index) {
+    DeviceTypes.removeAt(index);
+  }
+
+  void updateDeviceTypesAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    DeviceTypes[index] = updateFn(_DeviceTypes[index]);
+  }
+
+  void insertAtIndexInDeviceTypes(int index, CodedValueStruct value) {
+    DeviceTypes.insert(index, value);
+  }
+
+  List<CodedValueStruct> _PatientStatus = [];
+  List<CodedValueStruct> get PatientStatus => _PatientStatus;
+  set PatientStatus(List<CodedValueStruct> value) {
+    _PatientStatus = value;
+  }
+
+  void addToPatientStatus(CodedValueStruct value) {
+    PatientStatus.add(value);
+  }
+
+  void removeFromPatientStatus(CodedValueStruct value) {
+    PatientStatus.remove(value);
+  }
+
+  void removeAtIndexFromPatientStatus(int index) {
+    PatientStatus.removeAt(index);
+  }
+
+  void updatePatientStatusAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    PatientStatus[index] = updateFn(_PatientStatus[index]);
+  }
+
+  void insertAtIndexInPatientStatus(int index, CodedValueStruct value) {
+    PatientStatus.insert(index, value);
+  }
+
+  List<CodedValueStruct> _DeviceStatus = [];
   List<CodedValueStruct> get DeviceStatus => _DeviceStatus;
   set DeviceStatus(List<CodedValueStruct> value) {
     _DeviceStatus = value;
@@ -525,4 +579,134 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInDeviceStatus(int index, CodedValueStruct value) {
     DeviceStatus.insert(index, value);
   }
+
+  List<CodedValueStruct> _RegistrationStatus = [];
+  List<CodedValueStruct> get RegistrationStatus => _RegistrationStatus;
+  set RegistrationStatus(List<CodedValueStruct> value) {
+    _RegistrationStatus = value;
+  }
+
+  void addToRegistrationStatus(CodedValueStruct value) {
+    RegistrationStatus.add(value);
+  }
+
+  void removeFromRegistrationStatus(CodedValueStruct value) {
+    RegistrationStatus.remove(value);
+  }
+
+  void removeAtIndexFromRegistrationStatus(int index) {
+    RegistrationStatus.removeAt(index);
+  }
+
+  void updateRegistrationStatusAtIndex(
+    int index,
+    CodedValueStruct Function(CodedValueStruct) updateFn,
+  ) {
+    RegistrationStatus[index] = updateFn(_RegistrationStatus[index]);
+  }
+
+  void insertAtIndexInRegistrationStatus(int index, CodedValueStruct value) {
+    RegistrationStatus.insert(index, value);
+  }
+
+  List<ProfileStruct> _IntegrationProfiles = [];
+  List<ProfileStruct> get IntegrationProfiles => _IntegrationProfiles;
+  set IntegrationProfiles(List<ProfileStruct> value) {
+    _IntegrationProfiles = value;
+  }
+
+  void addToIntegrationProfiles(ProfileStruct value) {
+    IntegrationProfiles.add(value);
+  }
+
+  void removeFromIntegrationProfiles(ProfileStruct value) {
+    IntegrationProfiles.remove(value);
+  }
+
+  void removeAtIndexFromIntegrationProfiles(int index) {
+    IntegrationProfiles.removeAt(index);
+  }
+
+  void updateIntegrationProfilesAtIndex(
+    int index,
+    ProfileStruct Function(ProfileStruct) updateFn,
+  ) {
+    IntegrationProfiles[index] = updateFn(_IntegrationProfiles[index]);
+  }
+
+  void insertAtIndexInIntegrationProfiles(int index, ProfileStruct value) {
+    IntegrationProfiles.insert(index, value);
+  }
+
+  RouteStruct _currentRoute = RouteStruct.fromSerializableMap(
+      jsonDecode('{\"display\":\"\",\"section\":\"\",\"page\":\"\"}'));
+  RouteStruct get currentRoute => _currentRoute;
+  set currentRoute(RouteStruct value) {
+    _currentRoute = value;
+  }
+
+  void updateCurrentRouteStruct(Function(RouteStruct) updateFn) {
+    updateFn(_currentRoute);
+  }
+
+  List<RouteStackStruct> _RouteStacks = [
+    RouteStackStruct.fromSerializableMap(jsonDecode(
+        '{\"section\":\"{\\\"display\\\":\\\"Dashboard\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"dashboard\\\",\\\"color\\\":\\\"#0000\\\",\\\"icon\\\":\\\"dashboard_rounded\\\"}\",\"routes\":\"[\\\"{\\\\\\\"display\\\\\\\":\\\\\\\"My Organizations\\\\\\\",\\\\\\\"code\\\\\\\":\\\\\\\"organizations\\\\\\\"}\\\"]\"}')),
+    RouteStackStruct.fromSerializableMap(jsonDecode(
+        '{\"section\":\"{\\\"display\\\":\\\"Management\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"management\\\",\\\"color\\\":\\\"#0000\\\",\\\"icon\\\":\\\"business_rounded\\\"}\",\"routes\":\"[\\\"{\\\\\\\"display\\\\\\\":\\\\\\\"Patient Suite\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"code\\\\\\\":\\\\\\\"patients\\\\\\\",\\\\\\\"color\\\\\\\":\\\\\\\"#0000\\\\\\\",\\\\\\\"icon\\\\\\\":\\\\\\\"\\\\\\\"}\\\",\\\"{\\\\\\\"display\\\\\\\":\\\\\\\"Plans & Billing\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"code\\\\\\\":\\\\\\\"billing\\\\\\\",\\\\\\\"color\\\\\\\":\\\\\\\"#0000\\\\\\\",\\\\\\\"icon\\\\\\\":\\\\\\\"\\\\\\\"}\\\"]\"}')),
+    RouteStackStruct.fromSerializableMap(jsonDecode(
+        '{\"section\":\"{\\\"display\\\":\\\"Developers\\\",\\\"description\\\":\\\"\\\",\\\"code\\\":\\\"developers\\\",\\\"color\\\":\\\"#0000\\\",\\\"icon\\\":\\\"code_rounded\\\"}\",\"routes\":\"[\\\"{\\\\\\\"display\\\\\\\":\\\\\\\"Device Studio\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"code\\\\\\\":\\\\\\\"device-studio\\\\\\\",\\\\\\\"color\\\\\\\":\\\\\\\"#0000\\\\\\\",\\\\\\\"icon\\\\\\\":\\\\\\\"\\\\\\\"}\\\",\\\"{\\\\\\\"display\\\\\\\":\\\\\\\"App Creator\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"code\\\\\\\":\\\\\\\"app-creator\\\\\\\",\\\\\\\"color\\\\\\\":\\\\\\\"#0000\\\\\\\",\\\\\\\"icon\\\\\\\":\\\\\\\"\\\\\\\"}\\\",\\\"{\\\\\\\"display\\\\\\\":\\\\\\\"Agent Builder\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"code\\\\\\\":\\\\\\\"agent-builder\\\\\\\",\\\\\\\"color\\\\\\\":\\\\\\\"#0000\\\\\\\",\\\\\\\"icon\\\\\\\":\\\\\\\"\\\\\\\"}\\\"]\"}'))
+  ];
+  List<RouteStackStruct> get RouteStacks => _RouteStacks;
+  set RouteStacks(List<RouteStackStruct> value) {
+    _RouteStacks = value;
+  }
+
+  void addToRouteStacks(RouteStackStruct value) {
+    RouteStacks.add(value);
+  }
+
+  void removeFromRouteStacks(RouteStackStruct value) {
+    RouteStacks.remove(value);
+  }
+
+  void removeAtIndexFromRouteStacks(int index) {
+    RouteStacks.removeAt(index);
+  }
+
+  void updateRouteStacksAtIndex(
+    int index,
+    RouteStackStruct Function(RouteStackStruct) updateFn,
+  ) {
+    RouteStacks[index] = updateFn(_RouteStacks[index]);
+  }
+
+  void insertAtIndexInRouteStacks(int index, RouteStackStruct value) {
+    RouteStacks.insert(index, value);
+  }
+
+  ProfileStruct _selectedOrganization = ProfileStruct();
+  ProfileStruct get selectedOrganization => _selectedOrganization;
+  set selectedOrganization(ProfileStruct value) {
+    _selectedOrganization = value;
+  }
+
+  void updateSelectedOrganizationStruct(Function(ProfileStruct) updateFn) {
+    updateFn(_selectedOrganization);
+  }
+
+  final _blockSuggestionsManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> blockSuggestions({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _blockSuggestionsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearBlockSuggestionsCache() => _blockSuggestionsManager.clear();
+  void clearBlockSuggestionsCacheKey(String? uniqueKey) =>
+      _blockSuggestionsManager.clearRequest(uniqueKey);
 }

@@ -1,9 +1,9 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/device_profiles/components/component/component_widget.dart';
 import '/utils/empty_list/empty_list_widget.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'body_builder_section_widget.dart' show BodyBuilderSectionWidget;
 import 'package:easy_debounce/easy_debounce.dart';

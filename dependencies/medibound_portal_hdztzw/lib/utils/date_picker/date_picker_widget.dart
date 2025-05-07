@@ -76,14 +76,32 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               isDense: false,
               labelText: widget!.label,
               labelStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Rubik',
+                    font: GoogleFonts.rubik(
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
                     letterSpacing: 0.0,
+                    fontWeight:
+                        FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                   ),
               alignLabelWithHint: false,
               hintText: 'Select Date',
               hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                    fontFamily: 'Rubik',
+                    font: GoogleFonts.rubik(
+                      fontWeight:
+                          FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                    ),
                     letterSpacing: 0.0,
+                    fontWeight:
+                        FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).labelMedium.fontStyle,
                   ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -119,8 +137,16 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               hoverColor: FlutterFlowTheme.of(context).secondaryBackground,
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Rubik',
+                  font: GoogleFonts.rubik(
+                    fontWeight:
+                        FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
                   letterSpacing: 0.0,
+                  fontWeight:
+                      FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                 ),
             keyboardType: TextInputType.datetime,
             cursorColor: FlutterFlowTheme.of(context).primaryText,
@@ -146,10 +172,18 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   headerForegroundColor: FlutterFlowTheme.of(context).info,
                   headerTextStyle:
                       FlutterFlowTheme.of(context).headlineLarge.override(
-                            fontFamily: 'Rubik',
+                            font: GoogleFonts.rubik(
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .headlineLarge
+                                  .fontStyle,
+                            ),
                             fontSize: 32.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .fontStyle,
                           ),
                   pickerBackgroundColor:
                       FlutterFlowTheme.of(context).secondaryBackground,

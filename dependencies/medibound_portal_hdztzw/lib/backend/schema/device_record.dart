@@ -47,20 +47,40 @@ class DeviceRecord extends FirestoreRecord {
   DocumentReference? get owner => _owner;
   bool hasOwner() => _owner != null;
 
-  // "key" field.
-  KeyStruct? _key;
-  KeyStruct get key => _key ?? KeyStruct();
-  bool hasKey() => _key != null;
+  // "room" field.
+  DocumentReference? _room;
+  DocumentReference? get room => _room;
+  bool hasRoom() => _room != null;
 
-  // "storedId" field.
-  String? _storedId;
-  String get storedId => _storedId ?? '';
-  bool hasStoredId() => _storedId != null;
+  // "online" field.
+  bool? _online;
+  bool get online => _online ?? false;
+  bool hasOnline() => _online != null;
 
-  // "storedKey" field.
-  String? _storedKey;
-  String get storedKey => _storedKey ?? '';
-  bool hasStoredKey() => _storedKey != null;
+  // "assigned_user" field.
+  DocumentReference? _assignedUser;
+  DocumentReference? get assignedUser => _assignedUser;
+  bool hasAssignedUser() => _assignedUser != null;
+
+  // "battery" field.
+  int? _battery;
+  int get battery => _battery ?? 0;
+  bool hasBattery() => _battery != null;
+
+  // "attached_record" field.
+  DocumentReference? _attachedRecord;
+  DocumentReference? get attachedRecord => _attachedRecord;
+  bool hasAttachedRecord() => _attachedRecord != null;
+
+  // "action" field.
+  String? _action;
+  String get action => _action ?? '';
+  bool hasAction() => _action != null;
+
+  // "secret_key" field.
+  KeyStruct? _secretKey;
+  KeyStruct get secretKey => _secretKey ?? KeyStruct();
+  bool hasSecretKey() => _secretKey != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
@@ -73,11 +93,15 @@ class DeviceRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _lastUpdated = snapshotData['last_updated'] as DateTime?;
     _owner = snapshotData['owner'] as DocumentReference?;
-    _key = snapshotData['key'] is KeyStruct
-        ? snapshotData['key']
-        : KeyStruct.maybeFromMap(snapshotData['key']);
-    _storedId = snapshotData['storedId'] as String?;
-    _storedKey = snapshotData['storedKey'] as String?;
+    _room = snapshotData['room'] as DocumentReference?;
+    _online = snapshotData['online'] as bool?;
+    _assignedUser = snapshotData['assigned_user'] as DocumentReference?;
+    _battery = castToType<int>(snapshotData['battery']);
+    _attachedRecord = snapshotData['attached_record'] as DocumentReference?;
+    _action = snapshotData['action'] as String?;
+    _secretKey = snapshotData['secret_key'] is KeyStruct
+        ? snapshotData['secret_key']
+        : KeyStruct.maybeFromMap(snapshotData['secret_key']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -125,9 +149,13 @@ Map<String, dynamic> createDeviceRecordData({
   DateTime? createdTime,
   DateTime? lastUpdated,
   DocumentReference? owner,
-  KeyStruct? key,
-  String? storedId,
-  String? storedKey,
+  DocumentReference? room,
+  bool? online,
+  DocumentReference? assignedUser,
+  int? battery,
+  DocumentReference? attachedRecord,
+  String? action,
+  KeyStruct? secretKey,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -137,17 +165,21 @@ Map<String, dynamic> createDeviceRecordData({
       'created_time': createdTime,
       'last_updated': lastUpdated,
       'owner': owner,
-      'key': KeyStruct().toMap(),
-      'storedId': storedId,
-      'storedKey': storedKey,
+      'room': room,
+      'online': online,
+      'assigned_user': assignedUser,
+      'battery': battery,
+      'attached_record': attachedRecord,
+      'action': action,
+      'secret_key': KeyStruct().toMap(),
     }.withoutNulls,
   );
 
   // Handle nested data for "info" field.
   addCodedValueStructData(firestoreData, info, 'info');
 
-  // Handle nested data for "key" field.
-  addKeyStructData(firestoreData, key, 'key');
+  // Handle nested data for "secret_key" field.
+  addKeyStructData(firestoreData, secretKey, 'secret_key');
 
   return firestoreData;
 }
@@ -163,9 +195,13 @@ class DeviceRecordDocumentEquality implements Equality<DeviceRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.lastUpdated == e2?.lastUpdated &&
         e1?.owner == e2?.owner &&
-        e1?.key == e2?.key &&
-        e1?.storedId == e2?.storedId &&
-        e1?.storedKey == e2?.storedKey;
+        e1?.room == e2?.room &&
+        e1?.online == e2?.online &&
+        e1?.assignedUser == e2?.assignedUser &&
+        e1?.battery == e2?.battery &&
+        e1?.attachedRecord == e2?.attachedRecord &&
+        e1?.action == e2?.action &&
+        e1?.secretKey == e2?.secretKey;
   }
 
   @override
@@ -176,9 +212,13 @@ class DeviceRecordDocumentEquality implements Equality<DeviceRecord> {
         e?.createdTime,
         e?.lastUpdated,
         e?.owner,
-        e?.key,
-        e?.storedId,
-        e?.storedKey
+        e?.room,
+        e?.online,
+        e?.assignedUser,
+        e?.battery,
+        e?.attachedRecord,
+        e?.action,
+        e?.secretKey
       ]);
 
   @override

@@ -11,13 +11,14 @@ import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/index.dart';
 import '/main.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:ff_commons/flutter_flow/lat_lng.dart';
 import 'package:ff_commons/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -85,79 +86,90 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+          appStateNotifier.loggedIn ? MainWidget() : MainWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+              appStateNotifier.loggedIn ? MainWidget() : MainWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/dashboard',
-          requireAuth: true,
-          builder: (context, params) => HomePageWidget(),
-        ),
-        FFRoute(
-          name: 'LoginPage',
-          path: '/login',
-          builder: (context, params) => LoginPageWidget(),
-        ),
-        FFRoute(
-          name: 'SignUpPage',
-          path: '/sign-up',
-          builder: (context, params) => SignUpPageWidget(),
-        ),
-        FFRoute(
-          name: 'Test',
-          path: '/custom',
+          name: TestWidget.routeName,
+          path: TestWidget.routePath,
           requireAuth: true,
           builder: (context, params) => TestWidget(),
         ),
         FFRoute(
-          name: 'DeviceProfilesPage',
-          path: '/devices-profiles',
-          requireAuth: true,
-          builder: (context, params) => DeviceProfilesPageWidget(),
-        ),
-        FFRoute(
-          name: 'ManageDeviceProfilesPage',
-          path: '/devices-profiles/manage',
-          requireAuth: true,
-          asyncParams: {
-            'deviceProfile':
-                getDoc(['device_profiles'], DeviceProfilesRecord.fromSnapshot),
-          },
-          builder: (context, params) => ManageDeviceProfilesPageWidget(
-            deviceProfile: params.getParam(
-              'deviceProfile',
-              ParamType.Document,
+          name: InvitePageWidget.routeName,
+          path: InvitePageWidget.routePath,
+          builder: (context, params) => InvitePageWidget(
+            patientId: params.getParam(
+              'patientId',
+              ParamType.String,
             ),
-          ),
-        ),
-        FFRoute(
-          name: 'RecoverAccountPage',
-          path: '/recovery',
-          builder: (context, params) => RecoverAccountPageWidget(
-            email: params.getParam(
-              'email',
+            orgId: params.getParam(
+              'orgId',
               ParamType.String,
             ),
           ),
         ),
         FFRoute(
-          name: 'ResetPasswordPage',
-          path: '/reset_password',
-          builder: (context, params) => ResetPasswordPageWidget(
-            email: params.getParam(
-              'email',
+          name: RecordsPageWidget.routeName,
+          path: RecordsPageWidget.routePath,
+          builder: (context, params) => RecordsPageWidget(
+            recordId: params.getParam(
+              'recordId',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['record_template'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: MainWidget.routeName,
+          path: MainWidget.routePath,
+          builder: (context, params) => MainWidget(
+            tab: params.getParam(
+              'tab',
+              ParamType.String,
+            ),
+            section: params.getParam(
+              'section',
+              ParamType.String,
+            ),
+            page: params.getParam(
+              'page',
+              ParamType.String,
+            ),
+            id: params.getParam(
+              'id',
               ParamType.String,
             ),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
+
+void initializeRoutes({
+  String? testWidgetName,
+  String? testWidgetPath,
+  String? invitePageWidgetName,
+  String? invitePageWidgetPath,
+  String? recordsPageWidgetName,
+  String? recordsPageWidgetPath,
+  String? mainWidgetName,
+  String? mainWidgetPath,
+}) {
+  TestWidget.maybeSetRouteName(testWidgetName);
+  TestWidget.maybeSetRoutePath(testWidgetPath);
+  InvitePageWidget.maybeSetRouteName(invitePageWidgetName);
+  InvitePageWidget.maybeSetRoutePath(invitePageWidgetPath);
+  RecordsPageWidget.maybeSetRouteName(recordsPageWidgetName);
+  RecordsPageWidget.maybeSetRoutePath(recordsPageWidgetPath);
+  MainWidget.maybeSetRouteName(mainWidgetName);
+  MainWidget.maybeSetRoutePath(mainWidgetPath);
+}
 
 extension NavParamExtensions on Map<String, String?> {
   Map<String, String> get withoutNulls => Map.fromEntries(
@@ -327,7 +339,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/login';
+            return '/:section';
           }
           return null;
         },
@@ -345,7 +357,7 @@ class FFRoute {
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: Center(
                     child: Image.asset(
-                      'dependencies/medibound_portal_hdztzw/assets/images/medibound.png',
+                      'packages/medibound_portal_hdztzw/assets/images/medibound.png',
                       height: 75.0,
                       fit: BoxFit.cover,
                     ),

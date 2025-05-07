@@ -24,7 +24,7 @@ class BodyBuilderWidget extends StatefulWidget {
     required this.varList,
   });
 
-  final List<DeviceVariableStruct>? varList;
+  final List<VariableStruct>? varList;
 
   @override
   State<BodyBuilderWidget> createState() => _BodyBuilderWidgetState();
@@ -91,8 +91,20 @@ class _BodyBuilderWidgetState extends State<BodyBuilderWidget>
                   Text(
                     'Body Sections',
                     style: FlutterFlowTheme.of(context).titleLarge.override(
-                          fontFamily: 'Rubik',
+                          font: GoogleFonts.rubik(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .titleLarge
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .titleLarge
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .titleLarge
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleLarge.fontStyle,
                         ),
                   ),
                   FFButtonWidget(
@@ -123,10 +135,23 @@ class _BodyBuilderWidgetState extends State<BodyBuilderWidget>
                       color: Color(0x00E0E3E7),
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Rubik',
+                                font: GoogleFonts.rubik(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 fontSize: 14.0,
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
                               ),
                       elevation: 0.0,
                       borderRadius: BorderRadius.circular(10.0),

@@ -1,9 +1,14 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'menu_tile_widget.dart' show MenuTileWidget;
+import 'package:expandable/expandable.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -15,11 +20,18 @@ class MenuTileModel extends FlutterFlowModel<MenuTileWidget> {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered = false;
+  bool mouseRegionHovered1 = false;
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableExpandableController;
+
+  // State field(s) for MouseRegion widget.
+  bool mouseRegionHovered2 = false;
 
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {}
+  void dispose() {
+    expandableExpandableController.dispose();
+  }
 }

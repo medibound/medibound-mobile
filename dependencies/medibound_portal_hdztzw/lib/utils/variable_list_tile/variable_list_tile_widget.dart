@@ -1,6 +1,5 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +18,9 @@ class VariableListTileWidget extends StatefulWidget {
     this.deleteCallback,
   });
 
-  final DeviceVariableStruct? variable;
-  final Future Function(DeviceVariableStruct variable)? editCallback;
-  final Future Function(DeviceVariableStruct variable)? deleteCallback;
+  final VariableStruct? variable;
+  final Future Function(VariableStruct variable)? editCallback;
+  final Future Function(VariableStruct variable)? deleteCallback;
 
   @override
   State<VariableListTileWidget> createState() => _VariableListTileWidgetState();
@@ -73,15 +72,24 @@ class _VariableListTileWidgetState extends State<VariableListTileWidget> {
                   'Name',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Rubik',
+                      font: GoogleFonts.rubik(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
                       fontSize: 16.0,
                       letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
               ),
               Text(
                 valueOrDefault<String>(
                   FFAppState()
-                      .DeviceVariableTypes
+                      .VariableTypes
                       .where((e) => e.code == widget!.variable?.type)
                       .toList()
                       .firstOrNull
@@ -89,9 +97,18 @@ class _VariableListTileWidgetState extends State<VariableListTileWidget> {
                   'Variable',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Rubik',
+                      font: GoogleFonts.rubik(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
                       color: FlutterFlowTheme.of(context).secondaryText,
                       letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
               ),
               if (widget!.variable?.isList ?? true)
@@ -111,51 +128,20 @@ class _VariableListTileWidgetState extends State<VariableListTileWidget> {
                   decoration: BoxDecoration(),
                 ),
               ),
-              FFButtonWidget(
-                onPressed: () {
-                  print('Button pressed ...');
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  await widget.deleteCallback?.call(
+                    widget!.variable!,
+                  );
                 },
-                text: 'Edit',
-                options: FFButtonOptions(
-                  width: 40.0,
-                  padding: EdgeInsets.all(0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: Color(0x00E0E3E7),
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Rubik',
-                        color: FlutterFlowTheme.of(context).secondary,
-                        fontSize: 14.0,
-                        letterSpacing: 0.0,
-                      ),
-                  elevation: 0.0,
-                  borderRadius: BorderRadius.circular(10.0),
-                  hoverColor: FlutterFlowTheme.of(context).primaryBackground,
-                  hoverTextColor: FlutterFlowTheme.of(context).secondary,
-                  hoverElevation: 0.0,
-                ),
-              ),
-              FFButtonWidget(
-                onPressed: () {
-                  print('Button pressed ...');
-                },
-                text: 'Delete',
-                options: FFButtonOptions(
-                  padding: EdgeInsets.all(0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: Color(0x00E0E3E7),
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Rubik',
-                        color: FlutterFlowTheme.of(context).error,
-                        fontSize: 14.0,
-                        letterSpacing: 0.0,
-                      ),
-                  elevation: 0.0,
-                  borderRadius: BorderRadius.circular(10.0),
-                  hoverColor: FlutterFlowTheme.of(context).primaryBackground,
-                  hoverTextColor: FlutterFlowTheme.of(context).secondary,
-                  hoverElevation: 0.0,
+                child: Icon(
+                  Icons.remove_circle_rounded,
+                  color: FlutterFlowTheme.of(context).error,
+                  size: 16.0,
                 ),
               ),
             ].divide(SizedBox(width: 15.0)),

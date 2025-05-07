@@ -37,6 +37,16 @@ class MessagesRecord extends FirestoreRecord {
   CodedValueStruct get info => _info ?? CodedValueStruct();
   bool hasInfo() => _info != null;
 
+  // "agent" field.
+  DocumentReference? _agent;
+  DocumentReference? get agent => _agent;
+  bool hasAgent() => _agent != null;
+
+  // "loading" field.
+  bool? _loading;
+  bool get loading => _loading ?? false;
+  bool hasLoading() => _loading != null;
+
   void _initializeFields() {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _owner = snapshotData['owner'] as DocumentReference?;
@@ -44,6 +54,8 @@ class MessagesRecord extends FirestoreRecord {
     _info = snapshotData['info'] is CodedValueStruct
         ? snapshotData['info']
         : CodedValueStruct.maybeFromMap(snapshotData['info']);
+    _agent = snapshotData['agent'] as DocumentReference?;
+    _loading = snapshotData['loading'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -84,12 +96,16 @@ Map<String, dynamic> createMessagesRecordData({
   DateTime? createdTime,
   DocumentReference? owner,
   CodedValueStruct? info,
+  DocumentReference? agent,
+  bool? loading,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'created_time': createdTime,
       'owner': owner,
       'info': CodedValueStruct().toMap(),
+      'agent': agent,
+      'loading': loading,
     }.withoutNulls,
   );
 
@@ -108,12 +124,14 @@ class MessagesRecordDocumentEquality implements Equality<MessagesRecord> {
     return e1?.createdTime == e2?.createdTime &&
         e1?.owner == e2?.owner &&
         listEquality.equals(e1?.members, e2?.members) &&
-        e1?.info == e2?.info;
+        e1?.info == e2?.info &&
+        e1?.agent == e2?.agent &&
+        e1?.loading == e2?.loading;
   }
 
   @override
-  int hash(MessagesRecord? e) => const ListEquality()
-      .hash([e?.createdTime, e?.owner, e?.members, e?.info]);
+  int hash(MessagesRecord? e) => const ListEquality().hash(
+      [e?.createdTime, e?.owner, e?.members, e?.info, e?.agent, e?.loading]);
 
   @override
   bool isValidKey(Object? o) => o is MessagesRecord;

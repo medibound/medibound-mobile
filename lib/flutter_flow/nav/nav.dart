@@ -7,9 +7,10 @@ import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/index.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -77,63 +78,35 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+          appStateNotifier.loggedIn ? MainWidget() : MainWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+              appStateNotifier.loggedIn ? MainWidget() : MainWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/overview',
-          requireAuth: true,
-          builder: (context, params) => HomePageWidget(),
-        ),
-        FFRoute(
-          name: 'LoginPage',
-          path: '/login',
-          builder: (context, params) => LoginPageWidget(),
-        ),
-        FFRoute(
-          name: 'SignUpPage',
-          path: '/sign-up',
-          builder: (context, params) => SignUpPageWidget(),
-        ),
-        FFRoute(
-          name: 'RecoverAccountPage',
-          path: '/recoverAccountPage',
-          builder: (context, params) => RecoverAccountPageWidget(
-            email: params.getParam(
-              'email',
+          name: MainWidget.routeName,
+          path: MainWidget.routePath,
+          builder: (context, params) => MainWidget(
+            section: params.getParam(
+              'section',
+              ParamType.String,
+            ),
+            page: params.getParam(
+              'page',
+              ParamType.String,
+            ),
+            id: params.getParam(
+              'id',
+              ParamType.String,
+            ),
+            tab: params.getParam(
+              'tab',
               ParamType.String,
             ),
           ),
-        ),
-        FFRoute(
-          name: 'YouPage',
-          path: '/you',
-          requireAuth: true,
-          builder: (context, params) => YouPageWidget(),
-        ),
-        FFRoute(
-          name: 'StreamsPage',
-          path: '/streams',
-          requireAuth: true,
-          builder: (context, params) => StreamsPageWidget(),
-        ),
-        FFRoute(
-          name: 'InsightsPage',
-          path: '/insights',
-          requireAuth: true,
-          builder: (context, params) => InsightsPageWidget(),
-        ),
-        FFRoute(
-          name: 'InsightsMessagePage',
-          path: '/insights/message',
-          requireAuth: true,
-          builder: (context, params) => InsightsMessagePageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -306,7 +279,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/login';
+            return '/:section';
           }
           return null;
         },

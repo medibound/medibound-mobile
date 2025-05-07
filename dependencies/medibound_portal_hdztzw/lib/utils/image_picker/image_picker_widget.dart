@@ -17,12 +17,14 @@ class ImagePickerWidget extends StatefulWidget {
     required this.uploadAction,
     this.size,
     required this.uploadedImage,
+    required this.borderRadius,
   });
 
   final String? defaultImage;
   final Future Function()? uploadAction;
   final double? size;
   final FFUploadedFile? uploadedImage;
+  final double? borderRadius;
 
   @override
   State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
@@ -67,30 +69,32 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                 builder: (context) {
                   if (widget!.uploadedImage != null &&
                       (widget!.uploadedImage?.bytes?.isNotEmpty ?? false)) {
-                    return Container(
-                      width: widget!.size,
-                      height: widget!.size,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
+                    return ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(valueOrDefault<double>(
+                        widget!.borderRadius,
+                        0.0,
+                      )),
                       child: Image.memory(
                         widget!.uploadedImage?.bytes ?? Uint8List.fromList([]),
+                        width: widget!.size,
+                        height: 150.0,
                         fit: BoxFit.cover,
                       ),
                     );
                   } else {
-                    return Container(
-                      width: widget!.size,
-                      height: widget!.size,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
+                    return ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(valueOrDefault<double>(
+                        widget!.borderRadius,
+                        0.0,
+                      )),
                       child: CachedNetworkImage(
                         fadeInDuration: Duration(milliseconds: 500),
                         fadeOutDuration: Duration(milliseconds: 500),
                         imageUrl: widget!.defaultImage!,
+                        width: widget!.size,
+                        height: 150.0,
                         fit: BoxFit.cover,
                       ),
                     );
@@ -104,7 +108,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
-                  borderRadius: widget!.size,
+                  borderRadius: widget!.borderRadius,
                   buttonSize: widget!.size,
                   fillColor: Color(0x00001C14),
                   hoverColor: FlutterFlowTheme.of(context).primaryBackground,

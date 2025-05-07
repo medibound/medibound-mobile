@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'tab_bar_tile_model.dart';
 export 'tab_bar_tile_model.dart';
 
@@ -39,6 +40,8 @@ class _TabBarTileWidgetState extends State<TabBarTileWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TabBarTileModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -65,18 +68,29 @@ class _TabBarTileWidgetState extends State<TabBarTileWidget> {
         width: 100.0,
         height: 100.0,
         decoration: BoxDecoration(),
-        child: Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Builder(
-                builder: (context) {
-                  if (widget.icon != null) {
-                    return widget.icon!;
-                  } else if (widget.image != null && widget.image != '') {
-                    return Container(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Builder(
+              builder: (context) {
+                if (widget.icon != null) {
+                  return widget.icon!;
+                } else if (widget.image != null && widget.image != '') {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100.0),
+                      border: Border.all(
+                        color: widget.active
+                            ? FlutterFlowTheme.of(context).secondary
+                            : FlutterFlowTheme.of(context).secondaryText,
+                        width: valueOrDefault<double>(
+                          (widget.active ? 1 : 0).toDouble(),
+                          0.0,
+                        ),
+                      ),
+                    ),
+                    child: Container(
                       width: 24.0,
                       height: 24.0,
                       clipBehavior: Clip.antiAlias,
@@ -87,33 +101,42 @@ class _TabBarTileWidgetState extends State<TabBarTileWidget> {
                         widget.image!,
                         fit: BoxFit.cover,
                       ),
-                    );
-                  } else {
-                    return Container(
-                      width: 36.0,
-                      height: 36.0,
-                      decoration: BoxDecoration(),
-                    );
-                  }
-                },
-              ),
-              AutoSizeText(
-                valueOrDefault<String>(
-                  widget.text,
-                  'Home',
-                ),
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Rubik',
-                      color: widget.active
-                          ? FlutterFlowTheme.of(context).secondary
-                          : FlutterFlowTheme.of(context).secondaryText,
-                      fontSize: 12.0,
-                      letterSpacing: 0.0,
                     ),
+                  );
+                } else {
+                  return Container(
+                    width: 36.0,
+                    height: 36.0,
+                    decoration: BoxDecoration(),
+                  );
+                }
+              },
+            ),
+            AutoSizeText(
+              valueOrDefault<String>(
+                widget.text,
+                'Home',
               ),
-            ],
-          ),
+              textAlign: TextAlign.center,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    font: GoogleFonts.rubik(
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                    color: widget.active
+                        ? FlutterFlowTheme.of(context).secondary
+                        : FlutterFlowTheme.of(context).secondaryText,
+                    fontSize: 12.0,
+                    letterSpacing: 0.0,
+                    fontWeight:
+                        FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
+            ),
+          ],
         ),
       ),
     );

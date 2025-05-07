@@ -32,11 +32,6 @@ class DeviceProfilesRecord extends FirestoreRecord {
   String get uniqueDeviceIdentifier => _uniqueDeviceIdentifier ?? '';
   bool hasUniqueDeviceIdentifier() => _uniqueDeviceIdentifier != null;
 
-  // "transfer_type" field.
-  String? _transferType;
-  String get transferType => _transferType ?? '';
-  bool hasTransferType() => _transferType != null;
-
   // "type" field.
   String? _type;
   String get type => _type ?? '';
@@ -51,11 +46,6 @@ class DeviceProfilesRecord extends FirestoreRecord {
   DateTime? _editedTime;
   DateTime? get editedTime => _editedTime;
   bool hasEditedTime() => _editedTime != null;
-
-  // "mode" field.
-  String? _mode;
-  String get mode => _mode ?? '';
-  bool hasMode() => _mode != null;
 
   // "info" field.
   CodedValueStruct? _info;
@@ -72,21 +62,25 @@ class DeviceProfilesRecord extends FirestoreRecord {
   DocumentReference? get recordTemplate => _recordTemplate;
   bool hasRecordTemplate() => _recordTemplate != null;
 
+  // "timeline_storage" field.
+  String? _timelineStorage;
+  String get timelineStorage => _timelineStorage ?? '';
+  bool hasTimelineStorage() => _timelineStorage != null;
+
   void _initializeFields() {
     _manualPath = snapshotData['manual_path'] as String?;
     _modelNumber = snapshotData['model_number'] as String?;
     _uniqueDeviceIdentifier =
         snapshotData['unique_device_identifier'] as String?;
-    _transferType = snapshotData['transfer_type'] as String?;
     _type = snapshotData['type'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _editedTime = snapshotData['edited_time'] as DateTime?;
-    _mode = snapshotData['mode'] as String?;
     _info = snapshotData['info'] is CodedValueStruct
         ? snapshotData['info']
         : CodedValueStruct.maybeFromMap(snapshotData['info']);
     _organization = snapshotData['organization'] as DocumentReference?;
     _recordTemplate = snapshotData['record_template'] as DocumentReference?;
+    _timelineStorage = snapshotData['timeline_storage'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -127,28 +121,26 @@ Map<String, dynamic> createDeviceProfilesRecordData({
   String? manualPath,
   String? modelNumber,
   String? uniqueDeviceIdentifier,
-  String? transferType,
   String? type,
   DateTime? createdTime,
   DateTime? editedTime,
-  String? mode,
   CodedValueStruct? info,
   DocumentReference? organization,
   DocumentReference? recordTemplate,
+  String? timelineStorage,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'manual_path': manualPath,
       'model_number': modelNumber,
       'unique_device_identifier': uniqueDeviceIdentifier,
-      'transfer_type': transferType,
       'type': type,
       'created_time': createdTime,
       'edited_time': editedTime,
-      'mode': mode,
       'info': CodedValueStruct().toMap(),
       'organization': organization,
       'record_template': recordTemplate,
+      'timeline_storage': timelineStorage,
     }.withoutNulls,
   );
 
@@ -167,14 +159,13 @@ class DeviceProfilesRecordDocumentEquality
     return e1?.manualPath == e2?.manualPath &&
         e1?.modelNumber == e2?.modelNumber &&
         e1?.uniqueDeviceIdentifier == e2?.uniqueDeviceIdentifier &&
-        e1?.transferType == e2?.transferType &&
         e1?.type == e2?.type &&
         e1?.createdTime == e2?.createdTime &&
         e1?.editedTime == e2?.editedTime &&
-        e1?.mode == e2?.mode &&
         e1?.info == e2?.info &&
         e1?.organization == e2?.organization &&
-        e1?.recordTemplate == e2?.recordTemplate;
+        e1?.recordTemplate == e2?.recordTemplate &&
+        e1?.timelineStorage == e2?.timelineStorage;
   }
 
   @override
@@ -182,14 +173,13 @@ class DeviceProfilesRecordDocumentEquality
         e?.manualPath,
         e?.modelNumber,
         e?.uniqueDeviceIdentifier,
-        e?.transferType,
         e?.type,
         e?.createdTime,
         e?.editedTime,
-        e?.mode,
         e?.info,
         e?.organization,
-        e?.recordTemplate
+        e?.recordTemplate,
+        e?.timelineStorage
       ]);
 
   @override

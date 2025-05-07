@@ -21,7 +21,7 @@ class RecordViewerWidget extends StatefulWidget {
   final List<BlockComponentStruct>? header;
   final List<BodySectionStruct>? sections;
   final ProfileStruct? profile;
-  final List<DeviceVariableStruct>? varList;
+  final List<VariableStruct>? varList;
 
   @override
   State<RecordViewerWidget> createState() => _RecordViewerWidgetState();
@@ -94,7 +94,6 @@ class _RecordViewerWidgetState extends State<RecordViewerWidget> {
                     recordWidth: 400.0,
                     header: widget!.header!,
                     sections: widget!.sections!,
-                    profile: widget!.profile!,
                     varList: widget!.varList!,
                   ),
                 ),

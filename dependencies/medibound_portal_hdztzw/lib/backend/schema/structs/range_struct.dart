@@ -11,78 +11,78 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class RangeStruct extends FFFirebaseStruct {
   RangeStruct({
-    double? upperBound,
-    double? lowerBound,
+    double? upper,
+    double? lower,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _upperBound = upperBound,
-        _lowerBound = lowerBound,
+  })  : _upper = upper,
+        _lower = lower,
         super(firestoreUtilData);
 
-  // "upper_bound" field.
-  double? _upperBound;
-  double get upperBound => _upperBound ?? 0.0;
-  set upperBound(double? val) => _upperBound = val;
+  // "upper" field.
+  double? _upper;
+  double get upper => _upper ?? 0.0;
+  set upper(double? val) => _upper = val;
 
-  void incrementUpperBound(double amount) => upperBound = upperBound + amount;
+  void incrementUpper(double amount) => upper = upper + amount;
 
-  bool hasUpperBound() => _upperBound != null;
+  bool hasUpper() => _upper != null;
 
-  // "lower_bound" field.
-  double? _lowerBound;
-  double get lowerBound => _lowerBound ?? 0.0;
-  set lowerBound(double? val) => _lowerBound = val;
+  // "lower" field.
+  double? _lower;
+  double get lower => _lower ?? 0.0;
+  set lower(double? val) => _lower = val;
 
-  void incrementLowerBound(double amount) => lowerBound = lowerBound + amount;
+  void incrementLower(double amount) => lower = lower + amount;
 
-  bool hasLowerBound() => _lowerBound != null;
+  bool hasLower() => _lower != null;
 
   static RangeStruct fromMap(Map<String, dynamic> data) => RangeStruct(
-        upperBound: castToType<double>(data['upper_bound']),
-        lowerBound: castToType<double>(data['lower_bound']),
+        upper: castToType<double>(data['upper']),
+        lower: castToType<double>(data['lower']),
       );
 
   static RangeStruct? maybeFromMap(dynamic data) =>
       data is Map ? RangeStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
-        'upper_bound': _upperBound,
-        'lower_bound': _lowerBound,
+        'upper': _upper,
+        'lower': _lower,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'upper_bound': serializeParam(
-          _upperBound,
+        'upper': serializeParam(
+          _upper,
           ParamType.double,
         ),
-        'lower_bound': serializeParam(
-          _lowerBound,
+        'lower': serializeParam(
+          _lower,
           ParamType.double,
         ),
       }.withoutNulls;
 
   static RangeStruct fromSerializableMap(Map<String, dynamic> data) =>
       RangeStruct(
-        upperBound: deserializeParam(
-          data['upper_bound'],
+        upper: deserializeParam(
+          data['upper'],
           ParamType.double,
           false,
         ),
-        lowerBound: deserializeParam(
-          data['lower_bound'],
+        lower: deserializeParam(
+          data['lower'],
           ParamType.double,
           false,
         ),
       );
 
   static RangeStruct fromAlgoliaData(Map<String, dynamic> data) => RangeStruct(
-        upperBound: convertAlgoliaParam(
-          data['upper_bound'],
+        upper: convertAlgoliaParam(
+          data['upper'],
           ParamType.double,
           false,
         ),
-        lowerBound: convertAlgoliaParam(
-          data['lower_bound'],
+        lower: convertAlgoliaParam(
+          data['lower'],
           ParamType.double,
           false,
         ),
@@ -97,26 +97,24 @@ class RangeStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
-    return other is RangeStruct &&
-        upperBound == other.upperBound &&
-        lowerBound == other.lowerBound;
+    return other is RangeStruct && upper == other.upper && lower == other.lower;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([upperBound, lowerBound]);
+  int get hashCode => const ListEquality().hash([upper, lower]);
 }
 
 RangeStruct createRangeStruct({
-  double? upperBound,
-  double? lowerBound,
+  double? upper,
+  double? lower,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     RangeStruct(
-      upperBound: upperBound,
-      lowerBound: lowerBound,
+      upper: upper,
+      lower: lower,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

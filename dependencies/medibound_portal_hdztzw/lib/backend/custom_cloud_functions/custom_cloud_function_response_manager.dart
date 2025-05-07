@@ -12,7 +12,7 @@ class CreateDeviceKeyCloudFunctionCallResponse {
   bool? succeeded;
   dynamic jsonBody;
   String? resultAsString;
-  KeyStruct? data;
+  String? data;
 }
 
 class UnwrapDeviceKeyCloudFunctionCallResponse {
@@ -30,17 +30,13 @@ class UnwrapDeviceKeyCloudFunctionCallResponse {
   KeyStruct? data;
 }
 
-class AnalyzeRecordCloudFunctionCallResponse {
-  AnalyzeRecordCloudFunctionCallResponse({
+class SendPatientInviteEmailCloudFunctionCallResponse {
+  SendPatientInviteEmailCloudFunctionCallResponse({
     this.errorCode,
     this.succeeded,
     this.jsonBody,
-    this.resultAsString,
-    this.data,
   });
   String? errorCode;
   bool? succeeded;
   dynamic jsonBody;
-  String? resultAsString;
-  dynamic data;
 }

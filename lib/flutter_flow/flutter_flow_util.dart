@@ -11,7 +11,6 @@ import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
-import 'platform_utils/platform_util.dart';
 
 import '../main.dart';
 
@@ -20,6 +19,7 @@ export 'package:ff_commons/flutter_flow/lat_lng.dart';
 export 'package:ff_commons/flutter_flow/place.dart';
 export 'package:ff_commons/flutter_flow/uploaded_file.dart';
 export '../app_state.dart';
+export '../environment_values.dart';
 export 'flutter_flow_model.dart';
 export 'dart:math' show min, max;
 export 'dart:typed_data' show Uint8List;
@@ -322,6 +322,19 @@ extension FFStringExt on String {
       maxChars != null && length > maxChars
           ? replaceRange(maxChars, null, replacement)
           : this;
+
+  String toCapitalization(TextCapitalization textCapitalization) {
+    switch (textCapitalization) {
+      case TextCapitalization.none:
+        return this;
+      case TextCapitalization.words:
+        return split(' ').map(toBeginningOfSentenceCase).join(' ');
+      case TextCapitalization.sentences:
+        return toBeginningOfSentenceCase(this);
+      case TextCapitalization.characters:
+        return toUpperCase();
+    }
+  }
 }
 
 extension ListFilterExt<T> on Iterable<T?> {
@@ -395,17 +408,8 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
   }
 }
 
-extension ListUniqueExt<T> on Iterable<T> {
-  List<T> unique(dynamic Function(T) getKey) {
-    var distinctSet = <dynamic>{};
-    var distinctList = <T>[];
-    for (var item in this) {
-      if (distinctSet.add(getKey(item))) {
-        distinctList.add(item);
-      }
-    }
-    return distinctList;
-  }
+extension ColorOpacityExt on Color {
+  Color applyAlpha(double val) => withValues(alpha: val);
 }
 
 String roundTo(double value, int decimalPoints) {
@@ -445,107 +449,20 @@ double computeGradientAlignmentY(double evaluatedAngle) {
   return double.parse(roundTo(y, 2));
 }
 
-bool get isShortcutsSupported => kIsWeb || !(isAndroid || isiOS);
-
-bool get isMac => isMacOs;
-
-LogicalKeyboardKey get modifierKey =>
-    isMac ? LogicalKeyboardKey.meta : LogicalKeyboardKey.control;
-
-ShortcutActivator _deriveShortcutActivator(Set<LogicalKeyboardKey> keyList) {
-  const metaKey = LogicalKeyboardKey.meta;
-  const controlKey = LogicalKeyboardKey.control;
-  const altKey = LogicalKeyboardKey.alt;
-  const shiftKey = LogicalKeyboardKey.shift;
-  final modifierKeys = [metaKey, controlKey, altKey, shiftKey];
-
-  // The meta key is the command key on macOS.
-  // If the user isn't on macOS, there is no command key,
-  // so swap for the control key instead.
-  if (keyList.contains(metaKey)) {
-    if (modifierKey != LogicalKeyboardKey.meta) {
-      keyList.remove(metaKey);
-      keyList.add(modifierKey);
+extension ListUniqueExt<T> on Iterable<T> {
+  List<T> unique(dynamic Function(T) getKey) {
+    var distinctSet = <dynamic>{};
+    var distinctList = <T>[];
+    for (var item in this) {
+      if (distinctSet.add(getKey(item))) {
+        distinctList.add(item);
+      }
     }
-  }
-
-  if (keyList.whereNot((n) => modifierKeys.contains(n)).length == 1) {
-    final nonModifierKey = keyList.firstWhere(
-      (n) => !modifierKeys.contains(n),
-    );
-    return SingleActivator(
-      nonModifierKey,
-      shift: keyList.contains(shiftKey),
-      alt: keyList.contains(altKey),
-      control: keyList.contains(controlKey),
-      meta: keyList.contains(metaKey),
-    );
-  } else {
-    return LogicalKeySet.fromSet(keyList);
-  }
-}
-
-final individualKeysList = LogicalKeyboardKey.knownLogicalKeys.toList();
-// Flutter web doesn't allow for a shortcut consisting only of the modifier keys:
-final exceptionKeys = {
-  LogicalKeyboardKey.control,
-  LogicalKeyboardKey.controlLeft,
-  LogicalKeyboardKey.controlRight,
-  LogicalKeyboardKey.shift,
-  LogicalKeyboardKey.shiftLeft,
-  LogicalKeyboardKey.shiftRight,
-  LogicalKeyboardKey.alt,
-  LogicalKeyboardKey.altLeft,
-  LogicalKeyboardKey.altRight,
-  LogicalKeyboardKey.meta,
-  LogicalKeyboardKey.metaLeft,
-  LogicalKeyboardKey.metaRight,
-};
-
-extension BlockShortcutsExtension on TextFormField {
-  /// This method prevents shortcuts from triggering when the user is typing in a text field.
-  /// Specifically, the shortcuts passed into givenKeys are blocked, along with the following
-  /// combinations by default:
-  /// - Individual keys
-  /// - Shift+individual keys
-  /// - Alt+individual keys
-  /// - Alt+Shift+individual keys
-  /// - Control+individual keys
-  /// - Control+Shift+individual keys
-  /// - Command+individual keys
-  /// - Command+Shift+individual keys
-  Widget blockShortcuts([List<Set<LogicalKeyboardKey>>? givenKeys]) {
-    List<LogicalKeyboardKey> permissibleKeys = individualKeysList
-        .where((key) => !exceptionKeys.contains(key))
-        .toList();
-
-    List<Set<LogicalKeyboardKey>> keys = givenKeys ?? [];
-
-    keys.addAll(permissibleKeys.map((key) => {key}));
-    keys.addAll(permissibleKeys.map((key) => {LogicalKeyboardKey.shift, key}));
-    keys.addAll(permissibleKeys.map((key) => {LogicalKeyboardKey.alt, key}));
-    keys.addAll(permissibleKeys
-        .map((key) => {LogicalKeyboardKey.alt, LogicalKeyboardKey.shift, key}));
-    keys.addAll(
-        permissibleKeys.map((key) => {LogicalKeyboardKey.control, key}));
-    keys.addAll(permissibleKeys.map(
-        (key) => {LogicalKeyboardKey.shift, LogicalKeyboardKey.control, key}));
-    keys.addAll(permissibleKeys.map((key) => {LogicalKeyboardKey.meta, key}));
-    keys.addAll(permissibleKeys.map(
-        (key) => {LogicalKeyboardKey.shift, LogicalKeyboardKey.meta, key}));
-
-    final Map<ShortcutActivator, Intent> shortcutMap = {
-      for (var keyCombination in keys)
-        _deriveShortcutActivator(keyCombination):
-            const DoNothingAndStopPropagationTextIntent(),
-    };
-
-    return Shortcuts(
-      shortcuts: shortcutMap,
-      child: this,
-    );
+    return distinctList;
   }
 }
 
 String getCurrentRoute(BuildContext context) =>
     context.mounted ? MyApp.of(context).getRoute() : '';
+List<String> getCurrentRouteStack(BuildContext context) =>
+    context.mounted ? MyApp.of(context).getRouteStack() : [];

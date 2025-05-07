@@ -3,16 +3,16 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{document} {
       allow create: if true;
-      allow read: if request.auth.uid == document;
+      allow read: if true;
       allow write: if request.auth.uid == document;
-      allow delete: if false;
+      allow delete: if request.auth.uid == document;
     }
 
     match /organizations/{document} {
       allow create: if request.auth != null;
-      allow read: if request.auth != null;
-      allow write: if request.auth != null;
-      allow delete: if request.auth != null;
+      allow read: if true;
+      allow write: if /databases/$(database)/documents/users/$(request.auth.uid) in resource.data.members;
+      allow delete: if resource.data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
     }
 
     match /device_profiles/{document} {
@@ -43,35 +43,139 @@ service cloud.firestore {
 
     match /record_template/{document} {
       allow create: if request.auth != null;
-      allow read: if request.auth != null;
+      allow read: if true;
       allow write: if request.auth != null;
       allow delete: if false;
     }
 
     match /messages/{document} {
-      allow create: if request.auth != null;
-      allow read: if request.auth != null;
-      allow write: if request.auth != null;
-      allow delete: if false;
+      allow create: if request.resource.data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow read: if resource.data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow write: if resource.data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow delete: if /databases/$(database)/documents/users/$(request.auth.uid) in resource.data.members;
     }
 
     match /messages/{parent}/message/{document} {
+      allow create: if get(/databases/$(database)/documents/messages/$(parent)).data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow read: if get(/databases/$(database)/documents/messages/$(parent)).data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow write: if get(/databases/$(database)/documents/messages/$(parent)).data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow delete: if get(/databases/$(database)/documents/messages/$(parent)).data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    match /records/{document} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+      allow delete: if resource.data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    match /agents/{document} {
       allow create: if request.auth != null;
       allow read: if request.auth != null;
       allow write: if request.auth != null;
       allow delete: if false;
     }
 
-    match /{path=**}/message/{document} {
+    match /records/{parent}/datapoints/{document} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+      allow delete: if get(/databases/$(database)/documents/records/$(parent)).data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    match /{path=**}/datapoints/{document} {
       allow read: if request.auth != null;
     }
 
 
-    match /records/{document} {
-      allow create: if true;
+    match /organizations/{parent}/rooms/{document} {
+      allow create: if /databases/$(database)/documents/users/$(request.auth.uid) in get(/databases/$(database)/documents/organizations/$(parent)).data.members;
+      allow read: if /databases/$(database)/documents/users/$(request.auth.uid) in get(/databases/$(database)/documents/organizations/$(parent)).data.members;
+      allow write: if /databases/$(database)/documents/users/$(request.auth.uid) in get(/databases/$(database)/documents/organizations/$(parent)).data.members;
+      allow delete: if /databases/$(database)/documents/users/$(request.auth.uid) in get(/databases/$(database)/documents/organizations/$(parent)).data.members;
+    }
+
+    match /users/{parent}/notifications/{document} {
+      allow create: if request.auth.uid == parent;
+      allow read: if request.auth.uid == parent;
+      allow write: if request.auth.uid == parent;
+      allow delete: if request.auth.uid == parent;
+    }
+
+    match /organizations/{parent}/patients/{document} {
+      allow create: if request.resource.data.user == /databases/$(database)/documents/users/$(request.auth.uid);
       allow read: if true;
       allow write: if true;
-      allow delete: if true;
+      allow delete: if request.auth != null;
     }
+
+    match /{path=**}/patients/{document} {
+      allow read: if true;
+    }
+
+
+    match /consent_template/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /consents/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /organizations/{parent}/integration_invites/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/integration_invites/{document} {
+      allow read: if true;
+    }
+
+
+    match /integration_providers/{document} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+      allow delete: if false;
+    }
+
+    match /integrations/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /organizations/{parent}/roles/{document} {
+      allow create: if get(/databases/$(database)/documents/organizations/$(parent)).data.owner == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+      allow delete: if false;
+    }
+
+    match /{path=**}/roles/{document} {
+      allow read: if request.auth != null;
+    }
+
+
+    match /organizations/{parent}/request_logs/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/request_logs/{document} {
+      allow read: if true;
+    }
+
   }
 }

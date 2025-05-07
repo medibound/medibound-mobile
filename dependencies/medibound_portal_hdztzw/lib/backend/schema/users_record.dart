@@ -75,6 +75,26 @@ class UsersRecord extends FirestoreRecord {
   String get uid => _uid ?? '';
   bool hasUid() => _uid != null;
 
+  // "organizations" field.
+  List<DocumentReference>? _organizations;
+  List<DocumentReference> get organizations => _organizations ?? const [];
+  bool hasOrganizations() => _organizations != null;
+
+  // "clinical_mode" field.
+  bool? _clinicalMode;
+  bool get clinicalMode => _clinicalMode ?? false;
+  bool hasClinicalMode() => _clinicalMode != null;
+
+  // "integration" field.
+  IntegrationStruct? _integration;
+  IntegrationStruct get integration => _integration ?? IntegrationStruct();
+  bool hasIntegration() => _integration != null;
+
+  // "whitelisted" field.
+  bool? _whitelisted;
+  bool get whitelisted => _whitelisted ?? false;
+  bool hasWhitelisted() => _whitelisted != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -89,6 +109,12 @@ class UsersRecord extends FirestoreRecord {
         : ProfileStruct.maybeFromMap(snapshotData['profile']);
     _displayName = snapshotData['display_name'] as String?;
     _uid = snapshotData['uid'] as String?;
+    _organizations = getDataList(snapshotData['organizations']);
+    _clinicalMode = snapshotData['clinical_mode'] as bool?;
+    _integration = snapshotData['integration'] is IntegrationStruct
+        ? snapshotData['integration']
+        : IntegrationStruct.maybeFromMap(snapshotData['integration']);
+    _whitelisted = snapshotData['whitelisted'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -137,6 +163,18 @@ class UsersRecord extends FirestoreRecord {
                   .toMap(),
           'display_name': snapshot.data['display_name'],
           'uid': snapshot.data['uid'],
+          'organizations': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['organizations'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'clinical_mode': snapshot.data['clinical_mode'],
+          'integration': IntegrationStruct.fromAlgoliaData(
+                  snapshot.data['integration'] ?? {})
+              .toMap(),
+          'whitelisted': snapshot.data['whitelisted'],
         },
         UsersRecord.collection.doc(snapshot.objectID),
       );
@@ -183,6 +221,9 @@ Map<String, dynamic> createUsersRecordData({
   ProfileStruct? profile,
   String? displayName,
   String? uid,
+  bool? clinicalMode,
+  IntegrationStruct? integration,
+  bool? whitelisted,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -196,11 +237,17 @@ Map<String, dynamic> createUsersRecordData({
       'profile': ProfileStruct().toMap(),
       'display_name': displayName,
       'uid': uid,
+      'clinical_mode': clinicalMode,
+      'integration': IntegrationStruct().toMap(),
+      'whitelisted': whitelisted,
     }.withoutNulls,
   );
 
   // Handle nested data for "profile" field.
   addProfileStructData(firestoreData, profile, 'profile');
+
+  // Handle nested data for "integration" field.
+  addIntegrationStructData(firestoreData, integration, 'integration');
 
   return firestoreData;
 }
@@ -221,7 +268,11 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.gender == e2?.gender &&
         e1?.profile == e2?.profile &&
         e1?.displayName == e2?.displayName &&
-        e1?.uid == e2?.uid;
+        e1?.uid == e2?.uid &&
+        listEquality.equals(e1?.organizations, e2?.organizations) &&
+        e1?.clinicalMode == e2?.clinicalMode &&
+        e1?.integration == e2?.integration &&
+        e1?.whitelisted == e2?.whitelisted;
   }
 
   @override
@@ -236,7 +287,11 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.gender,
         e?.profile,
         e?.displayName,
-        e?.uid
+        e?.uid,
+        e?.organizations,
+        e?.clinicalMode,
+        e?.integration,
+        e?.whitelisted
       ]);
 
   @override

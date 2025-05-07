@@ -6,11 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const kThemeModeKey = '__theme_mode__';
+
 SharedPreferences? _prefs;
 
 abstract class FlutterFlowTheme {
   static Future initialize() async =>
       _prefs = await SharedPreferences.getInstance();
+
   static ThemeMode get themeMode {
     final darkMode = _prefs?.getBool(kThemeModeKey);
     return darkMode == null
@@ -57,6 +59,14 @@ abstract class FlutterFlowTheme {
   late Color customColor1;
   late Color customColor2;
   late Color customColor3;
+  late Color crayola;
+  late Color amber;
+  late Color health;
+  late Color munsell;
+  late Color crystal;
+  late Color flare;
+  late Color midnight;
+  late Color slate;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -149,6 +159,14 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color customColor1 = Color(0x2AEFEFF4);
   late Color customColor2 = Color(0xFFEFEFF4);
   late Color customColor3 = Color(0xFF007F56);
+  late Color crayola = Color(0xFFEF476F);
+  late Color amber = Color(0xFFFFC43D);
+  late Color health = Color(0xFF00D6A1);
+  late Color munsell = Color(0xFF34C1D1);
+  late Color crystal = Color(0xFFEC3FD2);
+  late Color flare = Color(0xFFFF6750);
+  late Color midnight = Color(0xFF5278FE);
+  late Color slate = Color(0xFF8BA7C3);
 }
 
 abstract class Typography {
@@ -190,106 +208,91 @@ class ThemeTypography extends Typography {
   final FlutterFlowTheme theme;
 
   String get displayLargeFamily => 'Rubik';
-  TextStyle get displayLarge => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get displayLarge => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 64.0,
       );
   String get displayMediumFamily => 'Rubik';
-  TextStyle get displayMedium => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get displayMedium => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 44.0,
       );
   String get displaySmallFamily => 'Rubik';
-  TextStyle get displaySmall => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get displaySmall => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
   String get headlineLargeFamily => 'Rubik';
-  TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get headlineLarge => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
   String get headlineMediumFamily => 'Rubik';
-  TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get headlineMedium => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 28.0,
       );
   String get headlineSmallFamily => 'Rubik';
-  TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get headlineSmall => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 24.0,
       );
   String get titleLargeFamily => 'Rubik';
-  TextStyle get titleLarge => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get titleLarge => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 20.0,
       );
   String get titleMediumFamily => 'Rubik';
-  TextStyle get titleMedium => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get titleMedium => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 18.0,
       );
   String get titleSmallFamily => 'Rubik';
-  TextStyle get titleSmall => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get titleSmall => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 16.0,
       );
   String get labelLargeFamily => 'Rubik';
-  TextStyle get labelLarge => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get labelLarge => GoogleFonts.rubik(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
   String get labelMediumFamily => 'Rubik';
-  TextStyle get labelMedium => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get labelMedium => GoogleFonts.rubik(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
   String get labelSmallFamily => 'Rubik';
-  TextStyle get labelSmall => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get labelSmall => GoogleFonts.rubik(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
   String get bodyLargeFamily => 'Rubik';
-  TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get bodyLarge => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
   String get bodyMediumFamily => 'Rubik';
-  TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get bodyMedium => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
   String get bodySmallFamily => 'Rubik';
-  TextStyle get bodySmall => GoogleFonts.getFont(
-        'Rubik',
+  TextStyle get bodySmall => GoogleFonts.rubik(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
@@ -324,42 +327,59 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color customColor1 = Color(0x2A000000);
   late Color customColor2 = Color(0xFF000000);
   late Color customColor3 = Color(0xFF68FFDE);
+  late Color crayola = Color(0xFFEF476F);
+  late Color amber = Color(0xFFFFC43D);
+  late Color health = Color(0xFF00D6A1);
+  late Color munsell = Color(0xFF34C1D1);
+  late Color crystal = Color(0xFFEC3FB9);
+  late Color flare = Color(0xFFFF6750);
+  late Color midnight = Color(0xFF5278FE);
+  late Color slate = Color(0xFF8BA7C3);
 }
 
 extension TextStyleHelper on TextStyle {
   TextStyle override({
+    TextStyle? font,
     String? fontFamily,
     Color? color,
     double? fontSize,
     FontWeight? fontWeight,
     double? letterSpacing,
     FontStyle? fontStyle,
-    bool useGoogleFonts = true,
+    bool useGoogleFonts = false,
     TextDecoration? decoration,
     double? lineHeight,
     List<Shadow>? shadows,
-  }) =>
-      useGoogleFonts
-          ? GoogleFonts.getFont(
-              fontFamily!,
-              color: color ?? this.color,
-              fontSize: fontSize ?? this.fontSize,
-              letterSpacing: letterSpacing ?? this.letterSpacing,
-              fontWeight: fontWeight ?? this.fontWeight,
-              fontStyle: fontStyle ?? this.fontStyle,
-              decoration: decoration,
-              height: lineHeight,
-              shadows: shadows,
-            )
-          : copyWith(
-              fontFamily: fontFamily,
-              color: color,
-              fontSize: fontSize,
-              letterSpacing: letterSpacing,
-              fontWeight: fontWeight,
-              fontStyle: fontStyle,
-              decoration: decoration,
-              height: lineHeight,
-              shadows: shadows,
-            );
+    String? package,
+  }) {
+    if (useGoogleFonts && fontFamily != null) {
+      font = GoogleFonts.getFont(fontFamily,
+          fontWeight: fontWeight ?? this.fontWeight,
+          fontStyle: fontStyle ?? this.fontStyle);
+    }
+
+    return font != null
+        ? font.copyWith(
+            color: color ?? this.color,
+            fontSize: fontSize ?? this.fontSize,
+            letterSpacing: letterSpacing ?? this.letterSpacing,
+            fontWeight: fontWeight ?? this.fontWeight,
+            fontStyle: fontStyle ?? this.fontStyle,
+            decoration: decoration,
+            height: lineHeight,
+            shadows: shadows,
+          )
+        : copyWith(
+            fontFamily: fontFamily,
+            package: package,
+            color: color,
+            fontSize: fontSize,
+            letterSpacing: letterSpacing,
+            fontWeight: fontWeight,
+            fontStyle: fontStyle,
+            decoration: decoration,
+            height: lineHeight,
+            shadows: shadows,
+          );
+  }
 }

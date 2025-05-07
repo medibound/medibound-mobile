@@ -62,7 +62,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
         child: Padding(
           padding: EdgeInsets.all(30.0),
           child: Builder(builder: (_) {
-            return widget.widget!();
+            return widget.widget != null ? widget.widget!() : SizedBox.shrink();
           }),
         ),
       ),
